@@ -1,0 +1,46 @@
+<form name="editForm" class="form-horizontal" novalidate>
+<div class="modal-header">
+	<h3 class="modal-title">{{titlemode | i18n:0:title}}</h3>
+</div>
+<div class="modal-body">
+
+	<div class="form-group" ng-class="{ 'has-error': (editForm.name.$dirty && editForm.name.$invalid) || submitted }">
+		<label class="col-sm-3 control-label" for="name">{{'name' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input type="text" autocomplete="off" name="name" id="name" 
+		ng-model="customer.name"
+		ng-minlength="nameMin" 
+		ng-maxlength="nameMax"
+		ng-pattern='/^[.A-Za-z0-9\(\)\/ _-]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.name.$error" ng-if="(editForm.name.$dirty && !editForm.name.disabled) || submitted" class="alert-warning">
+		<p ng-message="minlength">{{'form_err_min' | i18n:0:['name',nameMin]}}</p>
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['name',nameMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['name','a-z, A-Z, 0-9, ., -, _, (, ), /, & " "']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'name'}}</p>
+	</div>
+	<div class="form-group" ng-class="{ 'has-error': (editForm.api.$dirty && editForm.api.$invalid) || submitted }">
+		<label class="col-sm-3 control-label" for="api">API:</label>
+		<div class="col-sm-9">
+		<input type="text" autocomplete="off" name="api" id="api" 
+		ng-model="customer.api" 
+		ng-minlength="apiMin" 
+		ng-maxlength="apiMax" 
+		ng-pattern="/^[a-z0-9]*$/"
+		required>
+		</div>
+	</div>
+	<div class="alert alert-warning" ng-if="!ADD && editForm.api.$dirty "><strong>{{'warning' | i18n}}:</strong> Changing the API will invalidate ALL embeds!</div>
+	<div ng-messages="editForm.api.$error" ng-if="editForm.api.$dirty || submitted" class="alert-warning">
+		<p ng-message="minlength">{{'form_err_min' | i18n:0:['API',apiMin]}}</p>
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['API',apiMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['API','a-z, 0-9']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'API'}}</p>
+	</div>
+</div>
+<div class="modal-footer">
+	<input class="btn btn-primary" type="submit" ng-click="ok()" value="OK">
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | i18n}}</button>
+</div>  
+</form>

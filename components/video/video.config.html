@@ -1,0 +1,45 @@
+<div class="page-header">
+	<h1>{{'xony' | i18n:0:['comments','video']}} <small>{{ videoModCtrl.Name }}</small></h1>
+</div>
+<div class="row">
+	<!--Sidebar content-->
+	<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
+	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+</div>
+
+<!-- <div class="row">
+	<div class="row col-md-3">
+		<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
+		<div class="form-group col-lg-12 col-md-11 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+	</div>
+	<div class="col-md-9 table-responsive">
+ -->
+<div class="table-responsive">
+		<table ng-show="videoModCtrl.POSTS.length" class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-click="orderByField='user.name'; reverseSort = !reverseSort">{{'name' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='user.name'></span></th>
+			<th ng-click="orderByField='message'; reverseSort = !reverseSort">{{'message' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='message'></span></th>
+			<th ng-click="orderByField='video_time'; reverseSort = !reverseSort">{{'video_time' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='video_time'></span></th>
+			<th ng-click="orderByField='lastmod'; reverseSort = !reverseSort">{{'post_time' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='lastmod'></span></th>
+			<th>{{'status' | i18n}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="post in videoModCtrl.POSTS | filter:query | orderBy:orderByField:reverseSort" class="post_status{{post.status}}">
+			<th></th>
+			<td class="text-nowrap text-overflow max-w100" title="{{post.user.name}}">{{post.user.name}}</td>
+			<td>{{post.message}}</td>
+			<td>{{post.video_time | seconds2time}}</td>
+			<td class="text-nowrap" title="{{post.lastmod * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}">{{post.lastmod * 1000 | elapsed}}</td>
+			<td class="input-group input-group-sm">
+				<select class="form-control" name="poststatus" ng-model="post.status" ng-change="videoModCtrl.updateStatus(post)" ng-options="stat.val as stat.name for stat in videoModCtrl.availstatus">
+				</select>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<!-- </div> -->
+<div ng-if="videoModCtrl.POSTS && !videoModCtrl.POSTS.length" class="alert alert-info">{{'noentries' | i18n}}</div>

@@ -1,0 +1,39 @@
+<form>
+<h1>{{'copyx' | i18n:0:'video'}}</h1>
+<div class="row">
+	<div class="form-group col-md-4">
+		<label class="control-label" for="api_from">{{'fromx' | i18n:0:'customer'}}</label>
+		<select class="form-control" name="api_from" id="api_from" ng-model="xcopyCtrl.api_from" ng-change="xcopyCtrl.updateFromVideos()" ng-options="account.api as account.name for account in ME.customers">
+		</select>
+	</div>
+	<div class="form-group col-md-4">
+		<label class="control-label" for="api_to">{{'tox' | i18n:0:'customer'}}</label>
+		<select class="form-control" name="api_to" id="api_to" ng-model="xcopyCtrl.api_to" ng-options="account.api as account.name for account in ME.customers">
+		</select>
+	</div>
+</div>
+<div class="row">
+<!--Sidebar content-->
+	<div class="form-group col-md-4">
+		<label class="control-label" for="video_from">{{'fromx' | i18n:0:'video'}}</label>
+		<select class="form-control" name="video_from" id="video_from" ng-model="xcopyCtrl.video_from_obj" ng-change="xcopyCtrl.updateToVideo()" ng-options="video.Name group by getGroup(video.Public) for video in xcopyCtrl.videos_from | orderBy:'-Public' track by video.UID" ng-disabled="!xcopyCtrl.videos_from.length">
+		</select>
+	</div>
+	<div class="form-group col-md-4">
+		<label class="control-label">{{'tox' | i18n:0:'video'}}</label>
+		<p class="form-control-static" ng-if="!xcopyCtrl.video_to_obj.UID">{{xcopyCtrl.video_to_obj.Name || '-'}}</p>
+		<p class="form-control-static" ng-if="xcopyCtrl.video_to_obj.UID"><a ng-href="/edit/?v={{xcopyCtrl.api_to}}-{{xcopyCtrl.video_to_obj.UID}}">{{xcopyCtrl.video_to_obj.Name}}</a></p>
+	</div>
+</div>
+<div class="row">
+<!--Sidebar content-->
+	<div class="form-group col-md-4 col-sm-6 col-xs-6">
+		<a ng-if="xcopyCtrl.video_from_obj.UID" ng-href="/edit/?v={{xcopyCtrl.api_from}}-{{xcopyCtrl.video_from_obj.UID}}" class="btn btn-default btn-sm" target="_blank">Check Original {{'video' | i18n}}</a>
+		<button ng-if="!xcopyCtrl.video_from_obj.UID" class="btn btn-default btn-sm" disabled>Check Original {{'video' | i18n}}</button>
+	</div>
+	<div class="form-group col-md-4 col-sm-6 col-xs-6">
+		<button ng-disabled="!(xcopyCtrl.api_from && xcopyCtrl.api_to && xcopyCtrl.video_from_obj)" ng-click="xcopyCtrl.xcopy()" class="btn btn-default btn-sm">{{'copyx' | i18n:0:'video'}}</button>
+	</div>
+</div>
+</form>
+

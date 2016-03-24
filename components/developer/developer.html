@@ -1,0 +1,25 @@
+<!-- <div class="row">
+	<div class="col-md-offset-2 col-md-8">
+		If you want to develop your own front-end you may use our APIs directly.
+	</div>
+</div> -->
+<div class="row">
+	<div class="col-md-offset-2 col-md-8">
+		<label for="access_token">{{'yourcurrentx' | i18n:0:'token'}}</label>
+		<input type="text" name="access_token" id="access_token" ng-model="devCtrl.token" class="form-control" readonly>
+		<div id="helpBlock" class="help-block text-center">{{'xepxiresy' | i18n:0:['token',devCtrl.expiresIn]}} <span>({{devCtrl.token_exp*1000 | date:'short'}})</span></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-offset-4 col-md-4">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-offset-2 col-md-4">
+		<a ng-href="/api/swagger/?url={{uriApiVideo}}swagger.json&api={{API}}" target="_blank" class="btn btn-primary btn-lg btn-block">{{'openxiny' | i18n:0:['Video-API','Swagger']}}</a>
+		<!-- <a ng-href="/api/swagger/?url={{uriApiVideo}}swagger.json&access_token={{devCtrl.token}}&api={{API}}" target="_blank" class="btn btn-primary btn-lg btn-block">{{'openxiny' | i18n:0:['Video-API','Swagger']}}</a> -->
+	</div>
+	<div class="col-md-offset-1 col-md-3">
+		<button btn-spinner="devCtrl.refreshPromise" ng-click="devCtrl.refresh()" class="btn btn-default btn-lg btn-block">{{'refreshx' | i18n:0:'token'}}</button>
+	</div>
+</div>

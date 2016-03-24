@@ -1,0 +1,255 @@
+(function() {
+	"use strict";
+
+	var DEFAULT_ROUTE = 'videos.list';
+	var DEFAULT_URL = '/video';
+	var DEFAULT_API = 'demo';
+	var tabs; // defined below
+
+	angular
+		.module('bittubes')
+		.config(appConfig)
+		.run(appRun);
+
+
+	appConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider'];
+	function appConfig($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+		// remove hashtag (requires server-side rewrites!)
+		// $locationProvider.html5Mode(true);
+
+		// change http defaults
+		// $httpProvider.defaults.withCredentials = true;
+		$httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike';
+
+		// select default
+		// $urlRouterProvider.otherwise(DEFAULT_URL);
+		$urlRouterProvider.otherwise(function ($injector) {
+			var $state = $injector.get('$state');
+			var $rootScope = $injector.get('$rootScope');
+			var store = $injector.get('store');
+
+
+
+			if(!$rootScope.stateChanged) {
+				// app just loaded with an invalid state
+				var lastView = store.get('lastView');
+				// check if saved state is still valid
+				if(!!lastView && !!lastView['state'] && !!$state.get(lastView['state'])) {
+					// last view found and evaluated as valid -> go there
+					return $state.go(lastView['state'],lastView['params']);
+				}
+			}
+			// fallback, go to default state
+			$state.go(DEFAULT_ROUTE);
+		});
+		// add states
+		function addStates(tabList) {
+			for (var i = 0; i < tabList.length; i++) {
+				if(tabList[i].external) {
+					continue;
+				}
+				$stateProvider.state(tabList[i]['state'],tabList[i]);
+				if(tabList[i].subviews) {
+					addStates(tabList[i].subviews);
+				}
+			}
+		}
+		for (var types in tabs) {
+			addStates(tabs[types]);
+		}
+	}
+
+	appRun.$inject = ['$rootScope', 'AUTH', 'i18n', 'store'];
+	function appRun($rootScope, Auth, _, store) {
+		// globals
+		// - API
+		$rootScope.uriApiCms = "/api/cms/2/";
+		$rootScope.uriApiPost = '/api/post/4/';
+		$rootScope.uriApiVideo = "/api/meta/13/";
+		// - patterns used for login and add/edit user
+		$rootScope.loginMax = 50;
+		$rootScope.loginMin = 5;
+		$rootScope.loginPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		$rootScope.passwordMax = 12;
+		$rootScope.passwordMin = 8;
+		$rootScope.passwordPattern = /^[.a-zA-Z0-9_-]*$/;
+
+		$rootScope.DEFAULT_API = DEFAULT_API;
+		$rootScope.DEFAULT_ROUTE = DEFAULT_ROUTE;
+		$rootScope.DEFAULT_URL = DEFAULT_URL;
+		$rootScope.tabs = tabs;
+
+
+
+		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+			// get auth-status
+			var authenticated = Auth.isAuthenticated();
+			// set stateChanged to track if we are onLoad or mid-app (for otherwise-state switcher)
+			$rootScope.stateChanged = true;
+
+			if (!toState.public && !authenticated){
+				// not authenticated but trying to access a private view
+				var promise = Auth.tryReauthentication();
+				if(!promise) {
+					Auth.showLogin(toState,toParams);
+				} else {
+					promise.then(function(){
+						Auth.redirect(toState,toParams);
+					},function(){
+						Auth.showLogin(toState,toParams);
+					});
+				}
+				event.preventDefault();
+				return;
+			} else if(toState.state == "login" && authenticated) {
+				// authenticated but trying to access the login view
+				Auth.redirect();
+				event.preventDefault();
+				return;
+			}
+			if(toState.admin && !$rootScope.ME['user']['admin']) {
+				// authenticated & not an admin but trying to access an admin view
+				Auth.redirect(fromState.state, fromParams);
+				event.preventDefault();
+				return;
+			}
+
+			// set lastView for otherwise-state switcher
+			if(toState.state !== "login") {
+				store.set('lastView', {'state':toState.state,'params':toParams});
+			}
+			// udpate website title
+			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' ('+ $rootScope.API+')' : '') ;
+		});
+	}
+
+
+	tabs = {
+		app : [
+			{
+				state: 'users',
+				title: 'user',
+				url: '/user/:editme',
+				templateUrl: 'components/user/user.html',
+				controller: 'userController',
+				controllerAs: 'userCtrl'
+			},
+			{
+				state: 'videos',
+				abstract: true,
+				title: 'video',
+				url: '/video',
+				// templateUrl: 'components/videos/videos.html',
+				template: '<ui-view/>',
+				subviews: [
+					{
+						state: 'videos.list',
+						title: 'video',
+						url: '',
+						templateUrl: 'components/video/video.list.html',
+						controller: 'videoController',
+						controllerAs: 'videoCtrl'
+					},
+					{
+						state: 'videos.moderate',
+						title: 'moderation',
+						url: '/:id/moderate',
+						templateUrl: 'components/video/video.moderate.html',
+						controller: 'videoModController',
+						controllerAs: 'videoModCtrl'
+					},
+					{
+						state: 'videos.config',
+						title: 'config',
+						url: '/:id/config',
+						templateUrl: 'components/video/video.config.html',
+						controller: 'videoConfigController',
+						controllerAs: 'videoConfigCtrl'
+					}
+				]
+			},
+			{
+				state: 'playlists',
+				title: 'playlist',
+				url: '/playlist',
+				templateUrl: 'components/playlist/playlist.html',
+				controller: 'playlistController',
+				controllerAs: 'playlistCtrl'
+			},
+			{
+				state: "analyzer",
+				external: true,
+				title: "analyzer",
+				url: "/analyzer",
+				// templateUrl: 'analyzer.html',
+				// controller: '',
+				// controllerAs: 'analyzerCtrl'
+			}
+		],
+		hidden : [
+			{
+				public: true,
+				state: 'login',
+				title: 'login',
+				url: '/login/:redirect',
+				templateUrl: 'components/core/login.html',
+				controller: 'loginController',
+				controllerAs: 'loginCtrl'
+			},
+			{
+				public: false,
+				state: 'developer',
+				title: 'developer',
+				url: '/developer',
+				templateUrl: 'components/developer/developer.html',
+				controller: 'devController',
+				controllerAs: 'devCtrl'
+			}
+		],
+		admin : [
+			{
+				state: 'customers',
+				// state: 'customers.list',
+				admin: true,
+				title: 'customer',
+				url: '/admin/customer',
+				// url: '',
+				templateUrl: 'components/admin/customer/customer.list.html',
+				controller: 'customerController',
+				controllerAs: 'customerCtrl'
+			},
+			{
+				state: 'xcopy',
+				// state: 'xcopy.form',
+				admin: true,
+				title: 'copyx',
+				titleReplacement: 'video',
+				url: '/admin/xcopy',
+				// url: '',
+				templateUrl: 'components/admin/xcopy/xcopy.html',
+				controller: 'xcopyController',
+				controllerAs: 'xcopyCtrl'
+			},
+			{
+				state: 'sql',
+				// state: 'sql.form',
+				admin: true,
+				title: 'SQL Query',
+				// titleReplacement: 'video',
+				url: '/admin/sql',
+				// url: '',
+				templateUrl: 'components/admin/sql/sql.html',
+				controller: 'sqlController',
+				controllerAs: 'sqlCtrl'
+			},
+			{
+				state: "pma",
+				admin: true,
+				external: true,
+				title: "phpMyAdmin",
+				url: "/dev/pma/",
+			}
+		]
+	};
+
+})();

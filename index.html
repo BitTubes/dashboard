@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="bittubes">
+<head>
+	<meta charset=utf-8>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- <base href="/dashboard/"></base> -->
+	<title ng-bind="'Dashboard: ' + pageTitle + ' - BitTubes'">Dashboard - BitTubes</title>
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="app.css" />
+	<!-- web-app -->
+	<!-- <link rel="manifest" href="manifest.json"> -->
+	<meta name="theme-color" content="#000000">
+	<!-- web-app old & iOS -->
+	<link rel="icon" sizes="192x192" href="img/Icon_Final_128.png">
+	<link rel="icon" sizes="128x128" href="img/Icon_Final_192.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="img/Icon_Final_120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/Icon_Final_152.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="img/Icon_Final_167.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/Icon_Final_180.png">
+	<!-- libs from CDN -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-messages.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.1/ui-bootstrap-tpls.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+	<!-- local libs -->
+	<script src="lib/angular-storage.js"></script>
+	
+	<!-- app code -->
+	<script src="app.js"></script>
+	<script src="common/btn-spinner.directive.js"></script>
+	<script src="common/del.js"></script>
+	<script src="common/jb-i18n.js"></script>
+	<script src="common/jb-notification.js"></script>
+	<script src="common/jb-services.js"></script>
+	<script src="components/admin/customer/customer.js"></script>
+	<script src="components/admin/sql/sql.js"></script>
+	<script src="components/admin/xcopy/xcopy.js"></script>
+	<script src="components/core/app.auth.js"></script>
+	<script src="components/core/app.router.js"></script>
+	<script src="components/core/login.js"></script>
+	<script src="components/core/navbar.js"></script>
+	<script src="components/developer/developer.js"></script>
+	<script src="components/playlist/playlist.js"></script>
+	<script src="components/user/user.js"></script>
+	<script src="components/video/video.list.js"></script>
+	<script src="components/video/video.moderate.js"></script>
+</head>
+
+<body>
+	<bt-navbar></bt-navbar>
+	<div class="container">
+		
+		<ui-view></ui-view>
+
+		<notification></notification>
+		<top-notification></top-notification>
+	</div>
+</body>
+</html>
