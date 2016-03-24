@@ -26,6 +26,7 @@
 				"copyx": "Copy {0}",
 				"created": "Created",
 				"customer": ["Customer","Customers"],
+				"default": "Default",
 				"delete": "Delete",
 				"deletex": "Delete {0}",
 				"delme": "You are about to delete YOU OWN account",

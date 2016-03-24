@@ -158,14 +158,14 @@
 						controller: 'videoModController',
 						controllerAs: 'videoModCtrl'
 					},
-					{
-						state: 'videos.config',
-						title: 'config',
-						url: '/:id/config',
-						templateUrl: 'components/video/video.config.html',
-						controller: 'videoConfigController',
-						controllerAs: 'videoConfigCtrl'
-					}
+					// {
+					// 	state: 'video.config',
+					// 	title: 'config',
+					// 	url: '/config/:id',
+					// 	templateUrl: 'components/video/video.config.html',
+					// 	controller: 'videoConfigController',
+					// 	controllerAs: 'videoConfigCtrl'
+					// }
 				]
 			},
 			{
@@ -181,9 +181,6 @@
 				external: true,
 				title: "analyzer",
 				url: "/analyzer",
-				// templateUrl: 'analyzer.html',
-				// controller: '',
-				// controllerAs: 'analyzerCtrl'
 			}
 		],
 		hidden : [
@@ -209,35 +206,37 @@
 		admin : [
 			{
 				state: 'customers',
-				// state: 'customers.list',
 				admin: true,
 				title: 'customer',
 				url: '/admin/customer',
-				// url: '',
 				templateUrl: 'components/admin/customer/customer.list.html',
 				controller: 'customerController',
 				controllerAs: 'customerCtrl'
 			},
 			{
+				state: 'config',
+				admin: true,
+				title: 'Config',
+				url: '/admin/config',
+				templateUrl: 'components/admin/config/config.html',
+				controller: 'configController',
+				controllerAs: 'configCtrl'
+			},
+			{
 				state: 'xcopy',
-				// state: 'xcopy.form',
 				admin: true,
 				title: 'copyx',
 				titleReplacement: 'video',
 				url: '/admin/xcopy',
-				// url: '',
 				templateUrl: 'components/admin/xcopy/xcopy.html',
 				controller: 'xcopyController',
 				controllerAs: 'xcopyCtrl'
 			},
 			{
 				state: 'sql',
-				// state: 'sql.form',
 				admin: true,
 				title: 'SQL Query',
-				// titleReplacement: 'video',
 				url: '/admin/sql',
-				// url: '',
 				templateUrl: 'components/admin/sql/sql.html',
 				controller: 'sqlController',
 				controllerAs: 'sqlCtrl'

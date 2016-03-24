@@ -271,26 +271,14 @@ td.input-group > select { /* for comment-status */
 	/*animation: loading 3s infinite ease;*/
 }
 
-/*@keyframes loading {
-	0% {
-		transform: translate(60%,0);
-		opacity:0.6;
-	}
-	50% {
-		transform: translate(0%,0);
-		opacity:1;
-	}
-	100% {
-		transform: translate(-60%,0);
-		opacity:0.6;
-	}
-}*/
-/*@-webkit-keyframes loading {
-	from {
-		-webkit-transform: translate(0,-50px) rotateZ(0deg);
-	}
-	to {
-		-webkit-transform: translate(0,0) rotateZ(360deg);
-	}
+.noresize {
+	resize: none;
 }
-*/
+:not(.has-error)>.content-editable {
+	background-color: transparent;
+	border-color: transparent;
+	box-shadow: none;
+}
+.content-editable:focus {
+	background-color: #fff;
+}
