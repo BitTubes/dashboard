@@ -1,7 +1,7 @@
 
 {
 	"name": "BitTubes Dashboard",
-	"short_name": "BitTubes"
+	"short_name": "BitTubes",
 	"icons": [
 		{
 			"src": "img/Icon_Final_36.png",
