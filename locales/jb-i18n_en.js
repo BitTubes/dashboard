@@ -27,6 +27,7 @@
 				"created": "Created",
 				"customer": ["Customer","Customers"],
 				"default": "Default",
+				"defintion": "Definition",
 				"delete": "Delete",
 				"deletex": "Delete {0}",
 				"delme": "You are about to delete YOU OWN account",

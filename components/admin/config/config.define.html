@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="row col-md-4 col-xs-6 col-md-offset-8 col-xs-offset-6">
+		<!--Sidebar content-->
+		<div class="form-group"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+	</div>
+</div>
+<div class="table-responsive">
+	<table class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr>
+			<!-- <th>#</th> -->
+			<th>{{'Param' | i18n}}</th>
+			<th>Cast Type</th>
+			<th>{{'default' | i18n}}</th>
+			<th>{{'created' | i18n}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- seperator -->
+		<tr>
+			<td>{{CONFIG.Param}}</td>
+			<td>{{configDefCtrl.castTypes[CONFIG.CastType]}}</td>
+			<td>{{CONFIG.DefaultVal}}</td>
+			<td title="{{CONFIG.created}}">{{CONFIG.created | elapsed}}</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<div class="table-responsive">
+	<form name="editForm" novalidate>
+	<table class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr>
+			<th ng-click="orderByField='locale'; reverseSort = !reverseSort">Locale <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locale'></span></th>
+			<th>{{'default' | i18n}}</th>
+			<th>{{'defintion' | i18n}}</th>
+			<th ng-click="orderByField='created'; reverseSort = !reverseSort">{{'created' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='created'></span></th>
+	</thead>
+	<tbody>
+		<!-- seperator -->
+		<tr ng-repeat="config in configDefCtrl.LOCALES | filter:query | orderBy:orderByField:reverseSort">
+			<td><input class="form-control content-editable" ng-blur="configDefCtrl.edit(config)" ng-model="config.Param"></td>
+			<td>
+				<select class="form-control content-editable" name="casttype" ng-model="config.CastType" ng-change="configDefCtrl.edit(config)" ng-options="type.val as type.name for type in configDefCtrl.castTypes">
+				</select>
+			</td>
+			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.DefaultVal==='1', 'bool0': config.CastType=='bool' && config.DefaultVal==='0'},config.CastType]"><input class="form-control content-editable" name="defaultVal{{$index}}" ng-model="config.DefaultVal" ng-blur="configDefCtrl.edit(config)" ng-pattern="configDefCtrl.castTypesPattern[config.CastType].pattern" placeholder="{{configDefCtrl.castTypesPattern[config.CastType].placeholder}}"></td>
+			<td><button ui-sref="config.define({id:config.ID})" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> <span class="label label-success label-as-badge" ng-class="{'label-danger':!config.locales, 'label-warning':config.locales&&config.locales<configDefCtrl.maxLocales, 'label-success':config.locales==configDefCtrl.maxLocales}">{{config.locales}}</span></button></td>
+			<td title="{{config.created}}">{{config.created | elapsed}}</td>
+			<td><button btn-spinner="config.delPromise" ng-click="configDefCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon" ng-class="[{'glyphicon-heart': config.deleted}, {'glyphicon-trash': !config.deleted}]" aria-hidden="true"></span></button></td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+</div>

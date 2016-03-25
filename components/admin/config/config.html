@@ -35,7 +35,7 @@
 			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'Param' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">Cast Type <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
 			<th>{{'default' | i18n}}</th>
-			<th>{{'defintion' | i18n}}</th>
+			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'defintion' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
 			<th ng-click="orderByField='created'; reverseSort = !reverseSort">{{'created' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='created'></span></th>
 			<th>{{'delete' | i18n}}</th></tr>
 	</thead>
@@ -55,6 +55,7 @@
 					config.CastType]"
 			><input class="form-control content-editable" name="defaultVal{{$index}}" ng-model="config.DefaultVal" ng-blur="configCtrl.edit(config)" ng-pattern="configCtrl.castTypesPattern[config.CastType].pattern" placeholder="{{configCtrl.castTypesPattern[config.CastType].placeholder}}"></td>
 			<td><button btn-spinner="config.delPromise" ng-click="configCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></button></td>
+			<td><button ui-sref="config.define({id:config.ID})" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> <span class="label label-success label-as-badge" ng-class="{'label-danger':!config.locales, 'label-warning':config.locales&&config.locales<configCtrl.maxLocales, 'label-success':config.locales==configCtrl.maxLocales}">{{config.locales}}</span></button></td>
 			<td title="{{config.created}}">{{config.created | elapsed}}</td>
 			<td><button btn-spinner="config.delPromise" ng-click="configCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon" ng-class="[{'glyphicon-heart': config.deleted}, {'glyphicon-trash': !config.deleted}]" aria-hidden="true"></span></button></td>
 		</tr>

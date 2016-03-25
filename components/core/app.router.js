@@ -215,12 +215,30 @@
 			},
 			{
 				state: 'config',
-				admin: true,
+				abstract: true,
 				title: 'Config',
 				url: '/admin/config',
-				templateUrl: 'components/admin/config/config.html',
-				controller: 'configController',
-				controllerAs: 'configCtrl'
+				template: '<ui-view/>',
+				subviews: [
+					{
+						state: 'config.list',
+						admin: true,
+						title: 'Config',
+						url: '',
+						templateUrl: 'components/admin/config/config.html',
+						controller: 'configController',
+						controllerAs: 'configCtrl'
+					},
+					{
+						state: 'config.define',
+						admin: true,
+						title: 'Config',
+						url: '/:id',
+						templateUrl: 'components/admin/config/config.define.html',
+						controller: 'configDefineController',
+						controllerAs: 'configDefCtrl'
+					}
+				]
 			},
 			{
 				state: 'xcopy',

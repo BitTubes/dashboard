@@ -304,3 +304,7 @@ td.input-group > select { /* for comment-status */
 	content: "= true";
 	color: green;
 }
+
+.label-as-badge {
+    border-radius: 1em;
+}

@@ -20,6 +20,7 @@
 			'int': { pattern:/^[0-9]*$/, placeholder:'0-9'},
 			'float': { pattern:/^[-+]?\d*\.?\d+$/, placeholder:'0-9.0-9'}
 		};
+		vm.maxLocales = $rootScope.availableLocales.length;
 		vm.addPromise = null;
 		vm.addParam = null;
 		vm.addCastType = '';
