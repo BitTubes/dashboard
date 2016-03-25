@@ -23,7 +23,7 @@
 		vm.addPromise = null;
 		vm.addParam = null;
 		vm.addCastType = '';
-		vm.addDefaultVal = null;
+		vm.addDefaultVal = '';
 
 
 		vm.add = add_db;
@@ -45,8 +45,8 @@
 			if(!vm.addParam || !vm.addParam.trim()) {
 				return true;
 			}
-			if(!vm.addDefaultVal || !vm.addDefaultVal.trim()) {
-				note.warning('Default value missing');
+			if(vm.addCastType!=='' && (!vm.addDefaultVal || !vm.addDefaultVal.trim())) {
+				note.warn('Default value missing');
 				return true;
 			}
 
@@ -88,7 +88,7 @@
 				// reset form
 				vm.addParam = null;
 				vm.addCastType = '';
-				vm.addDefaultVal = null;
+				vm.addDefaultVal = '';
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
