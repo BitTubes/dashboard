@@ -282,3 +282,25 @@ td.input-group > select { /* for comment-status */
 .content-editable:focus {
 	background-color: #fff;
 }
+.bool {
+	position: relative;
+}
+/*.bool>input:not(:focus) {
+	color: transparent;
+}
+*/
+.bool::before {
+	position: absolute;
+	padding: 12px 24px;
+	z-index: 0;
+	pointer-events: none;
+	top: 0;
+}
+.bool0::before {
+	content: "= false";
+	color: red;
+}
+.bool1::before {
+	content: "= true";
+	color: green;
+}
