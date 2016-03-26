@@ -5,6 +5,7 @@
 		.factory('http', httpFactory)
 		.factory('waiting', waitingFactory)
 		.factory('elapsed', elapsedFactory)
+		.factory('smartUpdate', smartUpdateFactory)
 		.filter('elapsed', elapsedFilter)
 		.filter('seconds2time', seconds2timeFilter);
 
@@ -47,29 +48,65 @@
 	waitingFactory.$inject = ['$uibModal', '$rootScope'];
 	function waitingFactory($uibModal, $rootScope){
 		/* jshint validthis:true */
-		var vm = this;
+		// var vm = this;
+		var modalInstance = null;
 		var scope = $rootScope.$new();
-		vm.modalInstance = null;
 		scope.msg_waiting = null;
 		scope.msg_taketime = null;
 
+
 		return {
-			show : function(msg_waiting, msg_taketime) {
-				scope.msg_waiting = msg_waiting;
-				scope.msg_taketime = msg_taketime;
-				
-				vm.modalInstance = $uibModal.open({
-					animation: true,
-					templateUrl: 'common/waiting.html',
-					backdrop: 'static', // disables modal from being closed by clicking on the background
-					scope: scope,
-					size: 'lg'
-				});
-			},
-			hide : function() {
-				vm.modalInstance.close();
-			}
+			show : show,
+			hide : hide
 		};
+
+
+		function show(msg_waiting, msg_taketime) {
+			scope.msg_waiting = msg_waiting;
+			scope.msg_taketime = msg_taketime;
+			
+			modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'common/waiting.html',
+				backdrop: 'static', // disables modal from being closed by clicking on the background
+				scope: scope,
+				size: 'lg'
+			});
+		}
+		function hide() {
+			modalInstance.close();
+		}
+	}
+
+	function smartUpdateFactory() {
+		var fields = null;
+
+		return {
+			"setFields" : setFields,
+			"makeBackup": makeBackup,
+			"wasChangedNotEmpty": wasChangedNotEmpty
+		};
+
+		function setFields(arr) {
+			fields = arr;
+		}
+		function makeBackup(obj) {
+			if(fields === null) {
+				console.error("fields array not set");
+				return;
+			}
+			for (var i = fields.length - 1; i >= 0; i--) {
+				obj[fields[i]+'Bak'] = obj[fields[i]];
+			}
+		}
+		function wasChangedNotEmpty(obj) {
+			for (var i = fields.length - 1; i >= 0; i--) {
+				if(obj[fields[i]] && obj[fields[i]+'Bak'] != obj[fields[i]]) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 
 	function seconds2timeFilter(){
@@ -146,6 +183,7 @@
 			return elapsed(date, neverReplacement);
 		};
 	}
+
 
 })();
 
