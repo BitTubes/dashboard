@@ -4,8 +4,8 @@
 		.controller('configController', configController);
 
 
-	configController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'i18n', 'notification','AUTH'];
-	function configController(http, $scope, $rootScope, $uibModal, _, note, Auth) {
+	configController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification','AUTH'];
+	function configController(http, $scope, $rootScope, $uibModal, smartUpdate, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.castTypes = [
@@ -25,10 +25,10 @@
 		vm.addParam = null;
 		vm.addCastType = '';
 		vm.addDefaultVal = '';
+		vm.CONFIGS = [];
 
 
 		vm.add = add_db;
-		vm.CONFIGS = [];
 		vm.delete = del;
 		vm.edit = edit;
 		// keep the following in scope to ease copy-paste of the sorting
@@ -60,7 +60,7 @@
 			// test if we already have a parameter with that value in our UI
 			for (var i = vm.CONFIGS.length - 1; i >= 0; i--) {
 				if(p['Param']===vm.CONFIGS[i]['Param']) {
-					makeBackup(p);
+					smartUpdate.makeBackup(p);
 					return edit_db(p);
 				}
 			}
@@ -78,7 +78,7 @@
 					note.error(_('note_dberror'));
 					return;
 				}
-				makeBackup(data);
+				smartUpdate.makeBackup(data);
 
 				// add to UI
 				vm.CONFIGS.push(data);
@@ -95,7 +95,7 @@
 		}
 		function edit(config) {
 			// console.log("edit",config);
-			if(!wasChangedNotEmpty(config)) {
+			if(!smartUpdate.wasChangedNotEmpty(config)) {
 				// console.log("unchanged");
 				return true;
 			}
@@ -128,22 +128,18 @@
 
 
 		function initView() {
+			smartUpdate.setFields(['Param','CastType','DefaultVal']);
+
 			http.post($scope.uriApiCms+'getConfig', { 'api': $rootScope.DEFAULT_API,  })
 			.then(function(response){
 				// var data = response.data;
 				for (var i = response.data.length - 1; i >= 0; i--) {
-					makeBackup(response.data[i]);
+					smartUpdate.makeBackup(response.data[i]);
 				}
 				vm.CONFIGS = response.data;
 
 			},
 			Auth.checkHttpStatus.bind(Auth));
-		}
-		var fields = ['Param','CastType','DefaultVal'];
-		function makeBackup(config) {
-			for (var i = fields.length - 1; i >= 0; i--) {
-				config[fields[i]+'Bak'] = config[fields[i]];
-			}
 		}
 		function edit_db(config) {
 			// update DB
@@ -164,21 +160,13 @@
 					return;
 				}
 				// update backups
-				makeBackup(config);
+				smartUpdate.makeBackup(config);
 
 				// confirmation message
 				note.ok(_('note_xupdated',0,config['Param']));
 
 			},
 			Auth.checkHttpStatus.bind(Auth));
-		}
-		function wasChangedNotEmpty(config) {
-			for (var i = fields.length - 1; i >= 0; i--) {
-				if(config[fields[i]] && config[fields[i]+'Bak'] != config[fields[i]]) {
-					return true;
-				}
-			}
-			return false;
 		}
 		function modal_dismissed() {
 			if(editMe) {

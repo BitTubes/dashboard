@@ -9,18 +9,17 @@
 		/* jshint validthis:true */
 		var vm = this;
 		var config_ID = parseInt($stateParams.id);
+		var availableLocales = {};
 		vm.castTypes = {
 			'': 	'String',
 			'bool': 'Boolean',
 			'int': 	'Integer',
 			'float':'Float'
 		};
-		vm.maxLocales = $rootScope.availableLocales.length;
-		vm.availableLocales = {};
-
-
-		$scope.CONFIG = null;
 		vm.LOCALES = [];
+		$scope.CONFIG = null;
+
+
 		vm.edit = edit;
 		// keep the following in scope to ease copy-paste of the sorting
 		$scope.orderByField = 'Param';
@@ -34,13 +33,11 @@
 
 
 		function edit(definition) {
-			// console.log("edit",definition);
 			if(!definition['txt']) {
 				del_db(definition);
 				return true;
 			}
 			if(!smartUpdate.wasChangedNotEmpty(definition)) {
-				// console.log("unchanged");
 				return true;
 			}
 			edit_db(definition);
@@ -61,10 +58,8 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 
-			// $rootScope.availableLocales
 			for (var i = $rootScope.availableLocales.length - 1; i >= 0; i--) {
-				// $rootScope.availableLocales[i]
-				vm.availableLocales[$rootScope.availableLocales[i].code] = $rootScope.availableLocales[i].name;
+				availableLocales[$rootScope.availableLocales[i].code] = $rootScope.availableLocales[i].name;
 			}
 			// get definitions
 			http.post($scope.uriApiCms+'getConfigDef', { 'api': $rootScope.DEFAULT_API, 'p':{'ID':config_ID} })
@@ -72,17 +67,17 @@
 				var data = response.data;
 				for (var i = data.length - 1; i >= 0; i--) {
 					smartUpdate.makeBackup(data[i]);
-					data[i]['localeName'] = vm.availableLocales[data[i]['locale']];
-					delete vm.availableLocales[data[i]['locale']];
+					data[i]['localeName'] = availableLocales[data[i]['locale']];
+					delete availableLocales[data[i]['locale']];
 				}
 				vm.LOCALES = data;
 				console.log(vm.LOCALES);
 
 				// add missing elements to array
-				for(var el in vm.availableLocales) {
+				for(var el in availableLocales) {
 					vm.LOCALES.push({
 						'locale':el, 
-						'localeName':vm.availableLocales[el],
+						'localeName':availableLocales[el],
 						'txt':null,
 						'ID':config_ID
 					});
@@ -103,7 +98,6 @@
 			.then(function(response){
 				var data = response.data;
 				if(!data || (data && data['error'] && data['error'].length)) {
-					// alert("error updating database");
 					note.error(_('note_dberror'));
 					return;
 				}
@@ -117,7 +111,6 @@
 
 				// update backups
 				smartUpdate.makeBackup(definition);
-
 
 			},
 			Auth.checkHttpStatus.bind(Auth));
@@ -136,9 +129,6 @@
 
 				// update backups
 				smartUpdate.makeBackup(definition);
-
-				// deleted an entry, reduce the counter
-				// $scope.CONFIG['locales']--;
 
 			},
 			Auth.checkHttpStatus.bind(Auth));
