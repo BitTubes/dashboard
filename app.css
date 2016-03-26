@@ -274,6 +274,9 @@ td.input-group > select { /* for comment-status */
 .noresize {
 	resize: none;
 }
+.resize-y {
+	resize: vertical;
+}
 :not(.has-error)>.content-editable {
 	background-color: transparent;
 	border-color: transparent;
@@ -285,16 +288,15 @@ td.input-group > select { /* for comment-status */
 .bool {
 	position: relative;
 }
-/*.bool>input:not(:focus) {
-	color: transparent;
-}
-*/
 .bool::before {
 	position: absolute;
 	padding: 12px 24px;
 	z-index: 0;
 	pointer-events: none;
 	top: 0;
+}
+.bool.inline::before {
+	padding: 5px 12px;
 }
 .bool0::before {
 	content: "= false";

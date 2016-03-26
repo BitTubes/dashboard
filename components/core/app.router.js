@@ -193,6 +193,15 @@
 				controller: 'loginController',
 				controllerAs: 'loginCtrl'
 			},
+			// {
+			// 	public: true,
+			// 	state: 'lost-password',
+			// 	title: 'lost-password',
+			// 	url: '/lost-password/:token',
+			// 	templateUrl: 'components/core/lostpassword.html',
+			// 	controller: 'lostController',
+			// 	controllerAs: 'lostCtrl'
+			// },
 			{
 				public: false,
 				state: 'developer',
@@ -233,7 +242,7 @@
 						state: 'config.define',
 						admin: true,
 						title: 'Config',
-						url: '/:id',
+						url: '/define/:id',
 						templateUrl: 'components/admin/config/config.define.html',
 						controller: 'configDefineController',
 						controllerAs: 'configDefCtrl'
