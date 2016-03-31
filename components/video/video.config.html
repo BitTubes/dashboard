@@ -45,7 +45,11 @@
 			<th></th>
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
-			<td ng-class="[{'has-error': (editFormVideo['defaultVal'+$index].$dirty&&editFormVideo['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]"><input class="form-control" name="defaultVal{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}"></td>
+			<td ng-class="[{'has-error': (editFormVideo['Val'+$index].$dirty&&editFormVideo['Val'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
+				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+
+				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
 			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>
@@ -97,7 +101,11 @@
 			<th></th>
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
-			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]"><input class="form-control" name="defaultVal{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}"></td>
+			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
+				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+
+				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
 			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>

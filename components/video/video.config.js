@@ -199,7 +199,10 @@
 			var castType = null;
 			var data = [];
 			var defaultConfig;
+			var defaultOption = null;
+			var options = null;
 			var row;
+			var showSelect = false;
 			var value;
 			for (var el in response.data['Config']) {
 				value = response.data['Config'][el];
@@ -208,13 +211,26 @@
 				if(defaultConfig) {
 					defaultConfig[usedParam] = true;
 					castType = defaultConfig['CastType'];
+					showSelect = defaultConfig['showSelect'];
+					options = defaultConfig['options'];
+					defaultOption = defaultConfig['defaultOption'];
 					// console.log('defaultConfig', defaultConfig);
+					if(options.length && options.indexOf(value)===-1) {
+						console.warn("bad value for '"+el+"' detected:",value,"allowed:",options);
+					}
 				} else {
 					castType = null;
+					showSelect = false;
+					options = null;
+					defaultOption = null;
+					console.warn('unknown config detected');
 				}
 				row = {
 					'CastType': castType,
-					'Param':el,
+					'defaultOption': defaultOption,
+					'options': options,
+					'Param': el,
+					'showSelect': showSelect,
 					'Val': value,
 					'Video_ID': response.video_ID,
 				};
@@ -250,14 +266,17 @@
 			}
 		}
 		function _processAddGeneral(config) {
+			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
+			if(defaultConfig) { // legacy check
+				defaultConfig['used'] = true;
+				config['defaultOption'] = defaultConfig['defaultOption'];
+				config['options'] = defaultConfig['options'];
+				config['showSelect'] = defaultConfig['showSelect'];
+			}
 
 			// add to UI
 			vm.MYCONFIGS.push(config);
 			vm.MYCONFIGS_[config['Param']] = config['Val'];
-			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
-			if(defaultConfig) { // legacy check
-				defaultConfig['used'] = true;
-			}
 			// console.info('defaultConfig', defaultConfig);
 			// reset form
 			vm.addObj = null;
