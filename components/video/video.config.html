@@ -3,9 +3,9 @@
 	<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
 	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" ng-if="videoConfigCtrl.video_ID">
 	<!-- ----------------------- CURRENT VIDEO ------------------ -->
-	<form name="editFormVideo" novalidate ng-if="videoConfigCtrl.video_ID">
+	<form name="editFormVideo" novalidate>
 	<table class="table table-hover table-striped table-condensed">
 	<caption>{{'xfory' | i18n:0:['Config',videoConfigCtrl.videoName]}}</caption>
 	<thead>
@@ -51,8 +51,9 @@
 	</tbody>
 	</table>
 	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGSVIDEO && !videoConfigCtrl.MYCONFIGSVIDEO.length" class="alert alert-info">{{'noentries' | i18n}}</div>
 </div>
-<hr>
+<hr ng-if="videoConfigCtrl.video_ID">
 <div class="table-responsive">
 	<!-- ---------------------- ACCOUNT ------------------ -->
 	
@@ -102,6 +103,7 @@
 	</tbody>
 	</table>
 	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGS && !videoConfigCtrl.MYCONFIGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>
 </div>
 <hr>
 <div class="table-responsive">
