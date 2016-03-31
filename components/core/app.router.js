@@ -34,9 +34,12 @@
 				// app just loaded with an invalid state
 				var lastView = store.get('lastView');
 				// check if saved state is still valid
-				if(!!lastView && !!lastView['state'] && !!$state.get(lastView['state'])) {
-					// last view found and evaluated as valid -> go there
-					return $state.go(lastView['state'],lastView['params']);
+				if(!!lastView && !!lastView['state']) {
+					var stateConfig =  $state.get(lastView['state']);
+					if(stateConfig && !stateConfig.abstract) {
+						// last view found and evaluated as valid -> go there
+						return $state.go(lastView['state'],lastView['params']);
+					}
 				}
 			}
 			// fallback, go to default state
@@ -161,7 +164,7 @@
 					{
 						state: 'videos.config',
 						title: 'config',
-						url: '/:id/config',
+						url: '/config/:id',
 						templateUrl: 'components/video/video.config.html',
 						controller: 'videoConfigController',
 						controllerAs: 'videoConfigCtrl'
@@ -181,9 +184,6 @@
 				external: true,
 				title: "analyzer",
 				url: "/analyzer",
-				// templateUrl: 'analyzer.html',
-				// controller: '',
-				// controllerAs: 'analyzerCtrl'
 			}
 		],
 		hidden : [
@@ -196,6 +196,15 @@
 				controller: 'loginController',
 				controllerAs: 'loginCtrl'
 			},
+			// {
+			// 	public: true,
+			// 	state: 'lost-password',
+			// 	title: 'lost-password',
+			// 	url: '/lost-password/:token',
+			// 	templateUrl: 'components/core/lostpassword.html',
+			// 	controller: 'lostController',
+			// 	controllerAs: 'lostCtrl'
+			// },
 			{
 				public: false,
 				state: 'developer',
@@ -209,35 +218,55 @@
 		admin : [
 			{
 				state: 'customers',
-				// state: 'customers.list',
 				admin: true,
 				title: 'customer',
 				url: '/admin/customer',
-				// url: '',
 				templateUrl: 'components/admin/customer/customer.list.html',
 				controller: 'customerController',
 				controllerAs: 'customerCtrl'
 			},
 			{
+				state: 'config',
+				abstract: true,
+				title: 'Config',
+				url: '/admin/config',
+				template: '<ui-view/>',
+				subviews: [
+					{
+						state: 'config.list',
+						admin: true,
+						title: 'Config',
+						url: '',
+						templateUrl: 'components/admin/config/config.html',
+						controller: 'configController',
+						controllerAs: 'configCtrl'
+					},
+					{
+						state: 'config.define',
+						admin: true,
+						title: 'Config',
+						url: '/define/:id',
+						templateUrl: 'components/admin/config/config.define.html',
+						controller: 'configDefineController',
+						controllerAs: 'configDefCtrl'
+					}
+				]
+			},
+			{
 				state: 'xcopy',
-				// state: 'xcopy.form',
 				admin: true,
 				title: 'copyx',
 				titleReplacement: 'video',
 				url: '/admin/xcopy',
-				// url: '',
 				templateUrl: 'components/admin/xcopy/xcopy.html',
 				controller: 'xcopyController',
 				controllerAs: 'xcopyCtrl'
 			},
 			{
 				state: 'sql',
-				// state: 'sql.form',
 				admin: true,
 				title: 'SQL Query',
-				// titleReplacement: 'video',
 				url: '/admin/sql',
-				// url: '',
 				templateUrl: 'components/admin/sql/sql.html',
 				controller: 'sqlController',
 				controllerAs: 'sqlCtrl'

@@ -1,7 +1,6 @@
-
 {
 	"name": "BitTubes Dashboard",
-	"short_name": "BitTubes"
+	"short_name": "BitTubes",
 	"icons": [
 		{
 			"src": "img/Icon_Final_36.png",
@@ -45,5 +44,5 @@
 	"start_url": "index.html?utm_source=web_app_manifest",
 	"scope": "/",
 	"display": "fullscreen",
-	"orientation": "portrait-primary"
+	"orientation": "any"
 }

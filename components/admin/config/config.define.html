@@ -1,0 +1,31 @@
+<div class="row">
+	<!--Sidebar content-->
+	<div class="form-group col-xs-6"><a ui-sref="config.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
+	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+</div>
+<div class="table-responsive">
+	<table class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr>
+			<th>{{'parameter' | i18n}}</th>
+			<th>Cast Type</th>
+			<th>{{'default' | i18n}}</th>
+			<th>{{'created' | i18n}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{CONFIG.Param}}</td>
+			<td>{{configDefCtrl.castTypes[CONFIG.CastType]}}</td>
+			<td class="inline" ng-class="[{'bool1': CONFIG.CastType=='bool' && CONFIG.DefaultVal==='1', 'bool0': CONFIG.CastType=='bool' && CONFIG.DefaultVal==='0'},CONFIG.CastType]">{{CONFIG.DefaultVal}}</td>
+			<td title="{{CONFIG.created}}">{{CONFIG.created | elapsed}}</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<form class="form-horizontal">
+	<div class="form-group" ng-repeat="def in configDefCtrl.LOCALES | filter:query | orderBy:'localesName':true">
+		<label class="col-md-1 control-label" for="txt{{$index}}">{{def.localeName}}</label>
+		<div class="col-md-11"><textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt"></textarea></div>
+	</div>
+</form>

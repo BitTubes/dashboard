@@ -1,0 +1,58 @@
+<div class="row">
+	<div class="row col-md-4 col-xs-6 col-md-offset-8 col-xs-offset-6">
+		<!--Sidebar content-->
+		<div class="form-group"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+	</div>
+</div>
+<div class="table-responsive">
+	
+	<form name="editForm" novalidate>
+	<table class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr>
+			<th></th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}}</th>
+			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">Cast Type</th>
+			<th>{{'default' | i18n}}</th>
+			<th colspan="3">{{'addx' | i18n:0:'Config'}}</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td style="min-width:9em"><input class="form-control" ng-model="configCtrl.addParam"></td>
+			<td style="min-width:7em">
+				<select class="form-control" name="casttype" ng-model="configCtrl.addCastType" ng-options="type.val as type.name for type in configCtrl.castTypes">
+				</select>
+			</td>
+			<td style="min-width:11em" ng-class="{ 'has-error': (editForm.defaultVal.$dirty && editForm.defaultVal.$invalid) }"><input class="form-control" name="defaultVal" ng-model="configCtrl.addDefaultVal" ng-pattern="configCtrl.castTypesPattern[configCtrl.addCastType].pattern" placeholder="{{configCtrl.castTypesPattern[configCtrl.addCastType].placeholder}}"></td>
+			<td colspan="3"><button btn-spinner="configCtrl.addPromise" ng-click="configCtrl.add()" class="btn btn-default btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+		</tr>
+	</tbody>
+	<!-- seperator -->
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
+			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">Cast Type <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
+			<th>{{'default' | i18n}}</th>
+			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'defintion' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
+			<th ng-click="orderByField='created'; reverseSort = !reverseSort">{{'created' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='created'></span></th>
+			<th>{{'delete' | i18n}}</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="config in configCtrl.CONFIGS | filter:query | orderBy:orderByField:reverseSort">
+			<th></th>
+			<td><input class="form-control content-editable" ng-blur="configCtrl.edit(config)" ng-model="config.Param"></td>
+			<td>
+				<select class="form-control content-editable" name="casttype" ng-model="config.CastType" ng-change="configCtrl.edit(config)" ng-options="type.val as type.name for type in configCtrl.castTypes">
+				</select>
+			</td>
+			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.DefaultVal==='1', 'bool0': config.CastType=='bool' && config.DefaultVal==='0'},config.CastType]"><input class="form-control content-editable" name="defaultVal{{$index}}" ng-model="config.DefaultVal" ng-blur="configCtrl.edit(config)" ng-pattern="configCtrl.castTypesPattern[config.CastType].pattern" placeholder="{{configCtrl.castTypesPattern[config.CastType].placeholder}}"></td>
+			<td><button ui-sref="config.define({id:config.ID})" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> <span class="label label-success label-as-badge" ng-class="{'label-danger':config.locales==0, 'label-warning':config.locales&&config.locales<configCtrl.maxLocales, 'label-success':config.locales==configCtrl.maxLocales}">{{config.locales}}</span></button></td>
+			<td title="{{config.created}}">{{config.created | elapsed}}</td>
+			<td><button btn-spinner="config.delPromise" ng-click="configCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon" ng-class="[{'glyphicon-heart': config.deleted}, {'glyphicon-trash': !config.deleted}]" aria-hidden="true"></span></button></td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+</div>
