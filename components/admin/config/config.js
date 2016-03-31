@@ -169,10 +169,6 @@
 			Auth.checkHttpStatus.bind(Auth));
 		}
 		function modal_dismissed() {
-			if(editMe) {
-				// console.log("reroute to default users list");
-				$state.transitionTo("users");
-			}
 			// console.info('Modal dismissed at: ' + new Date());
 		}
 		function del_db(config) {
