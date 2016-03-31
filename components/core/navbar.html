@@ -17,7 +17,7 @@
 			<li class="navbar-text" ng-if="ME.customers.length == 1">{{ACCOUNT.name}}</li>
 			<!-- account switcher -->
 			<li uib-dropdown ng-if="ME.customers.length > 1">
-				<a href="#" uib-dropdown-toggle>{{ACCOUNT.name}} <b class="caret"></b></a>
+				<a href="#" class="max-w120 text-overflow" uib-dropdown-toggle>{{ACCOUNT.name}} <b class="caret"></b></a>
 				<ul uib-dropdown-menu>
 					<li ng-if="!account.deleted" ng-repeat="account in ME.customers | orderBy:'name'" ng-class="{active: account.api==ACCOUNT.api}"><a href ng-click="cms.changeAccount(account)">{{account.name}}</a></li>
 				</ul>

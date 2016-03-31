@@ -11,7 +11,7 @@
 	<thead>
 		<tr>
 			<th></th>
-			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'Param' | i18n}}</th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}}</th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">Cast Type</th>
 			<th>{{'default' | i18n}}</th>
 			<th colspan="3">{{'addx' | i18n:0:'Config'}}</th></tr>
@@ -19,20 +19,20 @@
 	<tbody>
 		<tr>
 			<td></td>
-			<td><input class="form-control" ng-model="configCtrl.addParam"></td>
-			<td>
+			<td style="min-width:9em"><input class="form-control" ng-model="configCtrl.addParam"></td>
+			<td style="min-width:7em">
 				<select class="form-control" name="casttype" ng-model="configCtrl.addCastType" ng-options="type.val as type.name for type in configCtrl.castTypes">
 				</select>
 			</td>
-			<td ng-class="{ 'has-error': (editForm.defaultVal.$dirty && editForm.defaultVal.$invalid) }"><input class="form-control" name="defaultVal" ng-model="configCtrl.addDefaultVal" ng-pattern="configCtrl.castTypesPattern[configCtrl.addCastType].pattern" placeholder="{{configCtrl.castTypesPattern[configCtrl.addCastType].placeholder}}"></td>
+			<td style="min-width:11em" ng-class="{ 'has-error': (editForm.defaultVal.$dirty && editForm.defaultVal.$invalid) }"><input class="form-control" name="defaultVal" ng-model="configCtrl.addDefaultVal" ng-pattern="configCtrl.castTypesPattern[configCtrl.addCastType].pattern" placeholder="{{configCtrl.castTypesPattern[configCtrl.addCastType].placeholder}}"></td>
 			<td colspan="3"><button btn-spinner="configCtrl.addPromise" ng-click="configCtrl.add()" class="btn btn-default btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 		</tr>
-		<!-- seperator -->
 	</tbody>
+	<!-- seperator -->
 	<thead>
 		<tr>
 			<th>#</th>
-			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'Param' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">Cast Type <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
 			<th>{{'default' | i18n}}</th>
 			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'defintion' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
@@ -40,7 +40,6 @@
 			<th>{{'delete' | i18n}}</th></tr>
 	</thead>
 	<tbody>
-		<!-- seperator -->
 		<tr ng-repeat="config in configCtrl.CONFIGS | filter:query | orderBy:orderByField:reverseSort">
 			<th></th>
 			<td><input class="form-control content-editable" ng-blur="configCtrl.edit(config)" ng-model="config.Param"></td>

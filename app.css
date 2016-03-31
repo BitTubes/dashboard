@@ -239,6 +239,9 @@ notification > .alert-hide {
 .max-w100 {
 	max-width: 100px;
 }
+.max-w120 {
+	max-width: 120px;
+}
 
 .container {
 	overflow: hidden;
