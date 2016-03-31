@@ -34,9 +34,12 @@
 				// app just loaded with an invalid state
 				var lastView = store.get('lastView');
 				// check if saved state is still valid
-				if(!!lastView && !!lastView['state'] && !!$state.get(lastView['state'])) {
-					// last view found and evaluated as valid -> go there
-					return $state.go(lastView['state'],lastView['params']);
+				if(!!lastView && !!lastView['state']) {
+					var stateConfig =  $state.get(lastView['state']);
+					if(stateConfig && !stateConfig.abstract) {
+						// last view found and evaluated as valid -> go there
+						return $state.go(lastView['state'],lastView['params']);
+					}
 				}
 			}
 			// fallback, go to default state
