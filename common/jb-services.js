@@ -86,7 +86,8 @@
 		return {
 			"setFields" : setFields,
 			"makeBackup": makeBackup,
-			"wasChangedNotEmpty": wasChangedNotEmpty
+			"wasChanged": wasChanged,
+			"wasChangedNotEmpty": wasChangedNotEmpty,
 		};
 
 		function setFields(arr) {
@@ -100,6 +101,14 @@
 			for (var i = fields.length - 1; i >= 0; i--) {
 				obj[fields[i]+'Bak'] = obj[fields[i]];
 			}
+		}
+		function wasChanged(obj) {
+			for (var i = fields.length - 1; i >= 0; i--) {
+				if(obj[fields[i]+'Bak'] != obj[fields[i]]) {
+					return true;
+				}
+			}
+			return false;
 		}
 		function wasChangedNotEmpty(obj) {
 			for (var i = fields.length - 1; i >= 0; i--) {

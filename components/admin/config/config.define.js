@@ -33,7 +33,7 @@
 
 
 		function edit(definition) {
-			if(!definition['txt']) {
+			if(!definition['txt'] && smartUpdate.wasChanged(definition)) {
 				del_db(definition);
 				return true;
 			}
@@ -71,14 +71,15 @@
 					delete availableLocales[data[i]['locale']];
 				}
 				vm.LOCALES = data;
-				console.log(vm.LOCALES);
+				// console.log(vm.LOCALES);
 
 				// add missing elements to array
 				for(var el in availableLocales) {
 					vm.LOCALES.push({
 						'locale':el, 
 						'localeName':availableLocales[el],
-						'txt':null,
+						'txt':"",
+						'txtBak':"",
 						'ID':config_ID
 					});
 				}
