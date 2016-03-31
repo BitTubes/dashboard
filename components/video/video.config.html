@@ -3,9 +3,9 @@
 	<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
 	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" ng-if="videoConfigCtrl.video_ID">
 	<!-- ----------------------- CURRENT VIDEO ------------------ -->
-	<form name="editFormVideo" novalidate ng-if="videoConfigCtrl.video_ID">
+	<form name="editFormVideo" novalidate>
 	<table class="table table-hover table-striped table-condensed">
 	<caption>{{'xfory' | i18n:0:['Config',videoConfigCtrl.videoName]}}</caption>
 	<thead>
@@ -35,7 +35,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
 			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'yourx' | i18n:0:'value'}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
 			<th>{{'delete' | i18n}}</th></tr>
@@ -45,14 +45,19 @@
 			<th></th>
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
-			<td ng-class="[{'has-error': (editFormVideo['defaultVal'+$index].$dirty&&editFormVideo['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]"><input class="form-control" name="defaultVal{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}"></td>
+			<td ng-class="[{'has-error': (editFormVideo['Val'+$index].$dirty&&editFormVideo['Val'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
+				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+
+				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
 			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>
 	</table>
 	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGSVIDEO && !videoConfigCtrl.MYCONFIGSVIDEO.length" class="alert alert-info">{{'noentries' | i18n}}</div>
 </div>
-<hr>
+<hr ng-if="videoConfigCtrl.video_ID">
 <div class="table-responsive">
 	<!-- ---------------------- ACCOUNT ------------------ -->
 	
@@ -86,7 +91,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
 			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'yourx' | i18n:0:'value'}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
 			<th>{{'delete' | i18n}}</th></tr>
@@ -96,12 +101,17 @@
 			<th></th>
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
-			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]"><input class="form-control" name="defaultVal{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}"></td>
+			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
+				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+
+				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
 			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>
 	</table>
 	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGS && !videoConfigCtrl.MYCONFIGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>
 </div>
 <hr>
 <div class="table-responsive">
@@ -111,9 +121,9 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='Param'></span></th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
-			<th>{{'value' | i18n:2}}</th>
+			<th>{{'value' | i18n:1}}</th>
 			<th>{{'defintion' | i18n}}</th>
 	</thead>
 	<tbody>

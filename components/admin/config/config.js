@@ -90,6 +90,8 @@
 				vm.addParam = null;
 				vm.addCastType = '';
 				vm.addDefaultVal = '';
+
+				document.getElementById('addParam').focus();
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
