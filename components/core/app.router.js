@@ -158,14 +158,14 @@
 						controller: 'videoModController',
 						controllerAs: 'videoModCtrl'
 					},
-					// {
-					// 	state: 'video.config',
-					// 	title: 'config',
-					// 	url: '/config/:id',
-					// 	templateUrl: 'components/video/video.config.html',
-					// 	controller: 'videoConfigController',
-					// 	controllerAs: 'videoConfigCtrl'
-					// }
+					{
+						state: 'videos.config',
+						title: 'config',
+						url: '/config/:id',
+						templateUrl: 'components/video/video.config.html',
+						controller: 'videoConfigController',
+						controllerAs: 'videoConfigCtrl'
+					}
 				]
 			},
 			{

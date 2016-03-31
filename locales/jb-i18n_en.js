@@ -32,6 +32,7 @@
 				"deletex": "Delete {0}",
 				"delme": "You are about to delete YOU OWN account",
 				"developer": "Developer",
+				"documentation": "Documentation",
 				"edit": "Edit",
 				"editx": "Edit {0}",
 				"error": "Error",
@@ -69,6 +70,9 @@
 				"note_xreactivated": "{0} re-activated",
 				"note_xupdated": "{0} updated",
 				"openxiny": "Open {0} in {1}",
+				"organisation": "Organisation",
+				"other": "Other",
+				"parameter": "Parameter",
 				"password": "Password",
 				"playlist": ["Playlist","Playlists"],
 				"post_status-1": "Hidden (auto)",
@@ -93,7 +97,9 @@
 				"t_year": ["year", "years"],
 				"token": "Token",
 				"tox": "To {0}",
+				"type": "Type",
 				"user": ["User","Users"],
+				"value": ["Value","Values"],
 				"video": ["Video","Videos"],
 				"video_time": "Video-Time",
 				"wait_addingx": "Adding {0} - please wait.",
@@ -101,8 +107,10 @@
 				"warning": "Warning",
 				"xago": "{0} {1} ago",
 				"xepxiresy": "{0} expires {1}",
+				"xfory": "{0} for {1}",
 				"xony": "{0} on {1}",
 				"yourcurrentx": "Your current {0}",
+				"yourx": "Your {0}",
 			}
 		};
 		return vm.allLocales;

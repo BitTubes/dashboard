@@ -310,3 +310,10 @@ td.input-group > select { /* for comment-status */
 .label-as-badge {
     border-radius: 1em;
 }
+
+.pre {
+	white-space: pre;
+}
+.unknown .form-control-static {
+	color: #a94442;
+}
