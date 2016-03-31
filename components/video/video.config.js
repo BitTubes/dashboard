@@ -178,7 +178,7 @@
 				.then(function(response){
 					response.video_ID = null;
 					vm.MYCONFIGS = _processConfigList(response, 'used');
-					vm.MYCONFIGS_ = response.data['Config'];
+					vm.MYCONFIGS_ = response.data['Config'] || {};
 				},
 				Auth.checkHttpStatus.bind(Auth));
 
@@ -188,7 +188,7 @@
 					.then(function(response){
 						response.video_ID = vm.video_ID;
 						vm.MYCONFIGSVIDEO = _processConfigList(response, 'usedVideo');
-						vm.MYCONFIGSVIDEO_ = response.data['Config'];
+						vm.MYCONFIGSVIDEO_ = response.data['Config'] || {};
 					},
 					Auth.checkHttpStatus.bind(Auth));
 				}
