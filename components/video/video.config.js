@@ -39,9 +39,9 @@
 		vm.delete = del;
 		vm.edit = edit;
 		vm.maxLocales = $rootScope.availableLocales.length;
-		vm.MYCONFIGS = [];
+		vm.MYCONFIGS = null;
 		vm.MYCONFIGS_ = {};
-		vm.MYCONFIGSVIDEO = [];
+		vm.MYCONFIGSVIDEO = null;
 		vm.MYCONFIGSVIDEO_ = {};
 		vm.selectDefault = selectDefault;
 		vm.selectDefaultVideo = selectDefaultVideo;
