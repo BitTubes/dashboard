@@ -317,6 +317,18 @@ td.input-group > select { /* for comment-status */
 .pre {
 	white-space: pre;
 }
+.prewrap {
+	white-space: pre-wrap;
+}
+.nowrap {
+	white-space: nowrap;
+}
 .unknown .form-control-static {
 	color: #a94442;
+}
+.mo-only {
+	display: none;
+}
+*:hover>.mo-only {
+	display: inline-block;
 }
