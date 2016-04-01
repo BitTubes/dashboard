@@ -23,9 +23,9 @@
 		<tr ng-attr-id="video{{video.ID}}" ng-class="{ public0:!video.Public }" ng-repeat="video in videoCtrl.VIDEOS | filter:query | orderBy:orderByField:reverseSort">
 			<th></th>
 			<td class="name"><a href="/play/?v={{API}}-{{video.UID}}" target="_blank">{{video.Name}}</a></td>
-			<td title="{{video.created}}">{{video.created | elapsed}}</td>
+			<td title="{{video.created}}" class="input-sm nowrap">{{video.created | elapsed}}</td>
 			<td>{{video.posts}}</td>
-			<td title="{{video.lastpost}}">{{video.lastpost | elapsed:'-'}}</td>
+			<td title="{{video.lastpost}}" class="input-sm nowrap">{{video.lastpost | elapsed:'-'}}</td>
 			<td><button ui-sref="videos.moderate({id:video.ID})" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></button></td>
 			<td><button ui-sref="videos.config({id:video.ID})" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button></td>
 			<td><button btn-spinner="video.publishPromise" ng-click="videoCtrl.publish(video)" class="btn btn-default btn-sm" title="{{video.Public?'hide':'publish' | i18n}}"><span class="glyphicon" ng-class="{'glyphicon-eye-open':video.Public, 'glyphicon-eye-close':!video.Public}"></span></button></td>

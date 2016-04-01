@@ -293,7 +293,7 @@ td.input-group > select { /* for comment-status */
 }
 .bool::before {
 	position: absolute;
-	padding: 12px 24px;
+	padding: 10px 24px;
 	z-index: 0;
 	pointer-events: none;
 	top: 0;
