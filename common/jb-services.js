@@ -21,7 +21,7 @@
 						params: params,
 						// paramSerializer: '$httpParamSerializerJQLike',
 						// withCredentials:true
-						timeout: 5000,
+						// timeout: 5000,
 						headers: {
 							'Authorization': 'Bearer ' + store.get('token')
 						}
@@ -36,7 +36,7 @@
 						// params: params,
 						// paramSerializer: '$httpParamSerializerJQLike',
 						// withCredentials:true
-						timeout: 5000,
+						// timeout: 5000,
 						headers: {
 							'Content-Type': 'application/x-www-form-urlencoded',
 							'Authorization': 'Bearer ' + store.get('token')
