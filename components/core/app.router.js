@@ -118,7 +118,7 @@
 			}
 
 			// set lastView for otherwise-state switcher
-			if(toState.state !== "login") {
+			if(!toState.public) {
 				store.set('lastView', {'state':toState.state,'params':toParams});
 			}
 			// udpate website title
