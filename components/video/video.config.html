@@ -30,6 +30,9 @@
 			</td>
 			<td><button btn-spinner="videoConfigCtrl.addPromise" ng-click="videoConfigCtrl.addVideo()" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 		</tr>
+		<tr ng-show="videoConfigCtrl.addVideoObj" class="prewrap info">
+			<td colspan="5">{{videoConfigCtrl.addVideoObj.txt}}</td>
+		</tr>
 	</tbody>
 	<!-- existing -->
 	<thead>
@@ -46,11 +49,11 @@
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
 			<td ng-class="[{'has-error': (editFormVideo['Val'+$index].$dirty&&editFormVideo['Val'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
-				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+				<input ng-if="!config.showSelect" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
 
-				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+				<select ng-if="config.showSelect && config.options.length" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
 			</td>
-			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>
 	</table>
@@ -86,6 +89,9 @@
 			</td>
 			<td><button btn-spinner="videoConfigCtrl.addPromise" ng-click="videoConfigCtrl.addGeneral()" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 		</tr>
+		<tr ng-show="videoConfigCtrl.addObj && videoConfigCtrl.addObj.txt" class="prewrap info">
+			<td colspan="5">{{videoConfigCtrl.addObj.txt}}</td>
+		</tr>
 	</tbody>
 	<!-- existing -->
 	<thead>
@@ -102,11 +108,11 @@
 			<td><span class="form-control-static">{{config.Param}}</span></td>
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
 			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },{'bool1': config.CastType=='bool' && config.Val==='1', 'bool0': config.CastType=='bool' && config.Val==='0'},config.CastType]">
-				<input ng-if="!config.showSelect" class="form-control" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+				<input ng-if="!config.showSelect" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
 
-				<select ng-if="config.showSelect && config.options.length" class="form-control" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+				<select ng-if="config.showSelect && config.options.length" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
 			</td>
-			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 		</tr>
 	</tbody>
 	</table>
@@ -123,7 +129,7 @@
 			<th>#</th>
 			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
 			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
-			<th>{{'value' | i18n:1}}</th>
+			<th>{{'default' | i18n:1}}</th>
 			<th>{{'defintion' | i18n}}</th>
 	</thead>
 	<tbody>
@@ -132,7 +138,7 @@
 			<td>{{config.Param}}</td>
 			<td>{{videoConfigCtrl.castTypes[config.CastType].name}}</td>
 			<td class="inline" ng-class="[{'bool1': config.CastType=='bool' && config.DefaultVal==='1', 'bool0': config.CastType=='bool' && config.DefaultVal==='0'},config.CastType]" ng-bind-html="config.DefaultValHtml"></td>
-			<td class="pre">{{config.txt}}</td>
+			<td class="prewrap"><button ng-if="ME.user.admin" ui-sref="config.define({id:config.ID})" class="btn btn-default btn-xs mo-only"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>{{config.txt}}</td>
 		</tr>
 	</tbody>
 	</table>

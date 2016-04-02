@@ -118,7 +118,7 @@
 			}
 
 			// set lastView for otherwise-state switcher
-			if(toState.state !== "login") {
+			if(!toState.public) {
 				store.set('lastView', {'state':toState.state,'params':toParams});
 			}
 			// udpate website title
@@ -196,15 +196,15 @@
 				controller: 'loginController',
 				controllerAs: 'loginCtrl'
 			},
-			// {
-			// 	public: true,
-			// 	state: 'lost-password',
-			// 	title: 'lost-password',
-			// 	url: '/lost-password/:token',
-			// 	templateUrl: 'components/core/lostpassword.html',
-			// 	controller: 'lostController',
-			// 	controllerAs: 'lostCtrl'
-			// },
+			{
+				public: true,
+				state: 'forgotpw',
+				title: 'forgotpw',
+				url: '/forgot-password/:token',
+				templateUrl: 'components/core/forgotpw.html',
+				controller: 'forgotPwController',
+				controllerAs: 'forgotPwCtrl'
+			},
 			{
 				public: false,
 				state: 'developer',

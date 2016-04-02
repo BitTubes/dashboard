@@ -293,7 +293,7 @@ td.input-group > select { /* for comment-status */
 }
 .bool::before {
 	position: absolute;
-	padding: 12px 24px;
+	padding: 10px 24px;
 	z-index: 0;
 	pointer-events: none;
 	top: 0;
@@ -317,6 +317,18 @@ td.input-group > select { /* for comment-status */
 .pre {
 	white-space: pre;
 }
+.prewrap {
+	white-space: pre-wrap;
+}
+.nowrap {
+	white-space: nowrap;
+}
 .unknown .form-control-static {
 	color: #a94442;
+}
+.mo-only {
+	display: none;
+}
+*:hover>.mo-only {
+	display: inline-block;
 }

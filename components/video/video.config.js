@@ -39,9 +39,9 @@
 		vm.delete = del;
 		vm.edit = edit;
 		vm.maxLocales = $rootScope.availableLocales.length;
-		vm.MYCONFIGS = [];
+		vm.MYCONFIGS = null;
 		vm.MYCONFIGS_ = {};
-		vm.MYCONFIGSVIDEO = [];
+		vm.MYCONFIGSVIDEO = null;
 		vm.MYCONFIGSVIDEO_ = {};
 		vm.selectDefault = selectDefault;
 		vm.selectDefaultVideo = selectDefaultVideo;
@@ -283,13 +283,16 @@
 			vm.addVal = '';
 		}
 		function _processAddVideo(config) {
-			// add to UI
-			vm.MYCONFIGSVIDEO.push(config);
-			vm.MYCONFIGSVIDEO_[config['Param']] = config['Val'];
 			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
 			if(defaultConfig) { // legacy check
 				defaultConfig['usedVideo'] = true;
+				config['defaultOption'] = defaultConfig['defaultOption'];
+				config['options'] = defaultConfig['options'];
+				config['showSelect'] = defaultConfig['showSelect'];
 			}
+			// add to UI
+			vm.MYCONFIGSVIDEO.push(config);
+			vm.MYCONFIGSVIDEO_[config['Param']] = config['Val'];
 			// console.info('defaultConfig', defaultConfig);
 			// reset form
 			vm.addVideoObj = null;
