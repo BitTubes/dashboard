@@ -8,20 +8,21 @@
 
 	auth.$inject = ['$rootScope', '$state', '$timeout', 'http', 'notification', 'store', 'i18n'];
 	function auth($rootScope, $state, $timeout, http, note, store, _){
+		/* jshint validthis:true */
 		var vm = this;
 		var account;
 		var minTokenTTL = 60;
 		return {
 			authenticate: authenticate,
-			tryReauthentication: tryReauthentication,
-			logout: logout,
-			showLogin: showLoginView,
-			redirect: redirect,
 			checkHttpStatus: checkHttpStatus,
-			saveToken: saveToken,
-			refreshToken: refreshToken,
+			isAdmin: isAdmin,
 			isAuthenticated: isAuthenticated,
-			isAdmin: isAdmin
+			logout: logout,
+			redirect: redirect,
+			refreshToken: refreshToken,
+			saveToken: saveToken,
+			showLogin: showLoginView,
+			tryReauthentication: tryReauthentication,
 		};
 
 		/////////////////////

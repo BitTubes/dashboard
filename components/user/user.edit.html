@@ -7,7 +7,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.login.$dirty && editForm.login.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="login">Login:</label>
 		<div class="col-sm-9">
-		<input class="form-control" type="text" autocomplete="off" name="login" id="login" 
+		<input class="form-control" type="email" autocomplete="off" name="login" id="login" 
 		ng-model="newLogin"
 		ng-minlength="loginMin" 
 		ng-maxlength="loginMax"

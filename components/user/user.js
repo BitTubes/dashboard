@@ -184,9 +184,10 @@
 
 				// I changed my own password - re-init entire UI
 				if($rootScope.ME['user']['login'] == user['login']) {
-					$timeout(function() {
-						location.reload();
-					},3000);
+					Auth.logout(true);
+					// $timeout(function() {
+					// 	location.reload();
+					// },3000);
 				}
 			},
 			Auth.checkHttpStatus.bind(Auth));
