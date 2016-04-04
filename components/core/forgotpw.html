@@ -45,7 +45,7 @@
 	</div>
 	<div class="form-group" ng-if="forgotPwCtrl.showLogin || forgotPwCtrl.showPassword">
 		<div class="col-sm-offset-3 col-sm-4">
-		<button class="btn btn-primary btn-lg" type="submit">{{'submit' | i18n}}</button>
+		<button btn-spinner="forgotPwCtrl.promise" class="btn btn-primary btn-lg" type="submit">{{'submit' | i18n}}</button>
 		</div>
 	</div>
 </form>
