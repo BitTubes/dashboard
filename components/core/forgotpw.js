@@ -10,6 +10,7 @@
 		/* jshint validthis:true */
 		var vm = this;
 		vm.login = null;
+		vm.promise = null;
 		vm.pw = null;
 		vm.resetToken = $stateParams.token || false;
 		vm.sendData = sendData;
@@ -40,9 +41,9 @@
 
 		function sendData() {
 			if(vm.showLogin && vm.login) {
-				_resetTokenGet(vm.login);
+				vm.promise = _resetTokenGet(vm.login);
 			} else if(vm.showPassword && vm.pw && vm.resetToken) {
-				_resetPassword(vm.resetToken, vm.pw);
+				vm.promise = _resetPassword(vm.resetToken, vm.pw);
 			}
 		}
 
@@ -95,7 +96,7 @@
 			});
 		}
 		function _resetTokenTest(token) {
-			http.post($rootScope.uriApiCms+'testResetToken', { 'api': $rootScope.DEFAULT_API, 'p':{'token':token} })
+			vm.promise = http.post($rootScope.uriApiCms+'testResetToken', { 'api': $rootScope.DEFAULT_API, 'p':{'token':token} })
 			.then(function(response){
 				vm.login = response.data['login'];
 				if(vm.login) {

@@ -1,0 +1,28 @@
+{
+  "name": "BT-dashboard",
+  "homepage": "https://github.com/BitTubes/dashboard",
+  "authors": [
+    "Jörn Berkefeld <joern.berkefeld@bittubes.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-animate": "1.5.3",
+    "angular-messages": "1.5.3",
+    "angular-bootstrap": "^1.3.1",
+    "angular-ui-router": "^0.2.18",
+    "ng-showdown": "^1.1.0"
+  }
+}

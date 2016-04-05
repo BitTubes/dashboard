@@ -24,6 +24,8 @@
 	</table>
 </div>
 <form class="form-horizontal">
+	<div class="alert alert-info" role="alert">Styling with <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" class="alert-link">Markdown</a> is supported.</div>
+	<p class="help-block"></p>
 	<div class="form-group" ng-repeat="def in configDefCtrl.LOCALES | filter:query | orderBy:'localesName':true">
 		<label class="col-md-1 control-label" for="txt{{$index}}">{{def.localeName}}</label>
 		<div class="col-md-11"><textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt"></textarea></div>

@@ -11,10 +11,11 @@
 		var vm = this;
 		var redirectUrl = $stateParams.redirect || false;
 		vm.login = null;
+		vm.promise = null;
 		vm.pw = null;
 		vm.spinning = true;
 		vm.authenticate = function() {
-			Auth.authenticate(vm.login,vm.pw, redirectUrl);
+			vm.promise = Auth.authenticate(vm.login,vm.pw, redirectUrl);
 		};
 
 		vm.tryReauthPromise = Auth.tryReauthentication(redirectUrl);

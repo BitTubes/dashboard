@@ -200,9 +200,11 @@
 			var data = [];
 			var defaultConfig;
 			var defaultOption = null;
+			var DefaultVal = null;
 			var options = null;
 			var row;
-			var showSelect = false;
+			var formType;
+
 			var value;
 			for (var el in response.data['Config']) {
 				value = response.data['Config'][el];
@@ -211,26 +213,29 @@
 				if(defaultConfig) {
 					defaultConfig[usedParam] = true;
 					castType = defaultConfig['CastType'];
-					showSelect = defaultConfig['showSelect'];
+					formType = defaultConfig['formType'];
 					options = defaultConfig['options'];
 					defaultOption = defaultConfig['defaultOption'];
+					DefaultVal = defaultConfig['DefaultVal'];
 					// console.log('defaultConfig', defaultConfig);
 					if(options.length && options.indexOf(value)===-1) {
 						console.warn("bad value for '"+el+"' detected:",value,"allowed:",options);
 					}
 				} else {
 					castType = null;
-					showSelect = false;
+					formType = 'text';
 					options = null;
 					defaultOption = null;
+					DefaultVal = null;
 					console.warn('unknown config detected');
 				}
 				row = {
 					'CastType': castType,
 					'defaultOption': defaultOption,
+					'DefaultVal': DefaultVal,
 					'options': options,
 					'Param': el,
-					'showSelect': showSelect,
+					'formType': formType,
 					'Val': value,
 					'Video_ID': response.video_ID,
 				};
@@ -251,7 +256,7 @@
 			}
 			var options = config['DefaultVal'].split('|');
 			if(options.length>1) {
-				config['showSelect'] = true;
+				config['formType'] = 'select';
 				config['options'] = options;
 				config['defaultOption'] = options[0];
 				
@@ -260,19 +265,28 @@
 				options[0] = '<u>'+ options[0] + '</u> ('+ _('default')+ ')';
 				config['DefaultValHtml'] =  $sce.trustAsHtml(options.join(', '));
 			} else {
-				config['showSelect'] = false;
+				config['formType'] = config['CastType']=='bool' ? 'radio' : 'text';
 				config['options'] = [];
-				config['DefaultValHtml'] = $sce.trustAsHtml(config['DefaultVal'] || '');
+				var DefaultValHtml = config['DefaultVal'] || '';
+				if(config['CastType']=='bool') {
+					DefaultValHtml = DefaultValHtml ? 'true':'false';
+				}
+				config['DefaultValHtml'] = $sce.trustAsHtml(DefaultValHtml);
+			}
+		}
+		function _process_defaults(config, usedField) {
+			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
+			if(defaultConfig) { // legacy check
+				defaultConfig[usedField] = true;
+				config['defaultOption'] = defaultConfig['defaultOption'];
+				config['options'] = defaultConfig['options'];
+				config['DefaultVal'] = defaultConfig['DefaultVal'];
+				config['formType'] = defaultConfig['formType'];
+
 			}
 		}
 		function _processAddGeneral(config) {
-			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
-			if(defaultConfig) { // legacy check
-				defaultConfig['used'] = true;
-				config['defaultOption'] = defaultConfig['defaultOption'];
-				config['options'] = defaultConfig['options'];
-				config['showSelect'] = defaultConfig['showSelect'];
-			}
+			_process_defaults(config, 'used');
 
 			// add to UI
 			vm.MYCONFIGS.push(config);
@@ -283,13 +297,8 @@
 			vm.addVal = '';
 		}
 		function _processAddVideo(config) {
-			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
-			if(defaultConfig) { // legacy check
-				defaultConfig['usedVideo'] = true;
-				config['defaultOption'] = defaultConfig['defaultOption'];
-				config['options'] = defaultConfig['options'];
-				config['showSelect'] = defaultConfig['showSelect'];
-			}
+			_process_defaults(config, 'usedVideo');
+
 			// add to UI
 			vm.MYCONFIGSVIDEO.push(config);
 			vm.MYCONFIGSVIDEO_[config['Param']] = config['Val'];
@@ -302,14 +311,6 @@
 			// console.info('Modal dismissed at: ' + new Date());
 		}
 		function add_db(config, callback) {
-			// test if we already have a parameter with that value in our UI
-			// for (var i = vm.CONFIGS.length - 1; i >= 0; i--) {
-			// 	if(p['Param']===vm.CONFIGS[i]['Param']) {
-			// 		smartUpdate.makeBackup(p);
-			// 		return edit_db(p);
-			// 	}
-			// }
-
 			// update DB if no double was found
 			vm.addPromise = http.post($scope.uriApiVideo+'saveConfig', {
 				'api': $rootScope.API, 

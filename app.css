@@ -311,7 +311,7 @@ td.input-group > select { /* for comment-status */
 }
 
 .label-as-badge {
-    border-radius: 1em;
+	border-radius: 1em;
 }
 
 .pre {
@@ -331,4 +331,31 @@ td.input-group > select { /* for comment-status */
 }
 *:hover>.mo-only {
 	display: inline-block;
+}
+
+.site-footer {
+	margin-top: 2em;
+	position: relative;
+	display: block;
+	padding: 2em 0;
+	border-top: 1px solid #eee;
+	color: #999;
+	font-size: 82%;
+}
+.defaultVal {
+	text-decoration: underline;
+}
+.defaultVal::after {
+	content: "default";
+	position: absolute;
+	bottom: -2.5em;
+	right:-4.5em;
+	background-color: #d9edf7;
+	padding:0.5em;
+	border: 1px solid #bce8f1;
+	border-radius: 4px;
+	display: none;
+}
+.defaultVal:hover::after {
+	display: block;
 }
