@@ -311,7 +311,7 @@ td.input-group > select { /* for comment-status */
 }
 
 .label-as-badge {
-    border-radius: 1em;
+	border-radius: 1em;
 }
 
 .pre {
@@ -334,11 +334,11 @@ td.input-group > select { /* for comment-status */
 }
 
 .site-footer {
-    margin-top: 2em;
-    position: relative;
-    display: block;
-    padding: 2em 0;
-    border-top: 1px solid #eee;
-    color: #999;
-    font-size: 82%;
+	margin-top: 2em;
+	position: relative;
+	display: block;
+	padding: 2em 0;
+	border-top: 1px solid #eee;
+	color: #999;
+	font-size: 82%;
 }
