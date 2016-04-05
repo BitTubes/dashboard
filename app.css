@@ -332,3 +332,13 @@ td.input-group > select { /* for comment-status */
 *:hover>.mo-only {
 	display: inline-block;
 }
+
+.site-footer {
+    margin-top: 2em;
+    position: relative;
+    display: block;
+    padding: 2em 0;
+    border-top: 1px solid #eee;
+    color: #999;
+    font-size: 82%;
+}

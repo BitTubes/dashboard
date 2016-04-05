@@ -51,6 +51,7 @@
 				"fpw_sent_title": "Anweisungen versendet!",
 				"fromx": "Von {0}",
 				"generate": "Generieren",
+				"help": "Hilfe",
 				"hide": "verstecken",
 				"inx": "in {0} {1}",
 				"justnow": "gerade eben",

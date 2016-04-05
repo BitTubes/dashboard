@@ -51,6 +51,7 @@
 				"fpw_sent_title": "Instructions sent!",
 				"fromx": "From {0}",
 				"generate": "Generate",
+				"help": "Help",
 				"hide": "hide",
 				"inx": "in {0} {1}",
 				"justnow": "just now",
