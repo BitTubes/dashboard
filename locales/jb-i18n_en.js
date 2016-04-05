@@ -74,7 +74,7 @@
 				"note_published1": "{0} is now public",
 				"note_pwupdated": "Password for {0} updated",
 				"note_statuschg": "Status updated",
-				"note_xadded": "New {0} added",
+				"note_xadded": "{0} added",
 				"note_xdeleted": "{0} deleted",
 				"note_xreactivated": "{0} re-activated",
 				"note_xupdated": "{0} updated",
