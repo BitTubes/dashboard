@@ -265,14 +265,19 @@
 				config['DefaultValHtml'] = $sce.trustAsHtml(config['DefaultVal'] || '');
 			}
 		}
-		function _processAddGeneral(config) {
+		function _process_defaults(config, usedField) {
 			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
 			if(defaultConfig) { // legacy check
-				defaultConfig['used'] = true;
+				defaultConfig[usedField] = true;
 				config['defaultOption'] = defaultConfig['defaultOption'];
 				config['options'] = defaultConfig['options'];
-				config['showSelect'] = defaultConfig['showSelect'];
+				config['DefaultVal'] = defaultConfig['DefaultVal'];
+				config['formType'] = defaultConfig['formType'];
+
 			}
+		}
+		function _processAddGeneral(config) {
+			_process_defaults(config, 'used');
 
 			// add to UI
 			vm.MYCONFIGS.push(config);
@@ -283,13 +288,8 @@
 			vm.addVal = '';
 		}
 		function _processAddVideo(config) {
-			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
-			if(defaultConfig) { // legacy check
-				defaultConfig['usedVideo'] = true;
-				config['defaultOption'] = defaultConfig['defaultOption'];
-				config['options'] = defaultConfig['options'];
-				config['showSelect'] = defaultConfig['showSelect'];
-			}
+			_process_defaults(config, 'usedVideo');
+
 			// add to UI
 			vm.MYCONFIGSVIDEO.push(config);
 			vm.MYCONFIGSVIDEO_[config['Param']] = config['Val'];
