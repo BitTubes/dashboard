@@ -359,3 +359,15 @@ td.input-group > select { /* for comment-status */
 .defaultVal:hover::after {
 	display: block;
 }
+
+.preview {
+	display: none;
+}
+input:focus + .preview,
+select:focus + .preview,
+textarea:focus + .preview {
+	display: block;
+}
+.panel > .form-control {
+    border: none;
+}

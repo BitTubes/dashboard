@@ -28,6 +28,11 @@
 	<p class="help-block"></p>
 	<div class="form-group" ng-repeat="def in configDefCtrl.LOCALES | filter:query | orderBy:'localesName':true">
 		<label class="col-md-1 control-label" for="txt{{$index}}">{{def.localeName}}</label>
-		<div class="col-md-11"><textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt"></textarea></div>
+		<div class="col-md-11">
+			<div class="panel panel-default">
+				<textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt"></textarea>
+				<div ng-show="def.txt" class="prewrap preview panel-footer"><div markdown-to-html="def.txt || ''"></div></div>
+			</div>
+		</div>
 	</div>
 </form>
