@@ -30,7 +30,7 @@
 		<label class="col-md-1 control-label" for="txt{{$index}}">{{def.localeName}}</label>
 		<div class="col-md-11">
 			<div class="panel panel-default">
-				<textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt"></textarea>
+				<textarea id="txt{{$index}}" ng-blur="configDefCtrl.edit(def)" class="form-control resize-y" rows="3" ng-model="def.txt" lang="{{def.locale}}"></textarea>
 				<div ng-show="def.txt" class="prewrap preview panel-footer"><div markdown-to-html="def.txt || ''"></div></div>
 			</div>
 		</div>
