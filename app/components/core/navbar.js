@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 	angular
-		.module('bittubes')
+		.module('bt.dashboard')
 		.directive("btNavbar", navbarDirective)
 		.controller("navbarController", navbarController);
 

@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('bittubes')
+	angular.module('bt.dashboard')
 		.directive('btnSpinner', btnSpinner);
 		// .directive('spinnerController', ['$scope',spinnerController]);
 

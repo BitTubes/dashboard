@@ -1,7 +1,7 @@
 describe('Directive: btn-spinner', function() {
 
   // load the directive's module
-  beforeEach(module('portal.util'));
+  beforeEach(module('bt.dashboard'));
 
   var element;
   var linker;

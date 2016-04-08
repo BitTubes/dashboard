@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular
-		.module('bittubes')
+		.module('bt.dashboard')
 		.factory('AUTH', auth);
 
 

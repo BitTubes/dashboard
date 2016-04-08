@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 	angular
-		.module('bittubes')
+		.module('bt.dashboard')
 		.controller("loginController", loginController);
 
 

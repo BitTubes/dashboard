@@ -1,6 +1,6 @@
 (function() {
 	"use strict";
-	angular.module('bittubes')
+	angular.module('bt.dashboard')
 		.controller('customerController', customerController)
 		// .controller('customerWaitController', customerWaitController)
 		.controller('customerEditModalCtrl', customerEditModalCtrl);

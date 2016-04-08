@@ -7,7 +7,7 @@
 	var tabs; // defined below
 
 	angular
-		.module('bittubes')
+		.module('bt.dashboard')
 		.config(appConfig)
 		.run(appRun);
 
