@@ -18,6 +18,9 @@
 		vm.tabs = $rootScope.tabs.app;
 		vm.tabsAdmin = $rootScope.tabs.admin;
 
+		vm.imageS = 'img/Icon_Final_48.png';
+		vm.imageL = 'img/Logo_Bittubes_245x40.png';
+
 
 		function changeAccount(newAccount) {
 			// make sure the nav is collapsed (req. for smaller screens)
