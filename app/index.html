@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="bt.dashboard">
+<head>
+	<meta charset=utf-8>
+	<title ng-bind="'Dashboard: ' + pageTitle + ' - BitTubes'">Dashboard - BitTubes</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- <base href="/dashboard/"></base> -->
+	<meta name="theme-color" content="#000000">
+	<link rel="manifest" href="manifest.json">
+	<!-- web-app old & iOS -->
+<!-- 	<link rel="icon" sizes="192x192" href="img/Icon_Final_128.png">
+	<link rel="icon" sizes="128x128" href="img/Icon_Final_192.png"> -->
+	<link rel="apple-touch-icon" sizes="120x120" href="img/Icon_Final_120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/Icon_Final_152.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="img/Icon_Final_167.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/Icon_Final_180.png">
+	<!-- build:css(.) styles/vendor.css -->
+	<!-- bower:css -->
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:css(.tmp) styles/app.css -->
+	<link rel="stylesheet" href="styles/app.css">
+	<!-- endbuild -->
+  </head>
+  <body>
+	<!--[if lte IE 8]>
+	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+	<bt-navbar></bt-navbar>
+	<div class="container">
+		
+		<ui-view></ui-view>
+
+		<notification></notification>
+		<top-notification></top-notification>
+	</div>
+	<bt-footer></bt-footer>
+
+	<!-- build:js({.,app}) scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/showdown/dist/showdown.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
+	<!-- endbower -->
+	<!-- local libs -->
+	<script src="lib/angular-storage.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="common/app.js"></script>
+	<script src="common/btn-spinner.directive.js"></script>
+	<script src="common/del.js"></script>
+	<script src="common/jb-i18n.js"></script>
+	<script src="common/jb-notification.js"></script>
+	<script src="common/jb-services.js"></script>
+	<script src="components/admin/config/config.js"></script>
+	<script src="components/admin/config/config.define.js"></script>
+	<script src="components/admin/customer/customer.js"></script>
+	<script src="components/admin/sql/sql.js"></script>
+	<script src="components/admin/xcopy/xcopy.js"></script>
+	<script src="components/core/app.auth.js"></script>
+	<script src="components/core/app.router.js"></script>
+	<script src="components/core/footer.js"></script>
+	<script src="components/core/forgotpw.js"></script>
+	<script src="components/core/login.js"></script>
+	<script src="components/core/navbar.js"></script>
+	<script src="components/developer/developer.js"></script>
+	<script src="components/playlist/playlist.js"></script>
+	<script src="components/user/user.js"></script>
+	<script src="components/video/video.config.js"></script>
+	<script src="components/video/video.list.js"></script>
+	<script src="components/video/video.moderate.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

@@ -1,0 +1,175 @@
+<div class="row">
+	<!--Sidebar content-->
+	<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
+	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+</div>
+<div class="table-responsive" ng-if="videoConfigCtrl.video_ID">
+	<!-- ----------------------- CURRENT VIDEO ------------------ -->
+	<form name="editFormVideo" novalidate>
+	<table class="table table-hover table-striped table-condensed">
+	<caption>{{'xfory' | i18n:0:['Config',videoConfigCtrl.videoName]}}</caption>
+	<thead>
+		<tr>
+			<th></th>
+			<th>{{'parameter' | i18n}}</th>
+			<th>{{'type' | i18n}}</th>
+			<th style="min-width:140px">{{'yourx' | i18n:0:'value'}}</th>
+			<th></th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td>
+				<select class="form-control" name="casttype" ng-model="videoConfigCtrl.addVideoObj" ng-change="videoConfigCtrl.selectDefaultVideo()" ng-options="type.Param disable when type.usedVideo for type in videoConfigCtrl.CONFIGS track by type.Param">
+				</select>
+			</td>
+			<td><span class="form-control-static" style="line-height: 2.2em;">{{videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].name || '-'}}</span></td>
+			<td ng-class="{ 'has-error': (editFormVideo.defaultVal.$dirty && editFormVideo.defaultVal.$invalid) }">
+<!-- 				<input ng-if="!videoConfigCtrl.addVideoObj.showSelect" ng-disabled="!videoConfigCtrl.addVideoObj" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-pattern="videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].placeholder}}">
+				<select ng-if="videoConfigCtrl.addVideoObj.showSelect && videoConfigCtrl.addVideoObj.options.length" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-options="o group by getGroup(videoConfigCtrl.addVideoObj,o) for o in videoConfigCtrl.addVideoObj.options"></select> -->
+
+				<input ng-if="videoConfigCtrl.addVideoObj.formType=='text'" ng-disabled="!videoConfigCtrl.addVideoObj" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-pattern="videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].placeholder}}">
+				
+				<p ng-if="videoConfigCtrl.addVideoObj.formType=='radio'">
+					<label class="radio-inline" ng-class="{'defaultVal': 1==videoConfigCtrl.addVideoObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" value="1"> true</label>
+					<label class="radio-inline" ng-class="{'defaultVal': 0==videoConfigCtrl.addVideoObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" value="0"> false</label>
+				</p>
+
+				<select ng-if="videoConfigCtrl.addVideoObj.formType=='select'" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-options="o group by getGroup(videoConfigCtrl.addVideoObj,o) for o in videoConfigCtrl.addVideoObj.options"></select>
+
+			</td>
+			<td><button btn-spinner="videoConfigCtrl.addPromise" ng-click="videoConfigCtrl.addVideo()" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+		</tr>
+		<tr ng-show="videoConfigCtrl.addVideoObj" class="prewrap info">
+			<td colspan="5" markdown-to-html="videoConfigCtrl.addVideoObj.txt || ''"></td>
+		</tr>
+	</tbody>
+	<!-- existing -->
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
+			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
+			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'yourx' | i18n:0:'value'}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
+			<th>{{'delete' | i18n}}</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="config in videoConfigCtrl.MYCONFIGSVIDEO | filter:query | orderBy:orderByField:reverseSort"  ng-class="{'unknown': config.CastType===null}">
+			<th></th>
+			<td><span class="form-control-static">{{config.Param}}</span></td>
+			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
+			<td ng-class="[{'has-error': (editFormVideo['Val'+$index].$dirty&&editFormVideo['Val'+$index].$invalid) },config.CastType]">
+<!-- 				<input ng-if="!config.showSelect" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+
+				<select ng-if="config.showSelect && config.options.length" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select> -->
+				<input ng-if="config.formType=='text'" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+				
+				<p ng-if="config.formType=='radio'">
+					<label class="radio-inline" ng-class="{'defaultVal': 1==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}1" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="1"> true</label>
+					<label class="radio-inline" ng-class="{'defaultVal': 0==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}2" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="0"> false</label>
+				</p>
+
+				<select ng-if="config.formType=='select'" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
+			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGSVIDEO && !videoConfigCtrl.MYCONFIGSVIDEO.length" class="alert alert-info">{{'noentries' | i18n}}</div>
+</div>
+<hr ng-if="videoConfigCtrl.video_ID">
+<div class="table-responsive">
+	<!-- ---------------------- ACCOUNT ------------------ -->
+	
+	<form name="editForm" novalidate>
+	<table class="table table-hover table-striped table-condensed">
+	<caption>{{'xfory' | i18n:0:['Config','organisation']}}</caption>
+	<thead>
+		<tr>
+			<th></th>
+			<th>{{'parameter' | i18n}}</th>
+			<th>{{'type' | i18n}}</th>
+			<th style="min-width:140px">{{'yourx' | i18n:0:'value'}}</th>
+			<th></th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td>
+				<select class="form-control" name="casttype" ng-model="videoConfigCtrl.addObj" ng-change="videoConfigCtrl.selectDefault()" ng-options="type.Param disable when type.used for type in videoConfigCtrl.CONFIGS track by type.Param">
+				</select>
+			</td>
+			<td><span class="form-control-static" style="line-height: 2.2em;">{{videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].name || '-'}}</span></td>
+			<td ng-class="{ 'has-error': (editForm.defaultVal.$dirty && editForm.defaultVal.$invalid) }">
+				<input ng-if="videoConfigCtrl.addObj.formType=='text'" ng-disabled="!videoConfigCtrl.addObj" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVal" ng-pattern="videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].placeholder}}">
+				
+				<p ng-if="videoConfigCtrl.addObj.formType=='radio'">
+					<label class="radio-inline" ng-class="{'defaultVal': 1==videoConfigCtrl.addObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVal" value="1"> true</label>
+					<label class="radio-inline" ng-class="{'defaultVal': 0==videoConfigCtrl.addObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVal" value="0"> false</label>
+				</p>
+
+				<select ng-if="videoConfigCtrl.addObj.formType=='select'" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVal" ng-options="o group by getGroup(videoConfigCtrl.addObj,o) for o in videoConfigCtrl.addObj.options"></select>
+			</td>
+			<td><button btn-spinner="videoConfigCtrl.addPromise" ng-click="videoConfigCtrl.addGeneral()" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+		</tr>
+		<tr ng-show="videoConfigCtrl.addObj && videoConfigCtrl.addObj.txt" class="prewrap info">
+			<td></td>
+			<td colspan="4" markdown-to-html="videoConfigCtrl.addObj.txt || ''"></td>
+		</tr>
+	</tbody>
+	<!-- existing -->
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
+			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
+			<th ng-click="orderByField='locales'; reverseSort = !reverseSort">{{'yourx' | i18n:0:'value'}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='locales'></span></th>
+			<th>{{'delete' | i18n}}</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="config in videoConfigCtrl.MYCONFIGS | filter:query | orderBy:orderByField:reverseSort" ng-class="{'unknown': config.CastType===null}">
+			<th></th>
+			<td><span class="form-control-static">{{config.Param}}</span></td>
+			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
+			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },config.CastType]">
+				<input ng-if="config.formType=='text'" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
+				
+				<p ng-if="config.formType=='radio'">
+					<label class="radio-inline" ng-class="{'defaultVal': 1==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}1" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="1"> true</label>
+					<label class="radio-inline" ng-class="{'defaultVal': 0==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}2" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="0"> false</label>
+				</p>
+
+				<select ng-if="config.formType=='select'" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select>
+			</td>
+			<td><button btn-spinner="config.delPromise" ng-click="videoConfigCtrl.delete(config)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+	<div ng-if="videoConfigCtrl.MYCONFIGS && !videoConfigCtrl.MYCONFIGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>
+</div>
+<hr>
+<div class="table-responsive">
+	<!-- ---------------------- FAQ ------------------ -->
+	<table class="table table-hover table-striped table-condensed">
+	<caption>Config {{'documentation' | i18n}}</caption>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-click="orderByField='Param'; reverseSort = !reverseSort">{{'parameter' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show="orderByField=='Param'"></span></th>
+			<th ng-click="orderByField='CastType'; reverseSort = !reverseSort">{{'type' | i18n}} <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom':reverseSort, 'glyphicon-triangle-top':!reverseSort}" ng-show=orderByField=='CastType'></span></th>
+			<th>{{'default' | i18n:1}}</th>
+			<th>{{'defintion' | i18n}}</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="config in videoConfigCtrl.CONFIGS | filter:query | orderBy:orderByField:reverseSort">
+			<th></th>
+			<td>{{config.Param}} <button ng-if="ME.user.admin" ui-sref="config.define({id:config.ID})" class="btn btn-default btn-xs mo-only"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+			<td>{{videoConfigCtrl.castTypes[config.CastType].name}}</td>
+			<td class="inline" ng-class="[config.CastType]" ng-bind-html="config.DefaultValHtml"></td>
+			<td class="prewrap" markdown-to-html="config.txt || ''"></td>
+		</tr>
+	</tbody>
+	</table>
+</div>

@@ -1,0 +1,55 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" ng-if="ME.user.login" ng-init="cms.navCollapsed = true" ng-click="cms.navCollapsed = !cms.navCollapsed">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#" title="BitTubes"><img ng-src="{{ME.user.login ? cms.imageS : cms.imageL}}" height="20" ng-width="{{ME.user.login ? 20 : 122}}" class="navbar-brand-small"><img ng-src="{{cms.imageL}}" height="20" width="122" class="navbar-brand-big"></a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" ng-class="!cms.navCollapsed && 'in'">
+		<ul class="nav navbar-nav" ng-if="ME.user.login">
+			<!-- account name -->
+			<li class="navbar-text" ng-if="ME.customers.length == 1">{{ACCOUNT.name}}</li>
+			<!-- account switcher -->
+			<li uib-dropdown ng-if="ME.customers.length > 1">
+				<a href="#" class="max-w120 text-overflow" uib-dropdown-toggle>{{ACCOUNT.name}} <b class="caret"></b></a>
+				<ul uib-dropdown-menu>
+					<li ng-if="!account.deleted" ng-repeat="account in ME.customers | orderBy:'name'" ng-class="{active: account.api==ACCOUNT.api}"><a href ng-click="cms.changeAccount(account)">{{account.name}}</a></li>
+				</ul>
+			</li>
+			<!-- app views -->
+			<li ng-repeat="tab in cms.tabs" ui-sref-active="active">
+				<a ng-if="!tab.external" ui-sref="{{tab.subviews ? tab.subviews[0].state : tab.state}}" ng-click="cms.navCollapsed = !cms.navCollapsed">{{tab.title | i18n:2}}</a>
+				<a ng-if="tab.external" ng-href="{{tab.url+'?api='+API+'&access_token='+ME.token}}">{{tab.title | i18n:2}}</a>
+			</li>
+			<!-- admin dropdown -->
+			<li uib-dropdown ng-if="ME.user.admin">
+				<a href="#" uib-dropdown-toggle>Admin <b class="caret"></b></a>
+				<ul uib-dropdown-menu>
+					<li ng-repeat="tab in cms.tabsAdmin" ui-sref-active="active">
+						<a ng-if="!tab.external" ui-sref="{{tab.subviews ? tab.subviews[0].state : tab.state}}" ng-click="cms.navCollapsed = !cms.navCollapsed">{{tab.title | i18n:2:[tab.titleReplacement]}}</a>
+						<a ng-if="tab.external" ng-href="{{tab.url}}" target="_blank">{{tab.title | i18n:2:[tab.titleReplacement]}}</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li uib-dropdown ng-if="ME.user.login">
+				<a href="#" uib-dropdown-toggle>{{ME.user.login}} <b class="caret"></b></a>
+				<ul uib-dropdown-menu>
+					<li ui-sref-active="active"><a href ui-sref="users({editme:'me'})" ng-click="cms.navCollapsed = !cms.navCollapsed">{{'myprofile' | i18n}}</a></li>
+					<li ui-sref-active="active"><a href ui-sref="developer" ng-click="cms.navCollapsed = !cms.navCollapsed">{{'developer' | i18n}}</a></li>
+					<li role="separator" class="divider"></li>
+					<li ng-repeat="locales in availableLocales" ng-class="{active: locale==locales.code}"><a href ng-click="cms.navCollapsed = !cms.navCollapsed;cms.changeLang(locales.code)">{{locales.name}}</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href ng-click="cms.navCollapsed = !cms.navCollapsed;cms.logout()">{{'logout' | i18n}}</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>
