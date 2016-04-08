@@ -297,6 +297,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
+      json: ['<%= yeoman.dist %>/manifest.json'],
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>',
@@ -344,6 +345,20 @@ module.exports = function (grunt) {
             dest:'<%= yeoman.dist %>/locales'
           }
         ]
+      }
+    },
+
+    jsonmin: {
+      dist: {
+        options: {
+          stripWhitespace: true,
+          stripComments: true
+        },
+        files: {
+          '<%= yeoman.dist %>/manifest.json': [
+            '<%= yeoman.dist %>/manifest.json'
+          ]
+        }
       }
     },
 
@@ -433,6 +448,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '*.html',
+            'manifest.json',
             'locales/{,*/}*.*',
             'img/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
@@ -481,6 +497,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-jsonmin');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -521,6 +538,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'jsonmin',
     // 'cdnify',
     'cssmin',
     'uglify',
