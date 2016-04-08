@@ -1,3 +1,8 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
 body { 
 	overflow-y: scroll!important; /* always show scroll bar, prevents jumping of layout after XHR finishes*/
 	padding-top: 70px;
