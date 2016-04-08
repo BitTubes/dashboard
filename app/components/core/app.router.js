@@ -66,9 +66,10 @@
 	function appRun($rootScope, Auth, _, store) {
 		// globals
 		// - API
-		$rootScope.uriApiCms = "/api/cms/2/";
-		$rootScope.uriApiPost = '/api/post/4/';
-		$rootScope.uriApiVideo = "/api/meta/13/";
+		var server = 'https://nlv.bittubes.com/api/';
+		$rootScope.uriApiCms = server + 'cms/2/';
+		$rootScope.uriApiPost = server + 'post/4/';
+		$rootScope.uriApiVideo = server + 'meta/13/';
 		// - patterns used for login and add/edit user
 		$rootScope.loginMax = 50;
 		$rootScope.loginMin = 5;
