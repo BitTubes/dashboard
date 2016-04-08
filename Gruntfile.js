@@ -39,6 +39,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: [
+          '<%= yeoman.app %>/locales/{,*/}*.js',
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
         ],
@@ -333,6 +334,18 @@ module.exports = function (grunt) {
     // concat: {
     //   dist: {}
     // },
+    uglify: {
+      locales: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: '<%= yeoman.app %>/locales/*.js',
+            dest:'<%= yeoman.dist %>/locales'
+          }
+        ]
+      }
+    },
 
     imagemin: {
       dist: {
@@ -420,6 +433,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '*.html',
+            'locales/{,*/}*.*',
             'img/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
