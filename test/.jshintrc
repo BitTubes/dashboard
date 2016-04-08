@@ -5,7 +5,7 @@
   "eqeqeq": true,
   "esnext": true,
   "jasmine": true,
-  "latedef": true,
+  "latedef": false,
   "noarg": true,
   "node": true,
   "strict": true,
