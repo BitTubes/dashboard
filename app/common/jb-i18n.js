@@ -11,86 +11,23 @@
 	///
 	/// initial code to be run outside of Angular constrains for dynamic Loader to work
 	///
-	var browserLocale = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+	/// config here:
 	var defaultLocale = 'en';
 	var availableLocales = [
 		{code:"en", name: "English"},
 		{code:"de", name: "Deutsch"}
 	];
-	var localesTest = {};
+
+	// stop editing here
+
+	var _browserLocale = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+	var _localesTest = {};
 	for (var i = availableLocales.length - 1; i >= 0; i--) {
-		localesTest[availableLocales[i].code] = 1;
+		_localesTest[availableLocales[i].code] = 1;
 	}
-	function storeLocalGet(key) {
-		return JSON.parse(localStorage.getItem(key));
-	}
-	function setLocale(locale, $rootScope, store) {
-		if($rootScope.locale === locale) {
-			return;
-		}
-		var newLocale;
-		var storedLocale = store ? store.get('locale') : storeLocalGet('locale');
 
-		// try language passed to function
-		if(localesTest[locale]) {
-			newLocale = locale;
-		} else if(locale && locale.length > 2 && localesTest[locale.substring(0,2)]) {
-			newLocale = locale.substring(0,2);
-		// try last used language
-		} else if(storedLocale && localesTest[storedLocale]) {
-			newLocale = storedLocale;
-		// try browser language
-		} else if(localesTest[browserLocale]) {
-			newLocale = browserLocale;
-		} else if(browserLocale.length > 2 && localesTest[browserLocale.substring(0,2)]) {
-			newLocale = browserLocale.substring(0,2);
-		// fall back to default
-		} else {
-			newLocale = defaultLocale;
-		}
-		if(newLocale != $rootScope.locale) {
-			// console.log("new language",newLocale);
-
-			// store in localStorage
-			if(store) {
-				store.set('locale', newLocale);
-			}
-
-			// we are changing the current language - need to refresh the entire website
-			if($rootScope.locale !== null) {
-				location.reload();
-			} else {
-				// assume initial load if we get here
-				$rootScope.locale = newLocale;
-				return true;
-			}
-
-		}
-	}
-	function loadLocale() {
-		var temp = {locale: null};
-		setLocale('',temp);
-		var locale = temp.locale;
-		// var locale = JSON.parse(localStorage.getItem('locale'));
-		// if(!locale) {
-		// 	locale = browserLocale.substring(0,2);
-		// 	if(!localesTest[locale]) {
-		// 		locale = defaultLocale;
-		// 	}
-		// }
-		var scripts = ['angular-locale_','jb-i18n_'];
-		var src;
-		// var head = document.getElementsByTagName("body")[0];
-		for (var i = scripts.length - 1; i >= 0; i--) {
-			src = 'locales/'+scripts[i]+locale+'.js';
-			// var script=document.createElement('script');
-			// script.setAttribute("type","text/javascript");
-			// script.setAttribute("src", src);
-			// head.appendChild(script);
-			document.write('<script src="'+src+'"><\/script>');
-		}
-	}
-	loadLocale();
+	// load language files for angular and this app before angular executes (cannot use async loading!)
+	_loadLocale();
 	///
 	/// initial code to be run outside of Angular constrains for dynamic Loader to work
 	///
@@ -126,8 +63,7 @@
 
 
 		function setLocaleWrap(locale) {
-			if(setLocale(locale, $rootScope, store)) {
-				// console.warn("loadedLocales", vm.loadedLocales, $rootScope.locale);
+			if(_setLocale(locale, $rootScope, store)) {
 				vm.locales = vm.loadedLocales[$rootScope.locale];
 			}
 		}
@@ -135,7 +71,7 @@
 		function translate(key, number, replacements) {
 			var str = vm.locales[key];
 			if(!str) {
-				// console.log("string not found, returning key");
+				// string not found, return key itself
 				return key;
 			}
 			if(typeof str !== "string") {
@@ -159,5 +95,67 @@
 		}
 	}
 
+
+	///////////////////////
+
+
+	function _loadLocale() {
+		var temp = {locale: null};
+		_setLocale('',temp);
+		var locale = temp.locale;
+
+		var scripts = ['angular-locale_','jb-i18n_'];
+		var src;
+		for (var i = scripts.length - 1; i >= 0; i--) {
+			src = 'locales/'+scripts[i]+locale+'.js';
+			document.write('<script src="'+src+'"><\/script>');
+		}
+	}
+	function _storeLocalGet(key) {
+		return JSON.parse(localStorage.getItem(key));
+	}
+	function _setLocale(locale, $rootScope, store) {
+		if($rootScope.locale === locale) {
+			return;
+		}
+		var newLocale;
+		var storedLocale = store ? store.get('locale') : _storeLocalGet('locale');
+
+		// try language passed to function
+		if(_localesTest[locale]) {
+			newLocale = locale;
+		} else if(locale && locale.length > 2 && _localesTest[locale.substring(0,2)]) {
+			newLocale = locale.substring(0,2);
+		// try last used language
+		} else if(storedLocale && _localesTest[storedLocale]) {
+			newLocale = storedLocale;
+		// try browser language
+		} else if(_localesTest[_browserLocale]) {
+			newLocale = _browserLocale;
+		} else if(_browserLocale.length > 2 && _localesTest[_browserLocale.substring(0,2)]) {
+			newLocale = _browserLocale.substring(0,2);
+		// fall back to default
+		} else {
+			newLocale = defaultLocale;
+		}
+		if(newLocale != $rootScope.locale) {
+			// console.log("new language",newLocale);
+
+			// store in localStorage
+			if(store) {
+				store.set('locale', newLocale);
+			}
+
+			// we are changing the current language - need to refresh the entire website
+			if($rootScope.locale !== null) {
+				location.reload();
+			} else {
+				// assume initial load if we get here
+				$rootScope.locale = newLocale;
+				return true;
+			}
+
+		}
+	}
 
 })();
