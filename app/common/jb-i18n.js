@@ -105,18 +105,12 @@
 			return _(str,number,replacements);
 		};
 	}
-	i18nFactory.$inject = ['$rootScope', 'store', 'i18nLocales', 'http'];
-	function i18nFactory($rootScope, store, i18nLocales, http){//(locale, availableLocales) {
+	i18nFactory.$inject = ['$rootScope', 'store', 'i18nLocales'];
+	function i18nFactory($rootScope, store, i18nLocales){//(locale, availableLocales) {
 		/* jshint validthis:true */
 		var vm = this;
 		$rootScope.availableLocales = availableLocales;
-		// vm.localesTest = localesTest;
-		// for (var i = $rootScope.availableLocales.length - 1; i >= 0; i--) {
-		// 	vm.localesTest[$rootScope.availableLocales[i].code] = 1;
-		// }
-		// // make this available to our loader-code in index.html
-		// window["localesTest"] = vm.localesTest;
-		// console.log("i18nLocales",i18nLocales);
+
 		$rootScope.locale = null;
 		vm.loadedLocales = i18nLocales;
 		vm.defaultLocale = defaultLocale;
@@ -154,25 +148,15 @@
 				replacements = [replacements];
 			}
 			for (var i = 0; i < replacements.length; i++) {
-				// console.info("replacements", replacements[i], vm.locales[replacements[i]], !!vm.locales[replacements[i]]);
 
 				if(!!vm.locales[replacements[i]]) {
 					replacements[i] = translate(replacements[i]);
-					// console.info("replaced to:", replacements[i]);
 				}
 				var regexp = new RegExp('\\{'+i+'\\}', 'gi');
 				str = str.replace(regexp, replacements[i]);
 			}
 			return str;
 		}
-		// function loadLanguageFile(key) {
-		// 	return $http({method:"GET", url:"/my/url"}).then(function(result){
-
-		// 		// What we return here is the data that will be accessible 
-		// 		// to us after the promise resolves
-		// 		return result.data;
-		// 		});
-		// }
 	}
 
 
