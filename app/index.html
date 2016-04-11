@@ -33,7 +33,7 @@
 
 	<bt-navbar></bt-navbar>
 	<div class="container">
-		
+
 		<ui-view></ui-view>
 
 		<notification></notification>
@@ -57,7 +57,13 @@
 	<!-- endbuild -->
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="common/app.js"></script>
+	<script src="core/app.js"></script>
+	<script src="core/app.auth.js"></script>
+	<script src="core/app.router.js"></script>
+	<script src="core/footer.js"></script>
+	<script src="core/forgotpw.js"></script>
+	<script src="core/login.js"></script>
+	<script src="core/navbar.js"></script>
 	<script src="common/btn-spinner.directive.js"></script>
 	<script src="common/del.js"></script>
 	<script src="common/jb-i18n.js"></script>
@@ -68,12 +74,6 @@
 	<script src="components/admin/customer/customer.js"></script>
 	<script src="components/admin/sql/sql.js"></script>
 	<script src="components/admin/xcopy/xcopy.js"></script>
-	<script src="components/core/app.auth.js"></script>
-	<script src="components/core/app.router.js"></script>
-	<script src="components/core/footer.js"></script>
-	<script src="components/core/forgotpw.js"></script>
-	<script src="components/core/login.js"></script>
-	<script src="components/core/navbar.js"></script>
 	<script src="components/developer/developer.js"></script>
 	<script src="components/playlist/playlist.js"></script>
 	<script src="components/user/user.js"></script>

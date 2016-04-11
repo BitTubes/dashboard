@@ -40,6 +40,7 @@ module.exports = function (grunt) {
       js: {
         files: [
           '<%= yeoman.app %>/locales/{,*/}*.js',
+          '<%= yeoman.app %>/core/**/*.js',
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
         ],
@@ -131,6 +132,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
+          '<%= yeoman.app %>/core/**/*.js',
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
         ]
@@ -152,6 +154,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
+          '<%= yeoman.app %>/core/**/*.js',
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
         ]
@@ -420,6 +423,7 @@ module.exports = function (grunt) {
         },
         cwd: '<%= yeoman.app %>',
         src: [
+          'core/**/*.html',
           'common/**/*.html',
           'components/**/*.html'
         ],
