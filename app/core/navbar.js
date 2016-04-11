@@ -47,7 +47,7 @@
 	function navbarDirective() {
 		return {
 			restrict: "E",
-			templateUrl: "components/core/navbar.html",
+			templateUrl: "core/navbar.html",
 			controller: 'navbarController',
 			controllerAs: 'cms'
 		};

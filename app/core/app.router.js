@@ -193,7 +193,7 @@
 				state: 'login',
 				title: 'login',
 				url: '/login/:redirect',
-				templateUrl: 'components/core/login.html',
+				templateUrl: 'core/login.html',
 				controller: 'loginController',
 				controllerAs: 'loginCtrl'
 			},
@@ -202,7 +202,7 @@
 				state: 'forgotpw',
 				title: 'forgotpw',
 				url: '/forgot-password/:token',
-				templateUrl: 'components/core/forgotpw.html',
+				templateUrl: 'core/forgotpw.html',
 				controller: 'forgotPwController',
 				controllerAs: 'forgotPwCtrl'
 			},
