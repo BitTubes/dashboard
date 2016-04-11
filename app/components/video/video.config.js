@@ -10,19 +10,19 @@
 		var vm = this;
 		vm.video_ID = !!$stateParams.id ? parseInt($stateParams.id) : null;
 		vm.castTypes = {
-			'': { 
+			'': {
 				name:'String',
 				pattern:'',
 				placeholder:'*'},
-			'bool': { 
+			'bool': {
 				name:'Boolean',
 				pattern:/^[0,1]$/,
 				placeholder:'0,1'},
-			'int': { 
+			'int': {
 				name:'Integer',
 				pattern:/^[0-9]*$/,
 				placeholder:'0-9'},
-			'float': { 
+			'float': {
 				name:'Float',
 				pattern:/^[-+]?\d*\.?\d+$/,
 				placeholder:'0-9.0-9'}
@@ -208,7 +208,7 @@
 			var value;
 			for (var el in response.data['Config']) {
 				value = response.data['Config'][el];
-				value = value===true ? "1" : (value===false ? "0" : value); 
+				value = value===true ? "1" : (value===false ? "0" : value);
 				defaultConfig = vm.CONFIGS.find(_findConfig,el);
 				if(defaultConfig) {
 					defaultConfig[usedParam] = true;
@@ -259,16 +259,16 @@
 				config['formType'] = 'select';
 				config['options'] = options;
 				config['defaultOption'] = options[0];
-				
+
 				// create new array to add some html
 				options = config['DefaultVal'].split('|');
 				options[0] = '<u>'+ options[0] + '</u> ('+ _('default')+ ')';
 				config['DefaultValHtml'] =  $sce.trustAsHtml(options.join(', '));
 			} else {
-				config['formType'] = config['CastType']=='bool' ? 'radio' : 'text';
+				config['formType'] = config['CastType']==='bool' ? 'radio' : 'text';
 				config['options'] = [];
 				var DefaultValHtml = config['DefaultVal'] || '';
-				if(config['CastType']=='bool') {
+				if(config['CastType']==='bool') {
 					DefaultValHtml = DefaultValHtml ? 'true':'false';
 				}
 				config['DefaultValHtml'] = $sce.trustAsHtml(DefaultValHtml);
@@ -313,8 +313,8 @@
 		function add_db(config, callback) {
 			// update DB if no double was found
 			vm.addPromise = http.post($scope.uriApiVideo+'saveConfig', {
-				'api': $rootScope.API, 
-				'p': config 
+				'api': $rootScope.API,
+				'p': config
 			})
 			.then(function(response){
 				var data = response.data;
@@ -334,14 +334,14 @@
 		}
 		function edit_db(config) {
 			// update DB
-			return http.post($scope.uriApiVideo+'saveConfig', { 
-				'api': $rootScope.API, 
+			return http.post($scope.uriApiVideo+'saveConfig', {
+				'api': $rootScope.API,
 				'p':{
 					'CastType': config['CastType'],
 					'Param': config['Param'].trim(),
 					'Val': config['Val'].trim(),
 					'Video_ID': config['Video_ID'],
-				} 
+				}
 			})
 			.then(function(response){
 				var data = response.data;

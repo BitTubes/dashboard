@@ -114,7 +114,7 @@
 			store.remove('token');
 			store.remove('token_exp');
 			$rootScope.ME = null;
-			
+
 			showLoginView();
 
 			if(!silent) {
@@ -129,7 +129,7 @@
 		}
 		function saveToken(data) {
 			if(!data['token']) {
-				// if we did not get a token, something went wrong 
+				// if we did not get a token, something went wrong
 				store.remove('token');
 				store.remove('token_exp');
 				// showLoginView();
@@ -169,7 +169,7 @@
 				location.reload();
 			} else {
 				logout(true);
-				
+
 				if(!silent) {
 					note.error(_('note_loginfailed'));
 				}
@@ -189,19 +189,19 @@
 
 			if(account && account['api']) {
 				for (var i = ACCOUNTS.length - 1; i >= 0; i--) {
-					if(ACCOUNTS[i]['api'] == account['api']) {
+					if(ACCOUNTS[i]['api'] === account['api']) {
 						$rootScope.API = ACCOUNTS[i]['api'];
 						store.set('account', ACCOUNTS[i]);
 						existing_account_valid = true;
 						break;
 					}
 				}
-			} 
+			}
 			if(!existing_account_valid) {
 				$rootScope.API = ACCOUNTS[0]['api'];
 				store.set('account', ACCOUNTS[0]);
 				$rootScope.ACCOUNT = ACCOUNTS[0];
-			} 
+			}
 			if(!silent) {
 				note.ok(_('note_loggedinas',null,$rootScope.ME['user']['login']));
 				redirect(false,false,redirectUrl);

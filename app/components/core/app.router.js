@@ -105,7 +105,7 @@
 				}
 				event.preventDefault();
 				return;
-			} else if(toState.state == "login" && authenticated) {
+			} else if(toState.state === "login" && authenticated) {
 				// authenticated but trying to access the login view
 				Auth.redirect();
 				event.preventDefault();

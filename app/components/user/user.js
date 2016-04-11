@@ -10,7 +10,7 @@
 	function userController(http, $stateParams, $scope, $rootScope, $timeout, $uibModal, _, note, Auth, $state) {
 		/* jshint validthis:true */
 		var vm = this;
-		var editMe = ($stateParams.editme=="me");
+		var editMe = ($stateParams.editme==="me");
 		vm.add = add;
 		vm.delete = del;
 		vm.edit = edit;
@@ -42,7 +42,7 @@
 		}
 		function del(user) {
 			$scope.delObj = user;
-			$scope.deleteWarning = user["login"]==$rootScope.ME['user']['login'];
+			$scope.deleteWarning = user["login"]===$rootScope.ME['user']['login'];
 			$scope.Name = user["login"];
 			$scope.title = _('user',1);
 
@@ -58,7 +58,7 @@
 		}
 		function edit(user) {
 			$scope.ADD = 0;
-			$scope.editWarning = user["login"]==$rootScope.ME['user']['login'];
+			$scope.editWarning = user["login"]===$rootScope.ME['user']['login'];
 			$scope.user = user;
 
 			var modalInstance = $uibModal.open({
@@ -98,7 +98,7 @@
 		function add_db(scope){
 			// update DB
 			http.post($scope.uriApiCms+'addUser', {
-				'api': $scope.API, 
+				'api': $scope.API,
 				'p':{
 					'login': scope.newLogin,
 					'pw': scope.newPasswd
@@ -127,7 +127,7 @@
 
 			// update DB
 			http.post($scope.uriApiCms+'updateUser', {
-				'api': $scope.API, 
+				'api': $scope.API,
 				'p': {
 					'ID': user['ID'],
 					'login': scope.newLogin,
@@ -147,7 +147,7 @@
 
 
 				// I changed my own password - re-init entire UI
-				if($rootScope.ME['user']['ID'] == user['ID']) {
+				if($rootScope.ME['user']['ID'] === user['ID']) {
 					$rootScope.ME['user']['login'] = user['login'];
 					Auth.saveToken(data);
 					// $timeout(function() {
@@ -183,7 +183,7 @@
 				}
 
 				// I changed my own password - re-init entire UI
-				if($rootScope.ME['user']['login'] == user['login']) {
+				if($rootScope.ME['user']['login'] === user['login']) {
 					Auth.logout(true);
 					// $timeout(function() {
 					// 	location.reload();
@@ -198,7 +198,7 @@
 	function userEditModalCtrl($scope, _, $uibModalInstance) {
 		$scope.newPasswd = "";
 		$scope.newLogin = $scope.user["login"];
-		
+
 		$scope.title = _('user',1);
 		$scope.titlemode = $scope.ADD ? 'addx' : 'editx';
 

@@ -80,7 +80,7 @@
 			if(!replacements) {
 				return str;
 			}
-			if(typeof replacements == "string" || !replacements) {
+			if(typeof replacements === "string" || !replacements) {
 				replacements = [replacements];
 			}
 			for (var i = 0; i < replacements.length; i++) {
@@ -138,7 +138,7 @@
 		} else {
 			newLocale = defaultLocale;
 		}
-		if(newLocale != $rootScope.locale) {
+		if(newLocale !== $rootScope.locale) {
 			// console.log("new language",newLocale);
 
 			// store in localStorage

@@ -31,7 +31,7 @@
 			post : function(url, params) {
 				return $http.post(
 					url,
-					$httpParamSerializerJQLike(params), 
+					$httpParamSerializerJQLike(params),
 					{
 						// params: params,
 						// paramSerializer: '$httpParamSerializerJQLike',
@@ -66,7 +66,7 @@
 		function show(msg_waiting, msg_taketime) {
 			scope.msg_waiting = msg_waiting;
 			scope.msg_taketime = msg_taketime;
-			
+
 			modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/waiting.html',
@@ -104,7 +104,7 @@
 		}
 		function wasChanged(obj) {
 			for (var i = fields.length - 1; i >= 0; i--) {
-				if(obj[fields[i]+'Bak'] != obj[fields[i]]) {
+				if(obj[fields[i]+'Bak'] !== obj[fields[i]]) {
 					return true;
 				}
 			}
@@ -112,7 +112,7 @@
 		}
 		function wasChangedNotEmpty(obj) {
 			for (var i = fields.length - 1; i >= 0; i--) {
-				if(obj[fields[i]] && obj[fields[i]+'Bak'] != obj[fields[i]]) {
+				if(obj[fields[i]] && obj[fields[i]+'Bak'] !== obj[fields[i]]) {
 					return true;
 				}
 			}
