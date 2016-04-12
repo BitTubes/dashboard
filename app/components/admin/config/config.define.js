@@ -4,7 +4,7 @@
 		.controller('configDefineController', configDefineController);
 
 
-	configDefineController.$inject = ['http','$scope', '$rootScope', 'smartUpdate',  '$stateParams', 'i18n', 'notification','AUTH'];
+	configDefineController.$inject = ['http','$scope', '$rootScope', 'smartUpdate',  '$stateParams', 'i18n', 'notification','Auth'];
 	function configDefineController(http, $scope, $rootScope, smartUpdate, $stateParams, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -76,7 +76,7 @@
 				// add missing elements to array
 				for(var el in availableLocales) {
 					vm.LOCALES.push({
-						'locale':el, 
+						'locale':el,
 						'localeName':availableLocales[el],
 						'txt':"",
 						'txtBak':"",
@@ -88,13 +88,13 @@
 		}
 		function edit_db(definition) {
 			// update DB
-			return http.post($scope.uriApiCms+'saveConfigDef', { 
-				'api': $rootScope.DEFAULT_API, 
+			return http.post($scope.uriApiCms+'saveConfigDef', {
+				'api': $rootScope.DEFAULT_API,
 				'p':{
 					'ID': $scope.CONFIG['ID'],
 					'locale': definition['locale'],
 					'txt': definition['txt'].trim()
-				} 
+				}
 			})
 			.then(function(response){
 				var data = response.data;

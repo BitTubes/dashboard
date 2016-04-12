@@ -6,7 +6,7 @@
 		.controller('customerEditModalCtrl', customerEditModalCtrl);
 
 
-	customerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','AUTH', 'waiting', 'store'];
+	customerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','Auth', 'waiting', 'store'];
 	function customerController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting, store) {
 		/* jshint validthis:true */
 		var vm = this;

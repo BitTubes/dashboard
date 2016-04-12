@@ -5,7 +5,7 @@
 		.controller("forgotPwController", forgotPwController);
 
 
-	forgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http','notification', 'AUTH', 'i18n'];
+	forgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http','notification', 'Auth', 'i18n'];
 	function forgotPwController($stateParams, $state, $scope, $rootScope, $uibModal, $interval, http, note, Auth, _) {
 		/* jshint validthis:true */
 		var vm = this;

@@ -3,7 +3,7 @@
 
 	angular
 		.module('bt.dashboard')
-		.factory('AUTH', auth);
+		.factory('Auth', auth);
 
 
 	auth.$inject = ['$rootScope', '$state', '$timeout', 'http', 'notification', 'store', 'i18n'];

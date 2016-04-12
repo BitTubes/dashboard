@@ -62,7 +62,7 @@
 		}
 	}
 
-	appRun.$inject = ['$rootScope', 'AUTH', 'i18n', 'store'];
+	appRun.$inject = ['$rootScope', 'Auth', 'i18n', 'store'];
 	function appRun($rootScope, Auth, _, store) {
 		// globals
 		// - API

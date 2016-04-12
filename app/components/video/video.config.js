@@ -4,7 +4,7 @@
 		.controller('videoConfigController', videoConfigController);
 
 
-	videoConfigController.$inject = ['http','$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification','AUTH', '$sce'];
+	videoConfigController.$inject = ['http','$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth', '$sce'];
 	function videoConfigController(http, $scope, $rootScope, $state, $stateParams, $uibModal, smartUpdate, _, note, Auth, $sce) {
 		/* jshint validthis:true */
 		var vm = this;

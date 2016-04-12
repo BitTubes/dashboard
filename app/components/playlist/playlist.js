@@ -5,7 +5,7 @@
 		.controller('playlistController', playlistController);
 
 
-	playlistController.$inject = ['http','$scope', '$uibModal','i18n','notification','AUTH'];
+	playlistController.$inject = ['http','$scope', '$uibModal','i18n','notification','Auth'];
 	function playlistController(http, $scope, $uibModal, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -55,9 +55,9 @@
 		function del_db(pl) {
 			// update DB
 			http.post($scope.uriApiVideo+'deletePlaylist', {
-				'api': $scope.API, 
+				'api': $scope.API,
 				// 'a':'deletePlaylist',
-				'p':pl["ID"] 
+				'p':pl["ID"]
 			})
 			.then(function(response){
 				if(response.data !== true && response.data !== "true") {

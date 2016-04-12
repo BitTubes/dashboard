@@ -6,7 +6,7 @@
 		.controller('userEditModalCtrl', userEditModalCtrl);
 
 
-	userController.$inject = ['http','$stateParams','$scope','$rootScope','$timeout', '$uibModal', 'i18n', 'notification', 'AUTH', '$state'];
+	userController.$inject = ['http','$stateParams','$scope','$rootScope','$timeout', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
 	function userController(http, $stateParams, $scope, $rootScope, $timeout, $uibModal, _, note, Auth, $state) {
 		/* jshint validthis:true */
 		var vm = this;

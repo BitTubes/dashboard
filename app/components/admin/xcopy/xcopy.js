@@ -5,7 +5,7 @@
 		// .controller('xcopyWaitController', xcopyWaitController);
 
 
-	xcopyController.$inject = ['http','$scope', '$filter', 'i18n', 'notification', 'AUTH', 'waiting'];
+	xcopyController.$inject = ['http','$scope', '$filter', 'i18n', 'notification', 'Auth', 'waiting'];
 	function xcopyController(http, $scope, $filter, _, note, Auth, waiting) {
 		/* jshint validthis:true */
 		var vm = this;

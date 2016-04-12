@@ -5,7 +5,7 @@
 		.controller("loginController", loginController);
 
 
-	loginController.$inject = ['$stateParams', 'AUTH', '$scope', '$interval'];
+	loginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
 	function loginController($stateParams, Auth, $scope, $interval) {
 		/* jshint validthis:true */
 		var vm = this;
