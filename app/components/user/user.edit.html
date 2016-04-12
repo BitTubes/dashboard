@@ -7,42 +7,52 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.login.$dirty && editForm.login.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="login">Login:</label>
 		<div class="col-sm-9">
-		<input class="form-control" type="email" autocomplete="off" name="login" id="login" 
+		<input class="form-control" type="email" autocomplete="off" name="login" id="login"
 		ng-model="newLogin"
-		ng-minlength="loginMin" 
+		ng-minlength="loginMin"
 		ng-maxlength="loginMax"
 		ng-pattern="loginPattern"
 		required>
 		</div>
 	</div>
-	<div ng-messages="editForm.login.$error" ng-if='(editForm.login.$dirty && !editForm.login.disabled) || submitted' class="alert-warning">
-		<p ng-message="minlength">{{'form_err_min' | i18n:0:['Login',loginMin]}}</p>
-		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['Login',loginMax]}}</p>
-		<p ng-message="pattern">{{'form_err_email' | i18n:0:'Login'}} </p>
-		<p ng-message="required">{{'form_err_req' | i18n:0:'Login'}}</p>
-	</div>
+	<div class="row"><div class="col-sm-offset-3 col-sm-9">
+		<div ng-messages="editForm.login.$error" ng-if='(editForm.login.$dirty && !editForm.login.disabled) || submitted' class="alert-warning">
+			<p ng-message="minlength">{{'form_err_min' | i18n:0:['Login',loginMin]}}</p>
+			<p ng-message="maxlength">{{'form_err_max' | i18n:0:['Login',loginMax]}}</p>
+			<p ng-message="pattern">{{'form_err_email' | i18n:0:'Login'}} </p>
+			<p ng-message="required">{{'form_err_req' | i18n:0:'Login'}}</p>
+		</div>
+	</div></div>
 	<div class="form-group" ng-class="{ 'has-error': (editForm.password.$dirty && editForm.password.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="password">{{'password' | i18n}}:</label>
 		<div class="col-sm-9">
 			<div class="input-group">
-			<input class="form-control" type="text" autocomplete="off" name="password" id="password" 
-			ng-model="newPasswd" 
-			ng-minlength="passwordMin" 
-			ng-maxlength="passwordMax" 
+			<input class="form-control" type="text" autocomplete="off" name="password" id="password"
+			ng-model="newPasswd"
+			ng-minlength="passwordMin"
+			ng-maxlength="passwordMax"
 			ng-pattern="passwordPattern"
+			jb-number
+			jb-lowercase
+			jb-uppercase
 			required> <span class="input-group-btn"><button class="btn btn-default" ng-click="generate()">{{'generate' | i18n}}</button></span>
 			</div>
 		</div>
 	</div>
-	<div ng-messages="editForm.password.$error" ng-if='editForm.password.$dirty || submitted' class="alert-warning">
-		<p ng-message="minlength">{{'form_err_min' | i18n:0:['password',passwordMin]}}</p>
-		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['password',passwordMax]}}</p>
-		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['password','a-z, A-Z, 0-9, ., -, _']}} </p>
-		<p ng-message="required">{{'form_err_req' | i18n:0:'password'}}</p>
-	</div>
+	<div class="row"><div class="col-sm-offset-3 col-sm-9">
+		<div ng-messages="editForm.password.$error" ng-if='editForm.password.$dirty || submitted' class="alert-warning">
+			<p ng-message="required">{{'form_err_req' | i18n:0:'password'}}</p>
+			<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['password','a-z, A-Z, 0-9, ., -, _']}} </p>
+			<p ng-message="jbNumber">{{'form_err_number' | i18n:0:'password'}}</p>
+			<p ng-message="jbLowercase">{{'form_err_lowercase' | i18n:0:'password'}}</p>
+			<p ng-message="jbUppercase">{{'form_err_uppercase' | i18n:0:'password'}}</p>
+			<p ng-message="minlength">{{'form_err_min' | i18n:0:['password',passwordMin]}}</p>
+			<p ng-message="maxlength">{{'form_err_max' | i18n:0:['password',passwordMax]}}</p>
+		</div>
+	</div></div>
 </div>
 <div class="modal-footer">
 	<input class="btn btn-primary" type="submit" ng-click="ok()" value="OK">
 	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | i18n}}</button>
-</div>  
+</div>
 </form>
