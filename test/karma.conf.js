@@ -30,11 +30,14 @@ module.exports = function(config) {
       'bower_components/ng-showdown/dist/ng-showdown.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      'app/core/app.js',
+      'app/**/*.module.js',
+      'app/locales/jb-i18n_de.js',
+      'app/lib/angular-storage.js',
       'app/core/**/*.js',
       'app/common/**/*.js',
       'app/components/**/*.js',
       // 'app/locales/**/*.js',
-      'app/locales/jb-i18n_en.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
