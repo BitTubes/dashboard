@@ -1,26 +1,65 @@
-'use strict';
-
-describe('navbarController', function () {
-
-	// load the controller's module
+describe('navbarController', function() {
 	beforeEach(module('bt.dashboard'));
 
-	var vm,
-		scope,
-		rootScope;
+	var $controller;
+	var $rootScope;
+	var $state;
+	var store;
+	var note;
 
-	// Initialize the controller and a mock scope
-	beforeEach(inject(function ($controller, $rootScope) {
-		scope = $rootScope.$new();
-		rootScope = $rootScope;
-		vm = $controller('navbarController', {
-			$scope: scope
-			// place here mocked dependencies
-		});
+	beforeEach(inject(function(_$controller_, _$rootScope_, _notification_, _$state_, _store_){
+		// The injector unwraps the underscores (_) from around the parameter names when matching
+		$controller = _$controller_;
+		$rootScope = _$rootScope_;
+		$state = _$state_;
+		store = _store_;
+		note = _notification_;
 	}));
 
-	it('should attach a list of awesomeThings to the scope', function () {
-		expect(vm.tab.length).toBe(rootScope.tabs.app);
+	describe('vm.changeAccount()', function() {
+		var $scope = {},
+			vm,
+			demoAccount = {
+				ID: 1,
+				api: 'demo',
+				created: "2011-07-07 14:45:27",
+				last_login: null,
+				name: "DEMO",
+				users: 0
+			},
+			fakeAccount = {
+				ID: 2,
+				api: 'fake',
+				created: "2016-07-07 14:45:27",
+				last_login: null,
+				name: "FAKE",
+				users: 0
+			};
+
+		beforeEach(function() {
+			$scope = {};
+			vm = $controller('navbarController', { $scope: $scope });
+			spyOn(note, "info").and.returnValue(true);
+			spyOn($state, "reload").and.returnValue(true);
+		});
+
+		it('navbar should be collapsed', function() {
+			vm.navCollapsed = false;
+			vm.changeAccount(demoAccount);
+			expect(vm.navCollapsed).toEqual(true);
+		});
+
+		it('current stored account should be "demoAccount"', function() {
+			vm.changeAccount(fakeAccount);
+			vm.changeAccount(demoAccount);
+			expect(store.get('account')).toEqual(demoAccount);
+		});
+
+		it('current account in $rootScope.API should be "demo"', function() {
+			vm.changeAccount(fakeAccount);
+			vm.changeAccount(demoAccount);
+			expect($rootScope.API).toEqual("demo");
+		});
+
 	});
 });
-
