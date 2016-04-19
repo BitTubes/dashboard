@@ -13,10 +13,14 @@
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
 				var blacklist = attr.blacklist.split(',');
-				ngModel.$parsers.unshift(function (value) {
+				function validate(value) {
 					ngModel.$setValidity('jbBlacklist', blacklist.indexOf(value) === -1);
 					return value;
-				});
+				}
+				// view-to-model pipeline (manual changes via user input)
+				ngModel.$parsers.unshift(validate);
+				// model-to-view pipeline (programmatic changes to model via javascript)
+				ngModel.$formatters.unshift(validate);
 			}
 		};
 	}
@@ -25,11 +29,15 @@
 			require: 'ngModel',
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
-				ngModel.$parsers.unshift(function (value) {
+				function validate(value) {
 					console.log("number",/[0-9]/.test(value));
 					ngModel.$setValidity('jbNumber', /[0-9]/.test(value));
 					return value;
-				});
+				}
+				// view-to-model pipeline (manual changes via user input)
+				ngModel.$parsers.unshift(validate);
+				// model-to-view pipeline (programmatic changes to model via javascript)
+				ngModel.$formatters.unshift(validate);
 			}
 		};
 	}
@@ -38,11 +46,15 @@
 			require: 'ngModel',
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
-				ngModel.$parsers.unshift(function (value) {
+				function validate(value) {
 					console.log("lowercase",/[a-z]/.test(value));
 					ngModel.$setValidity('jbLowercase', /[a-z]/.test(value));
 					return value;
-				});
+				}
+				// view-to-model pipeline (manual changes via user input)
+				ngModel.$parsers.unshift(validate);
+				// model-to-view pipeline (programmatic changes to model via javascript)
+				ngModel.$formatters.unshift(validate);
 			}
 		};
 	}
@@ -51,11 +63,15 @@
 			require: 'ngModel',
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
-				ngModel.$parsers.unshift(function (value) {
+				function validate(value) {
 					console.log("uppercase",/[A-Z]/.test(value));
 					ngModel.$setValidity('jbUppercase', /[A-Z]/.test(value));
 					return value;
-				});
+				}
+				// view-to-model pipeline (manual changes via user input)
+				ngModel.$parsers.unshift(validate);
+				// model-to-view pipeline (programmatic changes to model via javascript)
+				ngModel.$formatters.unshift(validate);
 			}
 		};
 	}
