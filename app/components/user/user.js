@@ -209,6 +209,8 @@
 
 		function generate() {
 			$scope.newPasswd = Math.random().toString(36).slice(-8);
+			$scope.editForm.password.$setTouched();
+			$scope.editForm.password.$setDirty();
 		}
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
