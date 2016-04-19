@@ -208,7 +208,7 @@
 
 
 		function generate() {
-			$scope.newPasswd = Math.random().toString(36).slice(-8);
+			$scope.newPasswd = _generatePassword(8);
 			$scope.editForm.password.$setTouched();
 			$scope.editForm.password.$setDirty();
 		}
@@ -226,6 +226,36 @@
 				return;
 			}
 			$uibModalInstance.close($scope);
+		}
+
+
+		/////////////////////
+
+
+		/**
+		 * copied from http://stackoverflow.com/a/5840653/818732
+		 *
+		 * @param  integer len length of password
+		 * @return string      random password
+		 */
+		function _generatePassword(len){
+			var pwd = [],
+				cc = String.fromCharCode,
+				R = Math.random,
+				rnd,
+				i;
+			pwd.push(cc(48+(0|R()*10))); // push a number
+			pwd.push(cc(65+(0|R()*26))); // push an upper case letter
+
+			for(i=2; i<len; i++){
+			   rnd = 0|R()*62; // generate upper OR lower OR number
+			   pwd.push(cc(48+rnd+(rnd>9?7:0)+(rnd>35?6:0)));
+			}
+
+			// shuffle letters in password
+			return pwd.sort(function(){
+				return R() - 0.5;
+			}).join('');
 		}
 
 	}
