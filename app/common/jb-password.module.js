@@ -12,7 +12,7 @@
 			require: 'ngModel',
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
-				var blacklist = attr.blacklist.split(',');
+				var blacklist = attr.jbBlacklist.split(',');
 				function validate(value) {
 					ngModel.$setValidity('jbBlacklist', blacklist.indexOf(value) === -1);
 					return value;
