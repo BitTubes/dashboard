@@ -30,8 +30,7 @@
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
 				function validate(value) {
-					console.log("number",/[0-9]/.test(value));
-					ngModel.$setValidity('jbNumber', /[0-9]/.test(value));
+					ngModel.$setValidity('jbNumber', typeof(value)==="string" && /[0-9]/.test(value));
 					return value;
 				}
 				// view-to-model pipeline (manual changes via user input)
@@ -47,8 +46,7 @@
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
 				function validate(value) {
-					console.log("lowercase",/[a-z]/.test(value));
-					ngModel.$setValidity('jbLowercase', /[a-z]/.test(value));
+					ngModel.$setValidity('jbLowercase', typeof(value)==="string" && /[a-z]/.test(value));
 					return value;
 				}
 				// view-to-model pipeline (manual changes via user input)
@@ -64,8 +62,7 @@
 			restrict: 'A',
 			link: function(scope, elem, attr, ngModel) {
 				function validate(value) {
-					console.log("uppercase",/[A-Z]/.test(value));
-					ngModel.$setValidity('jbUppercase', /[A-Z]/.test(value));
+					ngModel.$setValidity('jbUppercase', typeof(value)==="string" && /[A-Z]/.test(value));
 					return value;
 				}
 				// view-to-model pipeline (manual changes via user input)
