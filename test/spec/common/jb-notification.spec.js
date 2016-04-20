@@ -20,7 +20,7 @@ describe('Module jb.notification', function() {
 		myFactory.info("info");
 		myFactory.ok("ok");
 		myFactory.warn("warn");
-		myFactory.info("info");
+		myFactory.error("error");
 		expect($rootScope.jbNotifications.length).toEqual(4);
 		expect($rootScope.jbNotificationsTop.length).toEqual(0);
 		// the factory uses 2 timeouts, the first to hide the notification visually...
@@ -41,6 +41,25 @@ describe('Module jb.notification', function() {
 		$timeout.flush();
 		expect($rootScope.jbNotifications.length).toEqual(0);
 		expect($rootScope.jbNotificationsTop.length).toEqual(0);
+	});
+	it('should add 2 entries to global array in order', function() {
+		myFactory._test.insertBelow = true;
+
+		myFactory.ok("a");
+		myFactory.ok("b");
+		expect($rootScope.jbNotifications.length).toEqual(2);
+		expect($rootScope.jbNotifications[0].msg).toEqual("a");
+		expect($rootScope.jbNotifications[1].msg).toEqual("b");
+	});
+
+	it('should add 2 entries to global array in reverse order', function() {
+		myFactory._test.insertBelow = false;
+
+		myFactory.ok("a");
+		myFactory.ok("b");
+		expect($rootScope.jbNotifications.length).toEqual(2);
+		expect($rootScope.jbNotifications[0].msg).toEqual("b");
+		expect($rootScope.jbNotifications[1].msg).toEqual("a");
 	});
 
 });

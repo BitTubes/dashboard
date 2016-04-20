@@ -100,6 +100,13 @@ describe('Module: jb.i18n', function() {
 				i18n.changeLanguage("de");
 				expect($rootScope.locale).toEqual("de");
 			});
+			it('change to "de", which was already saved as current language', function() {
+				i18n.changeLanguage("de");
+				expect($rootScope.locale).toEqual("de");
+
+				i18n.changeLanguage("de");
+				expect($rootScope.locale).toEqual("de");
+			});
 			it('change to "de-de" which should fallback to "de"', function() {
 				i18n.changeLanguage("de-de");
 				expect($rootScope.locale).toEqual("de");
