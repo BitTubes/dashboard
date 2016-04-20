@@ -7,30 +7,38 @@
 		.factory('notification', notificationFactory);
 
 
-	function notificationDirective() {
-		return {
-			restrict: "E",
-			// templateUrl: "common/jb-notification.html",
-			template: '<div ng-repeat="alert in jbNotifications" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
-			controller: ['$rootScope',function($rootScope) {
-				$rootScope.jbNotifications = $rootScope.jbNotifications || [];
-			}]
-		};
-	}
-	function topNotificationDirective() {
-		return {
-			restrict: "E",
-			// templateUrl: "common/jb-notification-top.html",
-			template: '<div ng-repeat="alert in jbNotificationsTop" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
-			controller: ['$rootScope',function($rootScope) {
-				$rootScope.jbNotificationsTop = $rootScope.jbNotificationsTop || [];
-			}]
-		};
-	}
+
 	notificationFactory.$inject = ['$rootScope','$timeout', 'i18n'];
 	function notificationFactory($rootScope, $timeout, _){
 
 		var insertBelow = false;
+
+		var $return = {
+			debug: function(msg) {
+				show('warning',msg, 'TODO', true);
+			},
+			info: function(msg) {
+				show('info',msg, '');
+			},
+			ok: function(msg) {
+				show('success',msg, '');
+			},
+			warn: function(msg) {
+				show('warning',msg, _('warning'));
+			},
+			error: function(msg) {
+				show('danger', msg, _('error'));
+			},
+			_test: {
+				set insertBelow(bool) {
+					insertBelow = bool;
+				}
+			}
+		};
+
+		return $return;
+
+
 
 		function show(type, msg, title, top) {
 			var timeout;
@@ -77,22 +85,27 @@
 			}, timeout*1000);
 
 		}
+	}
+
+
+	function notificationDirective() {
 		return {
-			debug: function(msg) {
-				show('warning',msg, 'TODO', true);
-			},
-			info: function(msg) {
-				show('info',msg, '');
-			},
-			ok: function(msg) {
-				show('success',msg, '');
-			},
-			warn: function(msg) {
-				show('warning',msg, _('warning'));
-			},
-			error: function(msg) {
-				show('danger', msg, _('error'));
-			}
+			restrict: "E",
+			// templateUrl: "common/jb-notification.html",
+			template: '<div ng-repeat="alert in jbNotifications" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
+			controller: ['$rootScope',function($rootScope) {
+				$rootScope.jbNotifications = $rootScope.jbNotifications || [];
+			}]
+		};
+	}
+	function topNotificationDirective() {
+		return {
+			restrict: "E",
+			// templateUrl: "common/jb-notification-top.html",
+			template: '<div ng-repeat="alert in jbNotificationsTop" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
+			controller: ['$rootScope',function($rootScope) {
+				$rootScope.jbNotificationsTop = $rootScope.jbNotificationsTop || [];
+			}]
 		};
 	}
 
