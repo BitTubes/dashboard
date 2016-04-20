@@ -19,32 +19,6 @@ describe('Module: jb.password', function() {
 		$rootScope.testModel = "";
 	}));
 
-	// describe('Directive: jbBlacklist', function() {
-	// 	var filter;
-
-	// 	beforeEach(function(){
-	// 		directive = 'jb-blacklist';
-
-	// 		testString = "black";
-	// 		filter = "white";
-	// 	});
-
-	// 	it('test if a word other than the blacklisted one is passed as valid', function() {
-	// 		// Compile a piece of HTML containing the directive
-	// 		element = angular.element('<input ng-model="testModel" '+directive+'="'+filter+'">');
-	// 		$compile(element)($rootScope);
-	// 		// fire all the watches, so the scope expression {{1 + 1}} will be evaluated
-	// 		$rootScope.$digest();
-
-	// 		element.val(testString).triggerHandler("input");
-	// 		$rootScope.apply();
-
-
-	// 		expect(element).toBe(false);
-	// 		expect(element.hasClass('ng-valid')).toBe(true);
-	// 	});
-	// });
-
 	describe('Directive: jbBlacklist', function() {
 		beforeEach(function(){
 			directive = 'jb-blacklist="111,black"';
