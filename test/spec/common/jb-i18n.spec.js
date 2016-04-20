@@ -1,4 +1,5 @@
-describe('i18n', function() {
+describe('Module: jb.i18n', function() {
+	"use strict";
 	beforeEach(module('jb.i18n'));
 	beforeEach(module('jb.i18n.locales.mock'));
 

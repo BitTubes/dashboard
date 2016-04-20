@@ -1,4 +1,5 @@
-describe('navbarController', function() {
+describe('Controller: navbar', function() {
+	"use strict";
 	beforeEach(module('bt.dashboard'));
 
 	var $controller;
