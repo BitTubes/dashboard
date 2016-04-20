@@ -14,7 +14,18 @@
 			link: function(scope, elem, attr, ngModel) {
 				var blacklist = attr.jbBlacklist.split(',');
 				function validate(value) {
-					ngModel.$setValidity('jbBlacklist', blacklist.indexOf(value) === -1);
+					var validity = true;
+					// expect angular to cast everything but null and undefined to "string"
+					// indexOf only works with strings, everything else would cause an error
+					if(typeof(value)==="string") {
+						for (var i = blacklist.length - 1; i >= 0; i--) {
+							validity = validity && (value.indexOf(blacklist[i]) === -1);
+							if(!validity) {
+								break;
+							}
+						}
+					}
+					ngModel.$setValidity('jbBlacklist', validity);
 					return value;
 				}
 				// view-to-model pipeline (manual changes via user input)
