@@ -10,10 +10,9 @@
 
 	notificationFactory.$inject = ['$rootScope','$timeout', 'i18n'];
 	function notificationFactory($rootScope, $timeout, _){
-
 		var insertBelow = false;
 
-		var $return = {
+		var service = {
 			debug: function(msg) {
 				show('warning',msg, 'TODO', true);
 			},
@@ -36,8 +35,10 @@
 			}
 		};
 
-		return $return;
+		return service;
 
+
+		//////////////////////////
 
 
 		function show(type, msg, title, top) {
