@@ -15,11 +15,15 @@ function i18nLocales($rootScope){
 		"de": {
 			"customer": ["Customer","Customers"],
 			"default": "Foo",
+			"inx": "in {0} {1}",
+			"xago": "{0} {1} ago",
 			"xony": "{0} on {1}",
 		},
 		"en": {
 			"customer": ["Customer","Customers"],
 			"default": "Foo",
+			"inx": "in {0} {1}",
+			"xago": "{0} {1} ago",
 			"xony": "{0} on {1}",
 		}
 	};
