@@ -15,8 +15,19 @@
 			}
 			var time;
 			if(date * 1 == date) { // assume unix-time
+				// console.log("unix assumed");
 				time = new Date(date);
 			} else {
+				// console.log("sql assumed");
+				// adapt MySQL timestamp to ISO 8601 format
+				if(date.indexOf(" ")!== -1) {
+					date = (date.split(' ').join('T'));
+				}
+				// set timezone to UTC according to ISO 8601 if none was provided
+				if(date.indexOf("+")===-1 && (date.split('T')[1]).indexOf("-")===-1) {
+					date += '+00:00';
+				}
+				// README the date MUST be UTC
 				time = Date.parse(date);
 			}
 			var timeNow = new Date().getTime(),
