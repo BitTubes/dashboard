@@ -12,6 +12,7 @@
 			var hours;
 			if (minutes >= 60) {
 				hours = Math.floor(minutes / 60);
+				// make sure ours are at least 2 digits
 				hours = hours >= 10 ? hours : "0" + hours;
 				minutes = minutes % 60;
 			} else {
