@@ -14,7 +14,7 @@
 	function footerDirective() {
 		return {
 			restrict: "E",
-			templateUrl: "components/core/footer.html",
+			templateUrl: "core/footer.html",
 			controller: 'footerController',
 			controllerAs: 'footer'
 		};

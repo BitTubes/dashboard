@@ -4,7 +4,7 @@
 		.controller('configController', configController);
 
 
-	configController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification','AUTH'];
+	configController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth'];
 	function configController(http, $scope, $rootScope, $uibModal, smartUpdate, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -67,8 +67,8 @@
 
 			// update DB if no double was found
 			vm.addPromise = http.post($scope.uriApiCms+'addConfig', {
-				'api': $rootScope.DEFAULT_API, 
-				'p': p 
+				'api': $rootScope.DEFAULT_API,
+				'p': p
 			})
 			.then(function(response){
 
@@ -145,14 +145,14 @@
 		}
 		function edit_db(config) {
 			// update DB
-			return http.post($scope.uriApiCms+'updateConfig', { 
-				'api': $rootScope.DEFAULT_API, 
+			return http.post($scope.uriApiCms+'updateConfig', {
+				'api': $rootScope.DEFAULT_API,
 				'p':{
 					'oldParam': config['ParamBak'].trim(),
 					'Param': config['Param'].trim(),
 					'CastType': config['CastType'],
 					'DefaultVal': config['DefaultVal'].trim()
-				} 
+				}
 			})
 			.then(function(response){
 				var data = response.data;

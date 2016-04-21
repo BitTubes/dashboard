@@ -62,7 +62,7 @@
 		}
 	}
 
-	appRun.$inject = ['$rootScope', 'AUTH', 'i18n', 'store'];
+	appRun.$inject = ['$rootScope', 'Auth', 'i18n', 'store'];
 	function appRun($rootScope, Auth, _, store) {
 		// globals
 		// - API
@@ -105,7 +105,7 @@
 				}
 				event.preventDefault();
 				return;
-			} else if(toState.state == "login" && authenticated) {
+			} else if(toState.state === "login" && authenticated) {
 				// authenticated but trying to access the login view
 				Auth.redirect();
 				event.preventDefault();
@@ -193,7 +193,7 @@
 				state: 'login',
 				title: 'login',
 				url: '/login/:redirect',
-				templateUrl: 'components/core/login.html',
+				templateUrl: 'core/login.html',
 				controller: 'loginController',
 				controllerAs: 'loginCtrl'
 			},
@@ -202,7 +202,7 @@
 				state: 'forgotpw',
 				title: 'forgotpw',
 				url: '/forgot-password/:token',
-				templateUrl: 'components/core/forgotpw.html',
+				templateUrl: 'core/forgotpw.html',
 				controller: 'forgotPwController',
 				controllerAs: 'forgotPwCtrl'
 			},

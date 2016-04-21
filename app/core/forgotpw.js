@@ -5,7 +5,7 @@
 		.controller("forgotPwController", forgotPwController);
 
 
-	forgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http','notification', 'AUTH', 'i18n'];
+	forgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http','notification', 'Auth', 'i18n'];
 	function forgotPwController($stateParams, $state, $scope, $rootScope, $uibModal, $interval, http, note, Auth, _) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -62,7 +62,7 @@
 				$uibModal.open({
 					animation: true,
 					// template: '<div class="modal-body"><div class="alert alert-success" role="alert">'+msg+'</div></div>',
-					templateUrl: 'components/core/forgotpw-200.html',
+					templateUrl: 'core/forgotpw-200.html',
 					scope: $scope,
 					backdrop: 'static', // disables modal from being closed by clicking on the background
 					// size: 'lg'
@@ -130,7 +130,7 @@
 			vm.pw = null;
 			vm.showLogin = false;
 			vm.showPassword = true;
-			
+
 			vm.spinning = false;
 		}
 		function _resetState(warning) {

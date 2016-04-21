@@ -4,7 +4,7 @@
 		.controller('sqlController', sqlController);
 
 
-	sqlController.$inject = ['http','$scope', 'i18n', 'notification', 'AUTH'];
+	sqlController.$inject = ['http','$scope', 'i18n', 'notification', 'Auth'];
 	function sqlController(http, $scope, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;

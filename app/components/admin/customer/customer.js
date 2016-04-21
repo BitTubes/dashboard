@@ -6,8 +6,8 @@
 		.controller('customerEditModalCtrl', customerEditModalCtrl);
 
 
-	customerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','AUTH', 'waiting'];
-	function customerController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting) {
+	customerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','Auth', 'waiting', 'store'];
+	function customerController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting, store) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.add = add;
@@ -113,11 +113,11 @@
 
 			// update DB
 			http.post($scope.uriApiCms+'addCustomer', {
-				'api': $rootScope.DEFAULT_API, 
+				'api': $rootScope.DEFAULT_API,
 				'p':{
 					'name': customer["name"],
 					'newapi': customer["api"]
-				} 
+				}
 			})
 			.then(function(response){
 				waiting.hide();
@@ -144,13 +144,13 @@
 		function edit_db(scope) {
 			// update DB
 			var customer = scope.customer;
-			http.post($scope.uriApiCms+'updateCustomer', { 
-				'api': $rootScope.DEFAULT_API, 
+			http.post($scope.uriApiCms+'updateCustomer', {
+				'api': $rootScope.DEFAULT_API,
 				'p':{
-					'name':customer['name'], 
-					'api':customer['api'], 
+					'name':customer['name'],
+					'api':customer['api'],
 					'oldapi':$scope.api_before
-				} 
+				}
 			})
 			.then(function(response){
 				var data = response.data;
@@ -165,7 +165,7 @@
 				if(!customer['deleted']) {
 					for (var temp, i = $rootScope.ME['customers'].length - 1; i >= 0; i--) {
 						temp = $rootScope.ME['customers'][i];
-						if(temp['api'] == $scope.api_before) {
+						if(temp['api'] === $scope.api_before) {
 							temp['api'] = customer['api'];
 							temp['name'] = customer['name'];
 							break;
@@ -174,7 +174,7 @@
 
 				}
 				// update CURRENT customer variables and storage for next load
-				if($rootScope.ACCOUNT['api'] == $scope.api_before) {
+				if($rootScope.ACCOUNT['api'] === $scope.api_before) {
 					store.set('account', customer);
 					$rootScope.ACCOUNT = customer;
 					$rootScope.API = customer['api'];
@@ -193,14 +193,14 @@
 					return;
 				}
 				customer["deleted"] = !customer["deleted"];
-				
+
 				// note.ok(_((customer["deleted"]?'note_xdeleted':'note_xreactivated'),0,_('customer',1)+' '+customer['name']));
 
 				// remove from UI
 				// var tr = document.getElementById('user'+user['ID']);
 				// tr.parentNode.removeChild(tr);
 				for (var customer_index, i = $rootScope.ME['customers'].length - 1; i >= 0; i--) {
-					if($rootScope.ME['customers'][i]['api'] == customer['api']) {
+					if($rootScope.ME['customers'][i]['api'] === customer['api']) {
 						// removeIndex = i;
 						customer_index = i;
 						break;
@@ -210,7 +210,7 @@
 					note.warn(_('note_xdeleted',0,_('customer',1)+' '+customer['name']));
 					// remove from local data cache
 					$rootScope.ME['customers'][customer_index]['deleted'] = true;
-					if(customer['api'] == $rootScope.API) {
+					if(customer['api'] === $rootScope.API) {
 						$rootScope.changeAccount($rootScope.ME['customers'][0]); // switch to default
 					}
 					// var removeIndex = $rootScope.ME['customers'].indexOf(customer);
@@ -238,7 +238,7 @@
 	customerEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function customerEditModalCtrl($scope, _, $uibModalInstance) {
 		$scope.newPasswd = "";
-		
+
 		$scope.title = _('customer',1);
 		$scope.titlemode = $scope.ADD ? 'addx' : 'editx';
 

@@ -5,7 +5,7 @@
 		.controller('devController', devController);
 
 
-	devController.$inject = ['store','$scope','i18n','notification','AUTH', 'elapsed', '$interval'];
+	devController.$inject = ['store','$scope','i18n','notification','Auth', 'elapsed', '$interval'];
 	function devController(store, $scope, _, note, Auth, elapsed, $interval) {
 		/* jshint validthis:true */
 		// note.debug("i18n missing");
@@ -39,7 +39,7 @@
 
 		function initView() {
 			_updateUI(null,true);
-			
+
 			_updateTime();
 			$scope.timerPromise = $interval(_updateTime, 1000);
 			$scope.$on("$destroy",function(){

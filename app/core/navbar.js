@@ -6,7 +6,7 @@
 		.controller("navbarController", navbarController);
 
 
-	navbarController.$inject = ['$rootScope', '$state', 'AUTH', 'i18n', 'store', 'notification'];
+	navbarController.$inject = ['$rootScope', '$state', 'Auth', 'i18n', 'store', 'notification'];
 	function navbarController($rootScope, $state, Auth, _, store, note) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -47,7 +47,7 @@
 	function navbarDirective() {
 		return {
 			restrict: "E",
-			templateUrl: "components/core/navbar.html",
+			templateUrl: "core/navbar.html",
 			controller: 'navbarController',
 			controllerAs: 'cms'
 		};
