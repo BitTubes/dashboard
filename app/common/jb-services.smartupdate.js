@@ -10,10 +10,13 @@
 		var fields = null;
 
 		return {
-			"makeBackup": makeBackup,
-			"setFields" : setFields,
-			"wasChanged": wasChanged,
-			"wasChangedNotEmpty": wasChangedNotEmpty,
+			makeBackup: makeBackup,
+			setFields : setFields,
+			wasChanged: wasChanged,
+			wasChangedNotEmpty: wasChangedNotEmpty,
+			_test : {
+				get fields(){ return fields; }
+			}
 		};
 
 
@@ -26,11 +29,16 @@
 		function makeBackup(obj) {
 			if(fields === null) {
 				console.error("fields array not set");
-				return;
+				return false;
 			}
 			for (var i = fields.length - 1; i >= 0; i--) {
-				obj[fields[i]+'Bak'] = obj[fields[i]];
+				if("undefined" === typeof(obj[fields[i]])) {
+					console.error("trying to backup non-existing field");
+				} else {
+					obj[fields[i]+'Bak'] = obj[fields[i]];
+				}
 			}
+			return true;
 		}
 		function wasChanged(obj) {
 			for (var i = fields.length - 1; i >= 0; i--) {
