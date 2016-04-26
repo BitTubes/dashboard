@@ -1,4 +1,16 @@
 {
+    "jsDoc": {
+    	"requireNewlineAfterDescription": true,
+    	"enforceExistence": true,
+    	"checkAnnotations": true,
+    	"checkParamExistence": true,
+    	"checkTypes": true,
+    	"checkRedundantParams": true,
+    	"checkParamNames": true,
+    	"checkReturnTypes": true,
+    	"checkRedundantReturns": true,
+    	"requireReturnTypes": true
+    },
     "requireCurlyBraces": [
         "if",
         "else",
