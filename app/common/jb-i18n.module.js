@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('jb.i18n', ['angular-storage','jb.i18n.locales', 'jb.services'])
 		.factory('i18n', i18nFactory)
@@ -14,8 +14,8 @@
 	/// config here:
 	var defaultLocale = 'en';
 	var availableLocales = [
-		{code:"en", name: "English"},
-		{code:"de", name: "Deutsch"}
+		{code:'en', name: 'English'},
+		{code:'de', name: 'Deutsch'}
 	];
 
 	// stop editing here
@@ -37,13 +37,13 @@
 
 
 	i18nFilter.$inject = ['i18n'];
-	function i18nFilter(_){
-		return function(str, number, replacements){
+	function i18nFilter(_) {
+		return function(str, number, replacements) {
 			return _(str,number,replacements);
 		};
 	}
 	i18nFactory.$inject = ['$rootScope', 'store', 'i18nLocales'];
-	function i18nFactory($rootScope, store, i18nLocales){//(locale, availableLocales) {
+	function i18nFactory($rootScope, store, i18nLocales) {
 		/* jshint validthis:true */
 		var vm = this;
 		$rootScope.availableLocales = availableLocales;
@@ -54,7 +54,8 @@
 		vm.translate = translate;
 		vm.translate.changeLanguage = setLocaleWrap;
 
-		setLocaleWrap(); // init and save to localStorage
+		// init and save to localStorage
+		setLocaleWrap();
 
 
 
@@ -74,13 +75,13 @@
 				// string not found, return key itself
 				return key;
 			}
-			if(typeof str !== "string") {
-				str = str[(number>1?1:0)];
+			if(typeof str !== 'string') {
+				str = str[(number > 1 ? 1 : 0)];
 			}
 			if(!replacements) {
 				return str;
 			}
-			if(typeof replacements === "string" || !replacements) {
+			if(typeof replacements === 'string' || !replacements) {
 				replacements = [replacements];
 			}
 			for (var i = 0; i < replacements.length; i++) {
@@ -88,7 +89,7 @@
 				if(!!vm.locales[replacements[i]]) {
 					replacements[i] = translate(replacements[i]);
 				}
-				var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+				var regexp = new RegExp('\\{' + i + '\\}', 'gi');
 				str = str.replace(regexp, replacements[i]);
 			}
 			return str;
@@ -107,8 +108,8 @@
 		var scripts = ['angular-locale_','jb-i18n_'];
 		var src;
 		for (var i = scripts.length - 1; i >= 0; i--) {
-			src = 'locales/'+scripts[i]+locale+'.js';
-			document.write('<script src="'+src+'"><\/script>');
+			src = 'locales/' + scripts[i] + locale + '.js';
+			document.write('<script src="' + src + '"><\/script>');
 		}
 	}
 	function _storeLocalGet(key) {

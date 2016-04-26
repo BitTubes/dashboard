@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 
 	angular
 		.module('bt.dashboard')
@@ -7,7 +7,7 @@
 
 
 	auth.$inject = ['$rootScope', '$state', '$timeout', 'http', 'notification', 'store', 'i18n'];
-	function auth($rootScope, $state, $timeout, http, note, store, _){
+	function auth($rootScope, $state, $timeout, http, note, store, _) {
 		/* jshint validthis:true */
 		var vm = this;
 		var account;
@@ -31,7 +31,8 @@
 			if(isAuthenticated()) {
 				return true;
 			} else {
-				if(redirectUrl) { // used by external apps (TT & PL editor)
+				// used by external apps (TT & PL editor)
+				if(redirectUrl) {
 					vm.redirectUrl = redirectUrl;
 				}
 				account = store.get('account');
@@ -39,11 +40,12 @@
 					$rootScope.ACCOUNT = account;
 					$rootScope.API = account['api'];
 				} else {
-					$rootScope.API = $rootScope.DEFAULT_API; // README we use demo here because the API returns code 400 if the api is unknown
+					// README we use demo here because the API returns code 400 if the api is unknown
+					$rootScope.API = $rootScope.DEFAULT_API;
 				}
 
 				// try getting data with last call
-				return http.post($rootScope.uriApiCms+'login', { 'api': $rootScope.API, 'p':{'login':login, 'pw':pw} })
+				return http.post($rootScope.uriApiCms + 'login', {'api': $rootScope.API, 'p':{'login':login, 'pw':pw}})
 				.then(_httpLoginSuccess, _httpLoginError);
 			}
 		}
@@ -52,15 +54,16 @@
 				// console.log("already authenticated");
 				return true;
 			} else {
-				if(redirectUrl) { // used by external apps (TT & PL editor)
+				// used by external apps (TT & PL editor)
+				if(redirectUrl) {
 					vm.redirectUrl = redirectUrl;
 				}
-				var token_exp = parseInt(store.get('token_exp', true));
-				var expiresIn = token_exp - (Date.now()/1000);
-				var old_token = store.get('token', true);
-				// console.log(token_exp, expiresIn,old_token);
-				if(expiresIn < minTokenTTL || !old_token) {
-					// console.log("token old or not found", old_token, token_exp, expiresIn);
+				var tokenExp = parseInt(store.get('token_exp', true));
+				var expiresIn = tokenExp - (Date.now() / 1000);
+				var oldToken = store.get('token', true);
+				// console.log(tokenExp, expiresIn,oldToken);
+				if(expiresIn < minTokenTTL || !oldToken) {
+					// console.log("token old or not found", oldToken, tokenExp, expiresIn);
 					return false;
 				}
 				_startRefreshTimer(expiresIn);
@@ -70,11 +73,12 @@
 					$rootScope.ACCOUNT = account;
 					$rootScope.API = account['api'];
 				} else {
-					$rootScope.API = $rootScope.DEFAULT_API; // README we use demo here because the API returns code 400 if the api is unknown
+					// README we use demo here because the API returns code 400 if the api is unknown
+					$rootScope.API = $rootScope.DEFAULT_API;
 				}
 
 				// try getting data with last call
-				return http.post($rootScope.uriApiCms+'getMe', { 'api': $rootScope.API })
+				return http.post($rootScope.uriApiCms + 'getMe', {'api': $rootScope.API})
 				.then(_httpLoginSuccess, _httpReauthError);
 			}
 		}
@@ -92,7 +96,7 @@
 			}
 			// User isn’t authenticated
 			// console.login
-			$state.transitionTo("login");
+			$state.transitionTo('login');
 		}
 		function redirect(state, params, url) {
 			if(url) {
@@ -137,7 +141,7 @@
 			}
 			// get payload and decode it from Base64 to JSON
 			var payload = JSON.parse( window.atob(data['token'].split('.')[1]) );
-			var expiresIn = parseInt(payload['exp']) - parseInt(payload['iat']);
+			var expiresIn = parseInt( payload['exp']) - parseInt(payload['iat'] );
 
 			store.set('token', data['token']);
 			store.set('token_exp', payload['exp']);
@@ -146,8 +150,8 @@
 
 			return true;
 		}
-		function refreshToken(){
-			return http.post($rootScope.uriApiCms+'refreshToken', { 'api': $rootScope.API })
+		function refreshToken() {
+			return http.post($rootScope.uriApiCms + 'refreshToken', {'api': $rootScope.API})
 				.then(_httpRefreshSuccess, _httpReauthError);
 		}
 
@@ -175,7 +179,7 @@
 				}
 			}
 		}
-		function _httpLoginSuccess(response, silent){
+		function _httpLoginSuccess(response, silent) {
 			var redirectUrl = vm.redirectUrl;
 			vm.redirectUrl = false;
 
@@ -185,19 +189,19 @@
 
 			var ACCOUNTS = data['customers'];
 			var account = store.get('account');
-			var existing_account_valid = false;
+			var existingAccountValid = false;
 
 			if(account && account['api']) {
 				for (var i = ACCOUNTS.length - 1; i >= 0; i--) {
 					if(ACCOUNTS[i]['api'] === account['api']) {
 						$rootScope.API = ACCOUNTS[i]['api'];
 						store.set('account', ACCOUNTS[i]);
-						existing_account_valid = true;
+						existingAccountValid = true;
 						break;
 					}
 				}
 			}
-			if(!existing_account_valid) {
+			if(!existingAccountValid) {
 				$rootScope.API = ACCOUNTS[0]['api'];
 				store.set('account', ACCOUNTS[0]);
 				$rootScope.ACCOUNT = ACCOUNTS[0];
@@ -207,7 +211,7 @@
 				redirect(false,false,redirectUrl);
 			}
 		}
-		function _httpRefreshSuccess(response){
+		function _httpRefreshSuccess(response) {
 			var data = response.data;
 			saveToken(data);
 		}
@@ -216,7 +220,7 @@
 				$timeout.cancel($rootScope.refreshPromise);
 			}
 			// get refresh-token 1 minute before the old one is invalid (t-x is used to deal with latency)
-			$rootScope.refreshPromise = $timeout(refreshToken, (expiresIn-minTokenTTL) * 1000);
+			$rootScope.refreshPromise = $timeout(refreshToken, (expiresIn - minTokenTTL) * 1000);
 		}
 	}
 

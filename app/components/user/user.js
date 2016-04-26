@@ -1,16 +1,16 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
 		.controller('userController', userController)
 		.controller('userEditModalCtrl', userEditModalCtrl);
 
 
-	userController.$inject = ['http','$stateParams','$scope','$rootScope','$timeout', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
-	function userController(http, $stateParams, $scope, $rootScope, $timeout, $uibModal, _, note, Auth, $state) {
+	userController.$inject = ['http','$stateParams','$scope','$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
+	function userController(http, $stateParams, $scope, $rootScope, $uibModal, _, note, Auth, $state) {
 		/* jshint validthis:true */
 		var vm = this;
-		var editMe = ($stateParams.editme==="me");
+		var editMe = ($stateParams.editme === 'me');
 		vm.add = add;
 		vm.delete = del;
 		vm.edit = edit;
@@ -38,12 +38,12 @@
 				size: null
 			});
 
-			modalInstance.result.then(add_db, modal_dismissed);
+			modalInstance.result.then(_addDb, _modalDismissed);
 		}
 		function del(user) {
 			$scope.delObj = user;
-			$scope.deleteWarning = user["login"]===$rootScope.ME['user']['login'];
-			$scope.Name = user["login"];
+			$scope.deleteWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.Name = user['login'];
 			$scope.title = _('user',1);
 
 			var modalInstance = $uibModal.open({
@@ -54,11 +54,11 @@
 				size: null
 			});
 
-			modalInstance.result.then(del_db, modal_dismissed);
+			modalInstance.result.then(_delDb, _modalDismissed);
 		}
 		function edit(user) {
 			$scope.ADD = 0;
-			$scope.editWarning = user["login"]===$rootScope.ME['user']['login'];
+			$scope.editWarning = user['login'] === $rootScope.ME['user']['login'];
 			$scope.user = user;
 
 			var modalInstance = $uibModal.open({
@@ -69,7 +69,7 @@
 				size: null
 			});
 
-			modalInstance.result.then(edit_db, modal_dismissed);
+			modalInstance.result.then(_editDb, _modalDismissed);
 		}
 
 
@@ -77,8 +77,8 @@
 
 
 		function initView() {
-			http.post($scope.uriApiCms+'getUsers', { 'api': $scope.API, 'p':{times:1} })
-			.then(function(response){
+			http.post($scope.uriApiCms + 'getUsers', {'api': $scope.API, 'p':{times:1}})
+			.then(function(response) {
 				var data = response.data;
 				vm.USERS = data;
 
@@ -88,23 +88,23 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function modal_dismissed() {
+		function _modalDismissed() {
 			if(editMe) {
 				// console.log("reroute to default users list");
-				$state.transitionTo("users");
+				$state.transitionTo('users');
 			}
 			// console.info('Modal dismissed at: ' + new Date());
 		}
-		function add_db(scope){
+		function _addDb(scope) {
 			// update DB
-			http.post($scope.uriApiCms+'addUser', {
+			http.post($scope.uriApiCms + 'addUser', {
 				'api': $scope.API,
 				'p':{
 					'login': scope.newLogin,
 					'pw': scope.newPasswd
 				}
 			})
-			.then(function(response){
+			.then(function(response) {
 				var data = response.data;
 				if(!data['ID']) {
 					// alert("error updating database");
@@ -113,20 +113,20 @@
 				} else {
 					vm.USERS.push(data);
 				}
-				note.ok(_('note_xadded',0,_('user',1)+' '+data['login']));
+				note.ok(_('note_xadded',0,_('user',1) + ' ' + data['login']));
 				// remove from UI
 				// var tr = document.getElementById('user'+user['ID']);
 				// tr.parentNode.removeChild(tr);
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function edit_db(scope) {
+		function _editDb(scope) {
 			// console.log('ok', newLogin, newPasswd);
 			// console.log('ok2', scope.newLogin, scope.newPasswd);
 			var user = scope.user;
 
 			// update DB
-			http.post($scope.uriApiCms+'updateUser', {
+			http.post($scope.uriApiCms + 'updateUser', {
 				'api': $scope.API,
 				'p': {
 					'ID': user['ID'],
@@ -134,7 +134,7 @@
 					'pw': scope.newPasswd
 				}
 			})
-			.then(function(response){
+			.then(function(response) {
 				var data = response.data;
 				if(!data['user']) {
 					// alert("error updating database");
@@ -155,23 +155,23 @@
 					// },3000);
 					if(editMe) {
 						// console.log("reroute to default users list");
-						$state.transitionTo("users");
+						$state.transitionTo('users');
 					}
 				}
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function del_db(user) {
+		function _delDb(user) {
 			// update DB
-			http.post($scope.uriApiCms+'deleteUser', { 'api': $scope.API, 'p':{'ID':user['ID']} })
-			.then(function(response){
+			http.post($scope.uriApiCms + 'deleteUser', {'api': $scope.API, 'p':{'ID':user['ID']}})
+			.then(function(response) {
 				var data = response.data;
-				if(data !== true && data !== "true") {
+				if(data !== true && data !== 'true') {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
 					return;
 				}
-				note.ok(_('note_xdeleted',0,_('user',1)+' '+user['login']));
+				note.ok(_('note_xdeleted',0,_('user',1) + ' ' + user['login']));
 				// remove from UI
 				// var tr = document.getElementById('user'+user['ID']);
 				// tr.parentNode.removeChild(tr);
@@ -196,8 +196,8 @@
 
 	userEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function userEditModalCtrl($scope, _, $uibModalInstance) {
-		$scope.newPasswd = "";
-		$scope.newLogin = $scope.user["login"];
+		$scope.newPasswd = '';
+		$scope.newLogin = $scope.user['login'];
 
 		$scope.title = _('user',1);
 		$scope.titlemode = $scope.ADD ? 'addx' : 'editx';
@@ -238,22 +238,25 @@
 		 * @param  integer len length of password
 		 * @return string      random password
 		 */
-		function _generatePassword(len){
-			var pwd = [],
-				cc = String.fromCharCode,
-				R = Math.random,
-				rnd,
-				i;
-			pwd.push(cc(48+(0|R()*10))); // push a number
-			pwd.push(cc(65+(0|R()*26))); // push an upper case letter
+		function _generatePassword(len) {
+			var pwd = [];
+			var	cc = String.fromCharCode;
+			var	R = Math.random;
+			var	rnd;
+			var	i;
+			// push a number
+			pwd.push(cc(48 + (0 | R() * 10)));
+			// push an upper case letter
+			pwd.push(cc(65 + (0 | R() * 26)));
 
-			for(i=2; i<len; i++){
-			   rnd = 0|R()*62; // generate upper OR lower OR number
-			   pwd.push(cc(48+rnd+(rnd>9?7:0)+(rnd>35?6:0)));
+			for(i = 2; i < len; i++) {
+				// generate upper OR lower OR number
+				rnd = 0 | R() * 62;
+				pwd.push(cc(48 + rnd + (rnd > 9 ? 7 : 0) + (rnd > 35 ? 6 : 0)));
 			}
 
 			// shuffle letters in password
-			return pwd.sort(function(){
+			return pwd.sort(function() {
 				return R() - 0.5;
 			}).join('');
 		}

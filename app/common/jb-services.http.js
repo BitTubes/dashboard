@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('jb.services')
 		.factory('http', httpFactory);
@@ -7,7 +7,7 @@
 
 
 	httpFactory.$inject = ['$http','$httpParamSerializerJQLike','store'];
-	function httpFactory($http, $httpParamSerializerJQLike, store){
+	function httpFactory($http, $httpParamSerializerJQLike, store) {
 		return {
 			get : get,
 			post : post

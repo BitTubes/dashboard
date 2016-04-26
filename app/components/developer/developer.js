@@ -1,12 +1,12 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
 		.controller('devController', devController);
 
 
-	devController.$inject = ['store','$scope','i18n','notification','Auth', 'elapsed', '$interval'];
-	function devController(store, $scope, _, note, Auth, elapsed, $interval) {
+	devController.$inject = ['store','$scope','notification','Auth', 'elapsed', '$interval'];
+	function devController(store, $scope, note, Auth, elapsed, $interval) {
 		/* jshint validthis:true */
 		// note.debug("i18n missing");
 		var vm = this;
@@ -14,12 +14,10 @@
 		// vm.refreshPromise = null;
 
 		vm.token = null;
-		vm.token_exp = null;
-		vm.expiresIn = "";
+		vm.tokenExp = null;
+		vm.expiresIn = '';
 		// keep the following in scope to ease copy-paste of the sorting
 		$scope.timerPromise = null;
-		// $scope.orderByField = 'Name';
-		// $scope.reverseSort = false;
 
 
 		initView();
@@ -42,24 +40,22 @@
 
 			_updateTime();
 			$scope.timerPromise = $interval(_updateTime, 1000);
-			$scope.$on("$destroy",function(){
+			$scope.$on('$destroy',function() {
 				if (angular.isDefined($scope.timerPromise)) {
 					$interval.cancel($scope.timerPromise);
 				}
 			});
 		}
-		function _updateUI(response,silent) {
-
-			// vm.refreshPromise = null;
+		function _updateUI(response, silent) {
 			vm.token = store.get('token');
-			vm.token_exp = store.get('token_exp');
+			vm.tokenExp = store.get('token_exp');
 
 			if(!silent) {
-				note.info("Token refreshed");
+				note.info('Token refreshed');
 			}
 		}
 		function _updateTime() {
-			vm.expiresIn = elapsed(vm.token_exp*1000);
+			vm.expiresIn = elapsed(vm.tokenExp * 1000);
 			// console.log('_updateTime');
 		}
 

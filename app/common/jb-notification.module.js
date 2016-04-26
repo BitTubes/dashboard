@@ -1,15 +1,15 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('jb.notification', ['jb.i18n'])
-		.directive("notification", notificationDirective)
-		.directive("topNotification", topNotificationDirective)
+		.directive('notification', notificationDirective)
+		.directive('topNotification', topNotificationDirective)
 		.factory('notification', notificationFactory);
 
 
 
 	notificationFactory.$inject = ['$rootScope','$timeout', 'i18n'];
-	function notificationFactory($rootScope, $timeout, _){
+	function notificationFactory($rootScope, $timeout, _) {
 		var insertBelow = false;
 
 		var service = {
@@ -29,6 +29,7 @@
 				show('danger', msg, _('error'));
 			},
 			_test: {
+				// README getter not required for test
 				set insertBelow(bool) {
 					insertBelow = bool;
 				}
@@ -54,7 +55,7 @@
 				break;
 			}
 			var newAlert = {
-				class: 'alert-'+type,
+				class: 'alert-' + type,
 				title: title,
 				msg: msg,
 				show: true,
@@ -72,18 +73,18 @@
 				arr.unshift(newAlert);
 			}
 
-			$timeout(function(){
+			$timeout(function() {
 				// slide out message
 				newAlert.show = false;
 
 				// clean up alert record and thereby remove it from the DOM a bit later
-				$timeout(function(){
+				$timeout(function() {
 					var index = arr.indexOf(newAlert);
-					if (index > -1) {
+					if(index > -1) {
 						arr.splice(index, 1);
 					}
 				}, 3000);
-			}, timeout*1000);
+			}, timeout * 1000);
 
 		}
 	}
@@ -91,7 +92,7 @@
 
 	function notificationDirective() {
 		return {
-			restrict: "E",
+			restrict: 'E',
 			// templateUrl: "common/jb-notification.html",
 			template: '<div ng-repeat="alert in jbNotifications" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
 			controller: ['$rootScope',function($rootScope) {
@@ -101,7 +102,7 @@
 	}
 	function topNotificationDirective() {
 		return {
-			restrict: "E",
+			restrict: 'E',
 			// templateUrl: "common/jb-notification-top.html",
 			template: '<div ng-repeat="alert in jbNotificationsTop" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
 			controller: ['$rootScope',function($rootScope) {

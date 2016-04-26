@@ -1,9 +1,9 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
-		.directive("btNavbar", navbarDirective)
-		.controller("navbarController", navbarController);
+		.directive('btNavbar', navbarDirective)
+		.controller('navbarController', navbarController);
 
 
 	navbarController.$inject = ['$rootScope', '$state', 'Auth', 'i18n', 'store', 'notification'];
@@ -11,7 +11,9 @@
 		/* jshint validthis:true */
 		var vm = this;
 
-		vm.changeAccount = $rootScope.changeAccount = changeAccount; // yes, make that global
+		// yes, make that global
+		vm.changeAccount = $rootScope.changeAccount = changeAccount;
+
 		vm.changeLang = changeLang;
 		vm.logout = logout;
 		vm.navCollapsed = true;
@@ -46,8 +48,8 @@
 
 	function navbarDirective() {
 		return {
-			restrict: "E",
-			templateUrl: "core/navbar.html",
+			restrict: 'E',
+			templateUrl: 'core/navbar.html',
 			controller: 'navbarController',
 			controllerAs: 'cms'
 		};

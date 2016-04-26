@@ -1,10 +1,10 @@
 (function() {
-	"use strict";
+	'use strict';
 
 	var DEFAULT_ROUTE = 'videos.list';
 	var DEFAULT_URL = '/video';
 	var DEFAULT_API = 'demo';
-	var tabs; // defined below
+	var tabs;
 
 	angular
 		.module('bt.dashboard')
@@ -23,7 +23,7 @@
 
 		// select default
 		// $urlRouterProvider.otherwise(DEFAULT_URL);
-		$urlRouterProvider.otherwise(function ($injector) {
+		$urlRouterProvider.otherwise(function($injector) {
 			var $state = $injector.get('$state');
 			var $rootScope = $injector.get('$rootScope');
 			var store = $injector.get('store');
@@ -85,27 +85,27 @@
 
 
 
-		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 			// get auth-status
 			var authenticated = Auth.isAuthenticated();
 			// set stateChanged to track if we are onLoad or mid-app (for otherwise-state switcher)
 			$rootScope.stateChanged = true;
 
-			if (!toState.public && !authenticated){
+			if (!toState.public && !authenticated) {
 				// not authenticated but trying to access a private view
 				var promise = Auth.tryReauthentication();
 				if(!promise) {
 					Auth.showLogin(toState,toParams);
 				} else {
-					promise.then(function(){
+					promise.then(function() {
 						Auth.redirect(toState,toParams);
-					},function(){
+					},function() {
 						Auth.showLogin(toState,toParams);
 					});
 				}
 				event.preventDefault();
 				return;
-			} else if(toState.state === "login" && authenticated) {
+			} else if(toState.state === 'login' && authenticated) {
 				// authenticated but trying to access the login view
 				Auth.redirect();
 				event.preventDefault();
@@ -123,7 +123,7 @@
 				store.set('lastView', {'state':toState.state,'params':toParams});
 			}
 			// udpate website title
-			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' ('+ $rootScope.API+')' : '') ;
+			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' (' + $rootScope.API + ')' : '');
 		});
 	}
 
@@ -181,10 +181,10 @@
 				controllerAs: 'playlistCtrl'
 			},
 			{
-				state: "analyzer",
+				state: 'analyzer',
 				external: true,
-				title: "analyzer",
-				url: "/analyzer",
+				title: 'analyzer',
+				url: '/analyzer',
 			}
 		],
 		hidden : [
@@ -273,11 +273,11 @@
 				controllerAs: 'sqlCtrl'
 			},
 			{
-				state: "pma",
+				state: 'pma',
 				admin: true,
 				external: true,
-				title: "phpMyAdmin",
-				url: "/dev/pma/",
+				title: 'phpMyAdmin',
+				url: '/dev/pma/',
 			}
 		]
 	};

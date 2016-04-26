@@ -1,9 +1,9 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
-		.directive("btFooter", footerDirective)
-		.controller("footerController", footerController);
+		.directive('btFooter', footerDirective)
+		.controller('footerController', footerController);
 
 
 	footerController.$inject = ['$scope'];
@@ -13,8 +13,8 @@
 
 	function footerDirective() {
 		return {
-			restrict: "E",
-			templateUrl: "core/footer.html",
+			restrict: 'E',
+			templateUrl: 'core/footer.html',
 			controller: 'footerController',
 			controllerAs: 'footer'
 		};

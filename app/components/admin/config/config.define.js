@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular.module('bt.dashboard')
 		.controller('configDefineController', configDefineController);
 
@@ -8,12 +8,12 @@
 	function configDefineController(http, $scope, $rootScope, smartUpdate, $stateParams, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
-		var config_ID = parseInt($stateParams.id);
+		var configId = parseInt($stateParams.id);
 		var availableLocales = {};
 		vm.castTypes = {
-			'': 	'String',
+			'': 'String',
 			'bool': 'Boolean',
-			'int': 	'Integer',
+			'int': 'Integer',
 			'float':'Float'
 		};
 		vm.LOCALES = [];
@@ -34,13 +34,13 @@
 
 		function edit(definition) {
 			if(!definition['txt'] && smartUpdate.wasChanged(definition)) {
-				del_db(definition);
+				delDb(definition);
 				return true;
 			}
 			if(!smartUpdate.wasChangedNotEmpty(definition)) {
 				return true;
 			}
-			edit_db(definition);
+			editDb(definition);
 		}
 
 
@@ -50,8 +50,8 @@
 		function initView() {
 			smartUpdate.setFields(['txt']);
 			// get details on the current config
-			http.post($scope.uriApiCms+'getConfigId', { 'api': $rootScope.DEFAULT_API, p:{'ID': config_ID} })
-			.then(function(response){
+			http.post($scope.uriApiCms + 'getConfigId', {'api': $rootScope.DEFAULT_API, p:{'ID': configId}})
+			.then(function(response) {
 				// var data = response.data;
 				$scope.CONFIG = response.data;
 
@@ -62,8 +62,8 @@
 				availableLocales[$rootScope.availableLocales[i].code] = $rootScope.availableLocales[i].name;
 			}
 			// get definitions
-			http.post($scope.uriApiCms+'getConfigDef', { 'api': $rootScope.DEFAULT_API, 'p':{'ID':config_ID} })
-			.then(function(response){
+			http.post($scope.uriApiCms + 'getConfigDef', {'api': $rootScope.DEFAULT_API, 'p':{'ID':configId}})
+			.then(function(response) {
 				var data = response.data;
 				for (var i = data.length - 1; i >= 0; i--) {
 					smartUpdate.makeBackup(data[i]);
@@ -78,17 +78,17 @@
 					vm.LOCALES.push({
 						'locale':el,
 						'localeName':availableLocales[el],
-						'txt':"",
-						'txtBak':"",
-						'ID':config_ID
+						'txt':'',
+						'txtBak':'',
+						'ID':configId
 					});
 				}
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function edit_db(definition) {
+		function editDb(definition) {
 			// update DB
-			return http.post($scope.uriApiCms+'saveConfigDef', {
+			return http.post($scope.uriApiCms + 'saveConfigDef', {
 				'api': $rootScope.DEFAULT_API,
 				'p':{
 					'ID': $scope.CONFIG['ID'],
@@ -96,7 +96,7 @@
 					'txt': definition['txt'].trim()
 				}
 			})
-			.then(function(response){
+			.then(function(response) {
 				var data = response.data;
 				if(!data || (data && data['error'] && data['error'].length)) {
 					note.error(_('note_dberror'));
@@ -116,13 +116,12 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function del_db(definition) {
+		function delDb(definition) {
 			// update DB
-			http.post($scope.uriApiCms+'deleteConfigDef', { 'api': $rootScope.DEFAULT_API, 'p':{'ID':definition['ID'], 'locale':definition['locale']} })
-			.then(function(response){
+			http.post($scope.uriApiCms + 'deleteConfigDef', {'api': $rootScope.DEFAULT_API, 'p':{'ID':definition['ID'], 'locale':definition['locale']}})
+			.then(function(response) {
 				var data = response.data;
-				if(data !== true && data !== "true") {
-					// alert("error updating database");
+				if(data !== true && data !== 'true') {
 					note.error(_('note_dberror'));
 					return;
 				}
