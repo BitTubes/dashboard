@@ -5,18 +5,16 @@
 		.directive('btnSpinner', btnSpinner);
 		// .directive('spinnerController', ['$scope',spinnerController]);
 
+	btnSpinner.$inject = ['$q'];
 	/**
 	 *
 	 * Displays a loading spinner on a button if a promise or boolean is passed to it.
 	 *
 	 * @memberof portal.util
-	 * @ngdoc directive
 	 * @name btnSpinner
 	 * @param $q     {service}   $q service
 	 *
-	 * @ngInject
 	 */
-	btnSpinner.$inject = ['$q'];
 	function btnSpinner($q) {
 		var directive = {
 			link: link,

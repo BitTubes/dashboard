@@ -7,6 +7,13 @@
 
 
 	waitingFactory.$inject = ['$uibModal', '$rootScope'];
+	/**
+	 * factory
+	 *
+	 * @param  {angularJs} $uibModal
+	 * @param  {angularJs} $rootScope
+	 * @return {service}
+	 */
 	function waitingFactory($uibModal, $rootScope) {
 		/* jshint validthis:true */
 		// var vm = this;
@@ -28,6 +35,13 @@
 		///////////////////////////////
 
 
+		/**
+		 * show the waiting modal
+		 *
+		 * @param  {string} msgWaiting  - the title of the modal
+		 * @param  {string} msgTaketime - the message displayed
+		 * no @return
+		 */
 		function show(msgWaiting, msgTaketime) {
 			scope.msgWaiting = msgWaiting;
 			scope.msgTaketime = msgTaketime;
@@ -35,11 +49,16 @@
 			modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/waiting.html',
-				backdrop: 'static', // README disables modal from being closed by clicking on the background
+				backdrop: 'static', /* disables modal from being closed by clicking on the background */
 				scope: scope,
 				size: 'lg'
 			});
 		}
+		/**
+		 * hide the modal again
+		 *
+		 * no @return
+		 */
 		function hide() {
 			modalInstance.close();
 		}

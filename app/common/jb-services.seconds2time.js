@@ -5,7 +5,11 @@
 		.filter('seconds2time', seconds2timeFilter);
 
 
-
+	/**
+	 * filter that converts seconds into a readable time
+	 *
+	 * @return {string}
+	 */
 	function seconds2timeFilter() {
 		return function(seconds) {
 			var minutes = Math.floor(seconds / 60);

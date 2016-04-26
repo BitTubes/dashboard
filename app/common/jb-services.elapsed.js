@@ -8,8 +8,23 @@
 
 
 	elapsedFactory.$inject = ['i18n'];
+	/**
+	 * factory
+	 *
+	 * @param  {jbI18n} _
+	 * @return {object}
+	 */
 	function elapsedFactory(_) {
-		return function(date,neverReplacement) {
+		return service;
+
+		/**
+		 * elapsed service
+		 *
+		 * @param  {integer|string} date      accepts ISO 8601, mysql-timestamp and unixtime in seconds; anything but unixtime will have to be in UTC timezone
+		 * @param  {string} [neverReplacement] potential translations will have to be done before passing this to the function
+		 * @return {string}
+		 */
+		function service(date,neverReplacement) {
 			// display a default message if date equals to false
 			if (!date) {
 				return neverReplacement !== undefined ? neverReplacement : _('never');
@@ -21,7 +36,7 @@
 			var temp;
 			var intervals = [
 					['t_year', 12],
-					['t_month', 4.35], // README month-length in weeks based on 365 days per year
+					['t_month', 4.35], /*month-length in weeks based on 365 days per year*/
 					['t_week', 7],
 					['t_day', 24],
 					['t_hour', 60],
@@ -74,9 +89,15 @@
 					return _('inx',null,[difference, _(intervals[i][0], difference)]);
 				}
 			}
-		};
+		}
 	}
 	elapsedFilter.$inject = ['elapsed'];
+	/**
+	 * filter wrap around service
+	 *
+	 * @param  {angularJs} elapsed
+	 * @return {string}
+	 */
 	function elapsedFilter(elapsed) {
 		return function(date, neverReplacement) {
 			return elapsed(date, neverReplacement);

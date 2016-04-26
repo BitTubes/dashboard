@@ -6,14 +6,38 @@
 
 
 	deleteModalCtrl.$inject = ['$scope', '$uibModalInstance'];
+	/**
+	 * controller
+	 *
+	 * @param  {angularJs} $scope
+	 * @param  {angularJs} $uibModalInstance
+	 * no @return
+	 */
 	function deleteModalCtrl($scope, $uibModalInstance) {
-		$scope.ok = function() {
-			$uibModalInstance.close($scope.delObj);
-		};
+		$scope.ok = ok;
+		$scope.cancel = cancel;
 
-		$scope.cancel = function() {
+
+		///////////////////////
+
+
+		/**
+		 * called when OK button is pressed
+		 *
+		 * no @return
+		 */
+		function ok() {
+			$uibModalInstance.close($scope.delObj);
+		}
+
+		/**
+		 * called when CANCEL button is pressed
+		 *
+		 * no @return
+		 */
+		function cancel() {
 			$uibModalInstance.dismiss();
-		};
+		}
 	}
 
 })();

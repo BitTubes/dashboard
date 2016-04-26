@@ -37,12 +37,26 @@
 
 
 	i18nFilter.$inject = ['i18n'];
+	/**
+	 * offer language module as a filter
+	 *
+	 * @param  {object} _ the i18n service
+	 * @return {string}   the translation
+	 */
 	function i18nFilter(_) {
 		return function(str, number, replacements) {
 			return _(str,number,replacements);
 		};
 	}
 	i18nFactory.$inject = ['$rootScope', 'store', 'i18nLocales'];
+	/**
+	 * the translation service
+	 *
+	 * @param  {Object} $rootScope
+	 * @param  {Object} store       angular-storage
+	 * @param  {Object} i18nLocales tranlations module
+	 * @return {string}             the translation
+	 */
 	function i18nFactory($rootScope, store, i18nLocales) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -62,13 +76,25 @@
 		return vm.translate;
 
 
-
+		/**
+		 * change Language
+		 *
+		 * @param {string} locale e.g. "en"
+		 */
 		function setLocaleWrap(locale) {
 			if(_setLocale(locale, $rootScope, store)) {
 				vm.locales = vm.loadedLocales[$rootScope.locale];
 			}
 		}
 
+		/**
+		 * the actual translation function
+		 *
+		 * @param  {string} key          identifier for i18nLocales
+		 * @param  {integer|null|false} [number]       used to show the plural version
+		 * @param  {string} replacements keys or plain strings
+		 * @return {string}              the translation or key if no translation was found
+		 */
 		function translate(key, number, replacements) {
 			var str = vm.locales[key];
 			if(!str) {
@@ -100,6 +126,12 @@
 	///////////////////////
 
 
+	/**
+	 * loads the module that provides the actual translation onLoad of document
+	 * document.write is used here to prevent "module unknown" angular-errors
+	 *
+	 * no @return
+	 */
 	function _loadLocale() {
 		var temp = {locale: null};
 		_setLocale('',temp);
@@ -112,9 +144,26 @@
 			document.write('<script src="' + src + '"><\/script>');
 		}
 	}
+
+	/**
+	 * wrapper for localStorage.getItem, immitating angular-storage behavior
+	 * used for initially setting/getting the system's language before angular modules are available
+	 *
+	 * @param  {string} key e.g. "en"
+	 * @return {string|Object|integer|boolean}     whatever was stored via localStorage
+	 */
 	function _storeLocalGet(key) {
 		return JSON.parse(localStorage.getItem(key));
 	}
+	/**
+	 * wrapper for localStorage.getItem, immitating angular-storage behavior
+	 * used for initially setting/getting the system's language before angular modules are available
+	 *
+	 * @param {string} locale     [description]
+	 * @param {Object} $rootScope [description]
+	 * @param {Object} [store]      reference to angular-store service
+	 * @return {boolean} true if language was set for the first time, undefined in any other case
+	 */
 	function _setLocale(locale, $rootScope, store) {
 		if($rootScope.locale === locale) {
 			return;

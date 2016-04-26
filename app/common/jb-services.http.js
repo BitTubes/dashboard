@@ -7,6 +7,14 @@
 
 
 	httpFactory.$inject = ['$http','$httpParamSerializerJQLike','store'];
+	/**
+	 * factory
+	 *
+	 * @param  {angularJs} $http                      service
+	 * @param  {angularJs} $httpParamSerializerJQLike service
+	 * @param  {angularJs} store                      angular-storage
+	 * @return {promise}
+	 */
 	function httpFactory($http, $httpParamSerializerJQLike, store) {
 		return {
 			get : get,
@@ -17,6 +25,13 @@
 		///////////////////////////////
 
 
+		/**
+		 * $http.get wrapper
+		 *
+		 * @param  {string} url     GET url
+		 * @param  {object} params  GET parameters
+		 * @return {promise}
+		 */
 		function get(url, params) {
 			return $http.get(
 				url,
@@ -31,6 +46,13 @@
 				}
 			);
 		}
+		/**
+		 * $http.post wrapper
+		 *
+		 * @param  {string} url     POST url
+		 * @param  {object} params  POST parameters
+		 * @return {promise}
+		 */
 		function post(url, params) {
 			return $http.post(
 				url,
