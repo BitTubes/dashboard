@@ -62,7 +62,7 @@
 		}
 	}
 
-	appRun.$inject = ['$rootScope', 'Auth', 'i18n', 'store'];
+	appRun.$inject = ['$rootScope', '$location', '$window', 'Auth', 'i18n', 'store'];
 	function appRun($rootScope, Auth, _, store) {
 		// globals
 		// - API
@@ -83,6 +83,14 @@
 		$rootScope.DEFAULT_URL = DEFAULT_URL;
 		$rootScope.tabs = tabs;
 
+
+		// initialise google analytics
+		$window.ga('create', 'UA-23776265-2', 'auto');
+
+		// track pageview on state change
+		$rootScope.$on('$stateChangeSuccess', function() {
+			$window.ga('send', 'pageview', $location.path());
+		});
 
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
