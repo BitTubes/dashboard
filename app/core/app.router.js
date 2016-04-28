@@ -109,20 +109,74 @@
 		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
 
+		// listener for UI-Router, Auth, ...
+		$rootScope.$on('$stateChangeStart', stateChangeStart);
+		// listeners for Google Analytics
+		$rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
 
-		// initialise google analytics
+		// initialise Google Analytics
 		$window.ga('create', 'UA-23776265-2', 'auto');
 
-		// track pageview on state change
-		// https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#overview
-		$rootScope.$on('$stateChangeSuccess', function() {
+
+		////////////////////////////////////
+
+
+		/**
+		 * $stateChangeSuccess listener
+		 *
+		 * @param  {Object} event      angularJs
+		 * @param  {Object} toState    angularJs
+		 * @param  {Object} toParams   angularJs
+		 * no @return
+		 */
+		function stateChangeSuccess(event, toState, toParams) { /*, fromState, fromParams) {*/
+			// track pageview on state change
+			// https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#overview
+			$window.ga('set', 'page', $rootScope.BASE_HREF + stripParamsFromUrl(toState, toParams));
+			$window.ga('set', 'title', $rootScope.pageTitleGA);
 			$window.ga('set', 'dimension1', $rootScope.API || '-');
-			$window.ga('set', 'page', $rootScope.BASE_HREF + $location.path());
+			$window.ga('set', 'dimension2', $rootScope.locale || '-');
 			$window.ga('send', 'pageview');
-		});
+		}
+		/**
+		 * used for GA to post the path with param-names instead of param-values
+		 *
+		 * @param  {Object} state  toState
+		 * @param  {Object} params toParams
+		 * @return {string}
+		 */
+		function stripParamsFromUrl(state, params) {
+			var updateUrl = false;
+			for(var el in params) {
+				if(params[el]) {
+					updateUrl = true;
+					break;
+				}
+			}
+			if(!updateUrl) {
+				return $location.path();
+			}
+			var locationPath = $location.path().split('/');
+			var page = state.url.split('/');
+			for (var i = page.length - 1, ii = locationPath.length - 1; i >= 0; i--, ii--) {
+				if(page[i].indexOf(':') === 0) {
+					locationPath[ii] = page[i];
+				}
+			}
+			return locationPath.join('/');
+		}
 
-
-		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+		/**
+		 * $stateChangeStart listener
+		 *
+		 * @param  {Object} event      angularJs
+		 * @param  {Object} toState    angularJs
+		 * @param  {Object} toParams   angularJs
+		 * @param  {Object} fromState  angularJs
+		 * @param  {Object} fromParams angularJs
+		 * no @return
+		 */
+		function stateChangeStart(event, toState, toParams, fromState, fromParams) {
 			// get auth-status
 			var authenticated = Auth.isAuthenticated();
 			// set stateChanged to track if we are onLoad or mid-app (for otherwise-state switcher)
@@ -160,8 +214,10 @@
 				store.set('lastView', {'state':toState.state,'params':toParams});
 			}
 			// udpate website title
-			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' (' + $rootScope.API + ')' : '');
-		});
+			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement);
+			// adapt the title for Google Analytics
+			$rootScope.pageTitleGA = 'Dashboard: ' + $rootScope.pageTitle;
+		}
 	}
 
 
@@ -201,7 +257,7 @@
 					},
 					{
 						state: 'videos.config',
-						title: 'config',
+						title: 'Video Config',
 						url: '/config/:id',
 						templateUrl: 'components/video/video.config.html',
 						controller: 'videoConfigController',
