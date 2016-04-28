@@ -13,6 +13,15 @@
 
 
 	appConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider'];
+	/**
+	 * THE app-config
+	 *
+	 * @param  {angularJs} $stateProvider     angularJs
+	 * @param  {angularJs} $locationProvider  angularJs
+	 * @param  {angularJs} $urlRouterProvider angularJs
+	 * @param  {angularJs} $httpProvider      angularJs
+	 * no @return
+	 */
 	function appConfig($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 		// remove hashtag (requires server-side rewrites!)
 		// $locationProvider.html5Mode(true);
@@ -45,7 +54,11 @@
 			// fallback, go to default state
 			$state.go(DEFAULT_ROUTE);
 		});
-		// add states
+		/**
+		 * simple wrapper for adding all states
+		 *
+		 * @param {Object} tabList
+		 */
 		function addStates(tabList) {
 			for (var i = 0; i < tabList.length; i++) {
 				if(tabList[i].external) {
@@ -64,6 +77,17 @@
 
 	appRun.$inject = ['$rootScope', '$location', '$window', 'Auth', 'i18n', 'store'];
 	function appRun($rootScope, Auth, _, store) {
+	/**
+	 * THE app-run function
+	 *
+	 * @param  {angularJs} $rootScope angularJs
+	 * @param  {angularJs} $location  angularJs
+	 * @param  {angularJs} $window    angularJs
+	 * @param  {angularJs} Auth       app.auth
+	 * @param  {angularJs} _          jb.i18n
+	 * @param  {angularJs} store      angular-storage
+	 * no @return
+	 */
 		// globals
 		// - API
 		var server = 'https://nlv.bittubes.com/api/';
