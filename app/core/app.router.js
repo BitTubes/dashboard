@@ -4,6 +4,7 @@
 	var DEFAULT_ROUTE = 'videos.list';
 	var DEFAULT_URL = '/video';
 	var DEFAULT_API = 'demo';
+	var BASE_HREF = '/dashboard';
 	var tabs;
 
 	angular
@@ -13,6 +14,15 @@
 
 
 	appConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider'];
+	/**
+	 * THE app-config
+	 *
+	 * @param  {angularJs} $stateProvider     angularJs
+	 * @param  {angularJs} $locationProvider  angularJs
+	 * @param  {angularJs} $urlRouterProvider angularJs
+	 * @param  {angularJs} $httpProvider      angularJs
+	 * no @return
+	 */
 	function appConfig($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 		// remove hashtag (requires server-side rewrites!)
 		// $locationProvider.html5Mode(true);
@@ -45,7 +55,11 @@
 			// fallback, go to default state
 			$state.go(DEFAULT_ROUTE);
 		});
-		// add states
+		/**
+		 * simple wrapper for adding all states
+		 *
+		 * @param {Object} tabList
+		 */
 		function addStates(tabList) {
 			for (var i = 0; i < tabList.length; i++) {
 				if(tabList[i].external) {
@@ -63,7 +77,18 @@
 	}
 
 	appRun.$inject = ['$rootScope', '$location', '$window', 'Auth', 'i18n', 'store'];
-	function appRun($rootScope, Auth, _, store) {
+	/**
+	 * THE app-run function
+	 *
+	 * @param  {angularJs} $rootScope angularJs
+	 * @param  {angularJs} $location  angularJs
+	 * @param  {angularJs} $window    angularJs
+	 * @param  {angularJs} Auth       app.auth
+	 * @param  {angularJs} _          jb.i18n
+	 * @param  {angularJs} store      angular-storage
+	 * no @return
+	 */
+	function appRun($rootScope, $location, $window, Auth, _, store) {
 		// globals
 		// - API
 		var server = 'https://nlv.bittubes.com/api/';
@@ -81,6 +106,7 @@
 		$rootScope.DEFAULT_API = DEFAULT_API;
 		$rootScope.DEFAULT_ROUTE = DEFAULT_ROUTE;
 		$rootScope.DEFAULT_URL = DEFAULT_URL;
+		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
 
 
@@ -88,8 +114,11 @@
 		$window.ga('create', 'UA-23776265-2', 'auto');
 
 		// track pageview on state change
+		// https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#overview
 		$rootScope.$on('$stateChangeSuccess', function() {
-			$window.ga('send', 'pageview', $location.path());
+			$window.ga('set', 'dimension1', $rootScope.API || '-');
+			$window.ga('set', 'page', $rootScope.BASE_HREF + $location.path());
+			$window.ga('send', 'pageview');
 		});
 
 
