@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular.module('bt.dashboard')
 		.controller('customerController', customerController)
 		// .controller('customerWaitController', customerWaitController)
@@ -43,13 +43,12 @@
 			});
 			// note.debug('db-api fehlt noch, http-anfrage mit RETURN deaktiviert');
 
-			modalInstance.result.then(add_db , modal_dismissed);
+			modalInstance.result.then(_addDb , _modalDismissed);
 		}
 		function edit(customer) {
 			$scope.customer = customer;
 			$scope.ADD = 0;
-			$scope.api_before = customer['api'];
-			// note.debug("add check if I'm editing myself and display warning if I am");
+			$scope.apiBefore = customer['api'];
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/admin/customer/customer.edit.html',
@@ -58,12 +57,11 @@
 				size: null
 			});
 
-			modalInstance.result.then(edit_db, modal_dismissed);
+			modalInstance.result.then(_editDb, _modalDismissed);
 		}
 		function del(customer) {
-			// $scope.customer = customer;
 			$scope.delObj = customer;
-			$scope.Name = customer["name"];
+			$scope.Name = customer['name'];
 			$scope.title = _('customer',1);
 
 
@@ -72,13 +70,12 @@
 
 			// note.debug("add check if I'm deleteting myself and display warning if I am");
 			var templateUrl;
-			if(customer["deleted"]) {
+			if(customer['deleted']) {
 				templateUrl = 'common/del.0.html';
 			} else {
 				templateUrl = 'common/del.html';
 			}
 
-			// console.log('delete', user['ID']);
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: templateUrl,
@@ -87,7 +84,7 @@
 				size: null
 			});
 
-			modalInstance.result.then(del_db, modal_dismissed);
+			modalInstance.result.then(_delDb, _modalDismissed);
 		}
 
 		/////////////////////
@@ -96,30 +93,27 @@
 		function initView() {
 			http.post($scope.uriApiCms+'getCustomersAll', { 'api': $rootScope.DEFAULT_API,  })
 			.then(function(response){
-				// var data = response.data;
 				vm.CUSTOMERS = response.data;
-				// console.log(response.data);
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function modal_dismissed() {
+		function _modalDismissed() {
 			// console.info('Modal dismissed at: ' + new Date());
 		}
-		function add_db(scope) {
+		function _addDb(scope) {
 			var customer = scope.customer;
 			// show waiting view
 			waiting.show(_('wait_addingx',null,'customer'), _('wait_takex',null,['1','t_minute']));
-			// $state.go('customers.wait');
 
 			// update DB
 			http.post($scope.uriApiCms+'addCustomer', {
 				'api': $rootScope.DEFAULT_API,
 				'p':{
-					'name': customer["name"],
-					'newapi': customer["api"]
+					'name': customer['name'],
+					'newapi': customer['api']
 				}
 			})
-			.then(function(response){
+			.then(function(response) {
 				waiting.hide();
 
 				var data = response.data;
@@ -131,28 +125,24 @@
 				scope.customer = data['customer'];
 				vm.CUSTOMERS.push(scope.customer);
 				$rootScope.ME['customers'].push(scope.customer);
-				note.ok(_('note_xadded',0,_('customer',1)+' '+scope.customer["name"]));
+				note.ok(_('note_xadded',0,_('customer',1) + ' ' + scope.customer['name']));
 
 				viewAccount(scope.customer);
-				// vm.getCustomers();
-				// remove from UI
-				// var tr = document.getElementById('customer'+customer['ID']);
-				// tr.parentNode.removeChild(tr);
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function edit_db(scope) {
+		function _editDb(scope) {
 			// update DB
 			var customer = scope.customer;
-			http.post($scope.uriApiCms+'updateCustomer', {
+			http.post($scope.uriApiCms + 'updateCustomer', {
 				'api': $rootScope.DEFAULT_API,
 				'p':{
 					'name':customer['name'],
 					'api':customer['api'],
-					'oldapi':$scope.api_before
+					'oldapi':$scope.apiBefore
 				}
 			})
-			.then(function(response){
+			.then(function(response) {
 				var data = response.data;
 				if(data !== true) {
 					// alert("error updating database");
@@ -165,7 +155,7 @@
 				if(!customer['deleted']) {
 					for (var temp, i = $rootScope.ME['customers'].length - 1; i >= 0; i--) {
 						temp = $rootScope.ME['customers'][i];
-						if(temp['api'] === $scope.api_before) {
+						if(temp['api'] === $scope.apiBefore) {
 							temp['api'] = customer['api'];
 							temp['name'] = customer['name'];
 							break;
@@ -174,7 +164,7 @@
 
 				}
 				// update CURRENT customer variables and storage for next load
-				if($rootScope.ACCOUNT['api'] === $scope.api_before) {
+				if($rootScope.ACCOUNT['api'] === $scope.apiBefore) {
 					store.set('account', customer);
 					$rootScope.ACCOUNT = customer;
 					$rootScope.API = customer['api'];
@@ -182,46 +172,37 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function del_db(customer) {
+		function _delDb(customer) {
 			// update DB
-			customer.delPromise = http.post($scope.uriApiCms+'toggleCustomer', { 'api': $rootScope.DEFAULT_API, 'p':{'api':customer["api"], 'deleted':customer["deleted"]?'0':'1'} })
-			.then(function(response){
+			customer.delPromise = http.post($scope.uriApiCms + 'toggleCustomer', {'api': $rootScope.DEFAULT_API, 'p':{'api':customer['api'], 'deleted':customer['deleted'] ? '0' : '1'}})
+			.then(function(response) {
 				var data = response.data;
-				if(data !== true && data !== "true") {
+				if(data !== true && data !== 'true') {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
 					return;
 				}
-				customer["deleted"] = !customer["deleted"];
+				customer['deleted'] = !customer['deleted'];
 
-				// note.ok(_((customer["deleted"]?'note_xdeleted':'note_xreactivated'),0,_('customer',1)+' '+customer['name']));
-
-				// remove from UI
-				// var tr = document.getElementById('user'+user['ID']);
-				// tr.parentNode.removeChild(tr);
-				for (var customer_index, i = $rootScope.ME['customers'].length - 1; i >= 0; i--) {
+				for (var customerIndex, i = $rootScope.ME['customers'].length - 1; i >= 0; i--) {
 					if($rootScope.ME['customers'][i]['api'] === customer['api']) {
 						// removeIndex = i;
-						customer_index = i;
+						customerIndex = i;
 						break;
 					}
 				}
-				if(customer["deleted"]) {
-					note.warn(_('note_xdeleted',0,_('customer',1)+' '+customer['name']));
+				if(customer['deleted']) {
+					note.warn(_('note_xdeleted',0,_('customer',1) + ' ' + customer['name']));
 					// remove from local data cache
-					$rootScope.ME['customers'][customer_index]['deleted'] = true;
+					$rootScope.ME['customers'][customerIndex]['deleted'] = true;
 					if(customer['api'] === $rootScope.API) {
-						$rootScope.changeAccount($rootScope.ME['customers'][0]); // switch to default
+						// switch to default
+						$rootScope.changeAccount($rootScope.ME['customers'][0]);
 					}
-					// var removeIndex = $rootScope.ME['customers'].indexOf(customer);
-					// if (removeIndex > -1) {
-					// 	$rootScope.ME['customers'].splice(removeIndex, 1);
-					// }
 				} else {
-					note.ok(_('note_xreactivated',0,_('customer',1)+' '+customer['name']));
+					note.ok(_('note_xreactivated',0,_('customer',1) + ' ' + customer['name']));
 					// remove from local data cache
-					// $rootScope.ME['customers'].push(customer);
-					$rootScope.ME['customers'][customer_index]['deleted'] = false;
+					$rootScope.ME['customers'][customerIndex]['deleted'] = false;
 				}
 			},
 			Auth.checkHttpStatus.bind(Auth));
@@ -229,15 +210,9 @@
 
 	}
 
-	// customerWaitController.$inject = ['$scope','i18n'];
-	// function customerWaitController($scope, _) {
-	// 	$scope.msg_waiting = _('wait_addingx',null,'customer');
-	// 	$scope.msg_taketime = _('wait_takex',null,['1','minute']);
-	// }
-
 	customerEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function customerEditModalCtrl($scope, _, $uibModalInstance) {
-		$scope.newPasswd = "";
+		$scope.newPasswd = '';
 
 		$scope.title = _('customer',1);
 		$scope.titlemode = $scope.ADD ? 'addx' : 'editx';

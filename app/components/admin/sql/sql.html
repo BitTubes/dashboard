@@ -2,7 +2,7 @@
 <div class="">
 	<div class="form-group">
 		<label class="control-label" for="sql_input">{{'SQL input' | i18n}}</label>
-		<textarea name="sql_input" id="sql_input" class="form-control" rows="3" ng-model="sqlCtrl.sql_input"></textarea>
+		<textarea name="sql_input" id="sql_input" class="form-control" rows="3" ng-model="sqlCtrl.sqlInput"></textarea>
 	</div>
 </div>
 <div class="">
@@ -11,10 +11,10 @@
 		<button ng-click="sqlCtrl.complete()" class="btn btn-default btn-sm">{{'Complete SQL' | i18n}}</button>
 	</div>
 </div>
-<div class="" ng-show="sqlCtrl.sql_output">
+<div class="" ng-show="sqlCtrl.sqlOutput">
 	<div class="form-group">
 		<label class="control-label" for="sql_output">{{'SQL output' | i18n}}</label>
-		<textarea name="sql_output" id="sql_output" class="form-control" rows="{{sqlCtrl.sql_output_row}}" ng-model="sqlCtrl.sql_output"></textarea>
+		<textarea name="sql_output" id="sql_output" class="form-control" rows="{{sqlCtrl.sqlOutputRow}}" ng-model="sqlCtrl.sqlOutput"></textarea>
 	</div>
 </div>
 </form>

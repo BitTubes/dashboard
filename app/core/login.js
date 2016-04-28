@@ -1,8 +1,8 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller("loginController", loginController);
+		.controller('loginController', loginController);
 
 
 	loginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
@@ -21,19 +21,19 @@
 		vm.tryReauthPromise = Auth.tryReauthentication(redirectUrl);
 
 		if(!vm.tryReauthPromise) {
-			vm.spinning=false;
+			vm.spinning = false;
 		} else {
-			vm.tryReauthPromise.then(function(){
+			vm.tryReauthPromise.then(function() {
 				// login success, dont hide the loader
 			},
-			function(){
+			function() {
 				// login failed, show the form
-				vm.spinning=false;
+				vm.spinning = false;
 			});
 		}
 
 		$scope.timerPromise = $interval(Auth.tryReauthentication.bind(Auth, redirectUrl), 1000);
-		$scope.$on("$destroy",function(){
+		$scope.$on('$destroy',function() {
 			if (angular.isDefined($scope.timerPromise)) {
 				$interval.cancel($scope.timerPromise);
 			}

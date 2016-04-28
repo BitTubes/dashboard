@@ -1,10 +1,11 @@
 (function() {
-	"use strict";
+	'use strict';
 
 	var DEFAULT_ROUTE = 'videos.list';
 	var DEFAULT_URL = '/video';
 	var DEFAULT_API = 'demo';
-	var tabs; // defined below
+	var BASE_HREF = '/dashboard';
+	var tabs;
 
 	angular
 		.module('bt.dashboard')
@@ -13,6 +14,15 @@
 
 
 	appConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider'];
+	/**
+	 * THE app-config
+	 *
+	 * @param  {angularJs} $stateProvider     angularJs
+	 * @param  {angularJs} $locationProvider  angularJs
+	 * @param  {angularJs} $urlRouterProvider angularJs
+	 * @param  {angularJs} $httpProvider      angularJs
+	 * no @return
+	 */
 	function appConfig($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 		// remove hashtag (requires server-side rewrites!)
 		// $locationProvider.html5Mode(true);
@@ -23,7 +33,7 @@
 
 		// select default
 		// $urlRouterProvider.otherwise(DEFAULT_URL);
-		$urlRouterProvider.otherwise(function ($injector) {
+		$urlRouterProvider.otherwise(function($injector) {
 			var $state = $injector.get('$state');
 			var $rootScope = $injector.get('$rootScope');
 			var store = $injector.get('store');
@@ -45,7 +55,11 @@
 			// fallback, go to default state
 			$state.go(DEFAULT_ROUTE);
 		});
-		// add states
+		/**
+		 * simple wrapper for adding all states
+		 *
+		 * @param {Object} tabList
+		 */
 		function addStates(tabList) {
 			for (var i = 0; i < tabList.length; i++) {
 				if(tabList[i].external) {
@@ -62,8 +76,19 @@
 		}
 	}
 
-	appRun.$inject = ['$rootScope', 'Auth', 'i18n', 'store'];
-	function appRun($rootScope, Auth, _, store) {
+	appRun.$inject = ['$rootScope', '$location', '$window', 'Auth', 'i18n', 'store'];
+	/**
+	 * THE app-run function
+	 *
+	 * @param  {angularJs} $rootScope angularJs
+	 * @param  {angularJs} $location  angularJs
+	 * @param  {angularJs} $window    angularJs
+	 * @param  {angularJs} Auth       app.auth
+	 * @param  {angularJs} _          jb.i18n
+	 * @param  {angularJs} store      angular-storage
+	 * no @return
+	 */
+	function appRun($rootScope, $location, $window, Auth, _, store) {
 		// globals
 		// - API
 		var server = 'https://nlv.bittubes.com/api/';
@@ -81,31 +106,43 @@
 		$rootScope.DEFAULT_API = DEFAULT_API;
 		$rootScope.DEFAULT_ROUTE = DEFAULT_ROUTE;
 		$rootScope.DEFAULT_URL = DEFAULT_URL;
+		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
 
 
+		// initialise google analytics
+		$window.ga('create', 'UA-23776265-2', 'auto');
 
-		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+		// track pageview on state change
+		// https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#overview
+		$rootScope.$on('$stateChangeSuccess', function() {
+			$window.ga('set', 'dimension1', $rootScope.API || '-');
+			$window.ga('set', 'page', $rootScope.BASE_HREF + $location.path());
+			$window.ga('send', 'pageview');
+		});
+
+
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 			// get auth-status
 			var authenticated = Auth.isAuthenticated();
 			// set stateChanged to track if we are onLoad or mid-app (for otherwise-state switcher)
 			$rootScope.stateChanged = true;
 
-			if (!toState.public && !authenticated){
+			if (!toState.public && !authenticated) {
 				// not authenticated but trying to access a private view
 				var promise = Auth.tryReauthentication();
 				if(!promise) {
 					Auth.showLogin(toState,toParams);
 				} else {
-					promise.then(function(){
+					promise.then(function() {
 						Auth.redirect(toState,toParams);
-					},function(){
+					},function() {
 						Auth.showLogin(toState,toParams);
 					});
 				}
 				event.preventDefault();
 				return;
-			} else if(toState.state === "login" && authenticated) {
+			} else if(toState.state === 'login' && authenticated) {
 				// authenticated but trying to access the login view
 				Auth.redirect();
 				event.preventDefault();
@@ -123,7 +160,7 @@
 				store.set('lastView', {'state':toState.state,'params':toParams});
 			}
 			// udpate website title
-			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' ('+ $rootScope.API+')' : '') ;
+			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement) + ($rootScope.API ? ' (' + $rootScope.API + ')' : '');
 		});
 	}
 
@@ -181,10 +218,10 @@
 				controllerAs: 'playlistCtrl'
 			},
 			{
-				state: "analyzer",
+				state: 'analyzer',
 				external: true,
-				title: "analyzer",
-				url: "/analyzer",
+				title: 'analyzer',
+				url: '/analyzer',
 			}
 		],
 		hidden : [
@@ -273,11 +310,11 @@
 				controllerAs: 'sqlCtrl'
 			},
 			{
-				state: "pma",
+				state: 'pma',
 				admin: true,
 				external: true,
-				title: "phpMyAdmin",
-				url: "/dev/pma/",
+				title: 'phpMyAdmin',
+				url: '/dev/pma/',
 			}
 		]
 	};

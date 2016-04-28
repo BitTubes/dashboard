@@ -1,6 +1,78 @@
 {
-  "requireCamelCaseOrUpperCaseIdentifiers": true,
-  "requireCapitalizedConstructors": true,
-  "requireParenthesesAroundIIFE": true,
-  "validateQuoteMarks": "'"
+    "jsDoc": {
+    	"requireNewlineAfterDescription": true,
+    	"enforceExistence": true,
+    	"checkAnnotations": true,
+    	"checkParamExistence": true,
+    	"checkTypes": true,
+    	"checkRedundantParams": true,
+    	"checkParamNames": true,
+    	"checkReturnTypes": true,
+    	"checkRedundantReturns": true,
+    	"requireReturnTypes": true
+    },
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch"
+    ],
+    "requireOperatorBeforeLineBreak": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "validateQuoteMarks": "'",
+
+    "disallowMultipleLineStrings": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowMultipleVarDecl": true,
+
+    "requireSpaceAfterKeywords": [
+      // "do",
+      // "for",
+      // "if",
+      "else",
+      // "switch",
+      "case",
+      // "try",
+      // "catch",
+      "void",
+      // "while",
+      "with",
+      "return",
+      // "typeof"
+    ],
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireSpacesInConditionalExpression": true,
+    "requireSpaceBeforeBlockStatements": true,
+    "requireLineFeedAtFileEnd": false,
+    "disallowSpacesInsideObjectBrackets": "all",
+    "disallowSpacesInsideArrayBrackets": "all",
+    "disallowSpacesInsideParentheses": {"only": []},
+
+    "disallowMultipleLineBreaks": false,
+
+    "disallowCommaBeforeLineBreak": null,
+    "disallowDanglingUnderscores": null,
+    "disallowEmptyBlocks": null,
+    "disallowTrailingComma": false,
+    "requireCommaBeforeLineBreak": true,
+    "requireDotNotation": false,
+    "requireMultipleVarDecl": null,
+    "requireParenthesesAroundIIFE": true,
+
+    "disallowSpacesInFunction": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInFunction": {
+        "beforeOpeningCurlyBrace": true
+    },
+
+    "requireSemicolons": true,
+    "disallowNewlineBeforeBlockStatements": true,
+    "validateCommentPosition": { "position": "above", "allExcept": ["README"] }
 }

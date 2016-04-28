@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular
 		.module('bt.dashboard')
 		.controller('videoController', videoController);
@@ -10,7 +10,7 @@
 		/* jshint validthis:true */
 		var vm = this;
 		vm.delete = del;
-		vm.publish = publish_db;
+		vm.publish = publishDb;
 		vm.VIDEOS = null;
 		// keep the following in scope to ease copy-paste of the sorting
 		$scope.orderByField = 'Name';
@@ -23,21 +23,21 @@
 		/////////////////////
 
 
-		function publish_db(video) {
+		function publishDb(video) {
 			// update DB
-			video.publishPromise = http.post($scope.uriApiVideo+'updatePublic', { 'api': $scope.API, 'p':video["ID"], 'p2':video["Public"] ? 0 : 1 })
-			.then(function(){
+			video.publishPromise = http.post($scope.uriApiVideo + 'updatePublic', {'api': $scope.API, 'p':video['ID'], 'p2':video['Public'] ? 0 : 1})
+			.then(function() {
 				// update local data cache & UI
-				video["Public"] = video["Public"] ? 0 : 1;
+				video['Public'] = video['Public'] ? 0 : 1;
 
-				note.info(_('note_published'+video["Public"], 0, _('video',0)));
+				note.info(_('note_published' + video['Public'], 0, _('video',0)));
 				return;
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
 		function del(video) {
 			$scope.deleteWarning = false;
-			$scope.Name = video["Name"];
+			$scope.Name = video['Name'];
 			$scope.title = _('video',1);
 			$scope.delObj = video;
 
@@ -52,7 +52,7 @@
 				size: null
 			});
 
-			modalInstance.result.then(del_db, modal_dismissed);
+			modalInstance.result.then(_delDb, _modalDismissed);
 		}
 
 
@@ -60,11 +60,11 @@
 
 
 		function initView() {
-			http.post($scope.uriApiVideo+'getVideoList', { 'api': $scope.API })
-			.then(function(response){
+			http.post($scope.uriApiVideo + 'getVideoList', {'api': $scope.API})
+			.then(function(response) {
 				vm.VIDEOS = response.data['Media'];
-				http.post($scope.uriApiPost +'getAllPosts', { 'api': $scope.API })
-				.then(function(response){
+				http.post($scope.uriApiPost + 'getAllPosts', {'api': $scope.API})
+				.then(function(response) {
 					var posts = response.data;
 					for (var video,vid, i = vm.VIDEOS.length - 1; i >= 0; i--) {
 						video = vm.VIDEOS[i];
@@ -82,20 +82,20 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
-		function modal_dismissed() {
+		function _modalDismissed() {
 			// console.info('Modal dismissed at: ' + new Date());
 		}
-		function del_db(video) {
+		function _delDb(video) {
 			// update DB
-			video.delPromise = http.post($scope.uriApiVideo+'deleteVideo', { 'api': $scope.API, 'p':video["ID"] })
-			.then(function(response){
+			video.delPromise = http.post($scope.uriApiVideo + 'deleteVideo', {'api': $scope.API, 'p':video['ID']})
+			.then(function(response) {
 				var data = response.data;
-				if(data !== true && data !== "true") {
+				if(data !== true && data !== 'true') {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
 					return;
 				}
-				note.ok(_('note_xdeleted',0,_('video',1)+' '+video['Name']));
+				note.ok(_('note_xdeleted',0,_('video',1) + ' ' + video['Name']));
 
 				// remove from local data cache
 				var removeIndex = vm.VIDEOS.indexOf(video);

@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	angular.module('bt.dashboard')
 		.controller('sqlController', sqlController);
 
@@ -8,39 +8,41 @@
 	function sqlController(http, $scope, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
-		vm.sql_input = "";
-		vm.sql_output = "";
+		vm.sqlInput = '';
+		vm.sqlOutput = '';
 		vm.databases = [];
-		vm.sql_output_arr = [];
-		vm.sql_output_row = 3;
+		vm.sqlOutputArr = [];
+		vm.sqlOutputRow = 3;
 		vm.complete = complete;
 
-		console.log("test");
 
 		/////////////////////
 
 
 		function complete() {
 			// sanitize input a bit
-			vm.sql_input = vm.sql_input.trim();
-			if(!vm.sql_input || vm.sql_input === ';') {
+			vm.sqlInput = vm.sqlInput.trim();
+			if(!vm.sqlInput || vm.sqlInput === ';') {
 				note.info('No SQL Query given');
-				vm.sql_input = "";
+				vm.sqlInput = '';
 				return;
 			}
-			if(vm.sql_input.slice(-1) !== ';') {
-				vm.sql_input += ';';
+			if(vm.sqlInput.slice(-1) !== ';') {
+				vm.sqlInput += ';';
 			}
-			vm.sql_output = "";
+			vm.sqlOutput = '';
 
-			 _complete_db();
+			_completeDb();
 		}
 
-		function _complete_db() {
-			// update DB
-			http.post($scope.uriApiCms+'getDbs', { 'api': $scope.API })
-			.then(function(response){
 
+		/////////////////////
+
+
+		function _completeDb() {
+			// update DB
+			http.post($scope.uriApiCms + 'getDbs', {'api': $scope.API})
+			.then(function(response) {
 				var data = vm.databases = response.data;
 				if(!data || (data && data['error'] && data['error'].length)) {
 					// alert("error updating database");
@@ -54,23 +56,20 @@
 		}
 
 		function _createSQL() {
-			// reset sql array in case we've used it before
-			// vm.sql_output_arr.length = 0;
-
 			// create queries for each Database
 			for (var i = 0; i < vm.databases.length; i++) {
-				vm.sql_output_arr.push("USE " + vm.databases[i] + "; " + vm.sql_input);
+				vm.sqlOutputArr.push('USE ' + vm.databases[i] + '; ' + vm.sqlInput);
 			}
 			// write to UI
 			var separator = "\n";
-			if(vm.sql_input.indexOf("\n") !==-1) {
+			if(vm.sqlInput.indexOf("\n") !== -1) {
 				separator = "\n--\n";
 			}
-			vm.sql_output_row = vm.sql_output_arr.length;
-			vm.sql_output = vm.sql_output_arr.join(separator);
+			vm.sqlOutputRow = vm.sqlOutputArr.length;
+			vm.sqlOutput = vm.sqlOutputArr.join(separator);
 
 			// free up memory
-			vm.sql_output_arr.length = 0;
+			vm.sqlOutputArr.length = 0;
 		}
 	}
 
