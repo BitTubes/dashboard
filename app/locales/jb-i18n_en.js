@@ -107,6 +107,7 @@
 				'revoke': 'revoke',
 				'revoked': 'revoked',
 				'search': 'Search',
+				'setx': 'Set {0}',
 				'status': 'Status',
 				'submit': 'Submit',
 				'switchedto': 'Switched to {0}',

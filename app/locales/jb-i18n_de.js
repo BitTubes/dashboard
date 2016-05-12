@@ -107,6 +107,7 @@
 				'revoke': 'entziehen',
 				'revoked': 'entzogen',
 				'search': 'Suche',
+				'setx': '{0} setzen',
 				'status': 'Status',
 				'submit': 'Absenden',
 				'switchedto': 'Zu {0} gewechselt',

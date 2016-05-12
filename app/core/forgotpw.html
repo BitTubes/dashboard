@@ -1,4 +1,4 @@
-<h3>{{'resetx' | i18n:0:'password'}}</h3>
+<h3>{{ pageTitle }}</h3>
 <form name="editForm" class="form-horizontal" ng-submit="forgotPwCtrl.sendData()" novalidate>
 	<div ng-if="forgotPwCtrl.showLogin" class="form-group" ng-class="{ 'has-error': (editForm.login.$dirty && editForm.login.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="login">Login:</label>

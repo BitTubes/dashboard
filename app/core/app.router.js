@@ -293,8 +293,19 @@
 			{
 				public: true,
 				state: 'forgotpw',
-				title: 'forgotpw',
+				title: 'resetx',
+				titleReplacement: 'password',
 				url: '/forgot-password/:token',
+				templateUrl: 'core/forgotpw.html',
+				controller: 'forgotPwController',
+				controllerAs: 'forgotPwCtrl'
+			},
+			{
+				public: true,
+				state: 'setpw',
+				title: 'setx',
+				titleReplacement: 'password',
+				url: '/set-password/:token',
 				templateUrl: 'core/forgotpw.html',
 				controller: 'forgotPwController',
 				controllerAs: 'forgotPwCtrl'
