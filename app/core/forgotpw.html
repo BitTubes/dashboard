@@ -3,16 +3,16 @@
 	<div ng-if="forgotPwCtrl.showLogin" class="form-group" ng-class="{ 'has-error': (editForm.login.$dirty && editForm.login.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="login">Login:</label>
 		<div class="col-sm-4">
-		<input class="form-control" type="email" autocomplete="off" name="login" id="login"
-		ng-model="forgotPwCtrl.login"
-		ng-pattern='loginPattern'
-		placeholder="E-Mail"
-		required>
-		<small class="help-block">{{'fpw_help' | i18n}}</small>
+			<input class="form-control" type="email" autocomplete="off" name="login" id="login"
+			ng-model="forgotPwCtrl.login"
+			ng-pattern='loginPattern'
+			placeholder="E-Mail"
+			required>
+			<small class="help-block">{{'fpw_help' | i18n}}</small>
 		</div>
 	</div>
 	<div ng-if="forgotPwCtrl.showLogin" class="row"><div class="col-sm-offset-3 col-sm-9">
-		<div ng-messages="editForm.login.$error" ng-if='(editForm.login.$dirty && editForm.login.$invalid) || submitted' class="alert-warning col-sm-offset-3 col-sm-4">
+		<div ng-messages="editForm.login.$error" ng-if='(editForm.login.$dirty && editForm.login.$invalid) || submitted' class="alert-warning col-sm-4">
 			<p ng-message="pattern">{{'form_err_email' | i18n:0:'Login'}} </p>
 			<p ng-message="required">{{'form_err_req' | i18n:0:'Login'}}</p>
 		</div>
@@ -20,26 +20,26 @@
 	</div></div>
 	<div ng-if="forgotPwCtrl.showPassword" class="form-group">
 		<label class="col-sm-3 control-label" for="login_static">Login:</label>
-		<div class="col-sm-4">
-		<span class="form-control-static" id="login_static">{{forgotPwCtrl.login}}</span>
+		<div class="col-sm-4 form-control-static">
+			<span class="" id="login_static">{{forgotPwCtrl.login}}</span>
 		</div>
 	</div>
 	<div ng-if="forgotPwCtrl.showPassword" class="form-group" ng-class="{ 'has-error': (editForm.password.$dirty && editForm.password.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="password">{{'password' | i18n}}:</label>
 		<div class="col-sm-4">
 			<input class="form-control" type="password" autocomplete="new-password" name="password" id="password"
-		ng-model="forgotPwCtrl.pw"
-		ng-minlength="passwordMin"
-		ng-maxlength="passwordMax"
-		ng-pattern="passwordPattern"
-		jb-number
-		jb-lowercase
-		jb-uppercase
-		required>
+			ng-model="forgotPwCtrl.pw"
+			ng-minlength="passwordMin"
+			ng-maxlength="passwordMax"
+			ng-pattern="passwordPattern"
+			jb-number
+			jb-lowercase
+			jb-uppercase
+			required>
 		</div>
 	</div>
 	<div ng-if="forgotPwCtrl.showPassword" class="row"><div class="col-sm-offset-3 col-sm-9">
-		<div ng-messages="editForm.password.$error" ng-if='(editForm.password.$dirty && editForm.password.$invalid) || submitted' class="alert-warning col-sm-offset-3 col-sm-4">
+		<div ng-messages="editForm.password.$error" ng-if='(editForm.password.$dirty && editForm.password.$invalid) || submitted' class="alert-warning col-sm-4">
 			<p ng-message="required">{{'form_err_req' | i18n:0:'password'}}</p>
 			<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['password','a-z, A-Z, 0-9, ., -, _']}} </p>
 			<p ng-message="jbNumber">{{'form_err_number' | i18n:0:'password'}}</p>
