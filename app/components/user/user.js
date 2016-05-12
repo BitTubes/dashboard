@@ -3,7 +3,8 @@
 	angular
 		.module('bt.dashboard')
 		.controller('userController', userController)
-		.controller('userEditModalCtrl', userEditModalCtrl);
+		.controller('userEditModalCtrl', userEditModalCtrl)
+		.controller('userAdminModalCtrl', userAdminModalCtrl);
 
 
 	userController.$inject = ['http','$stateParams','$scope','$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
@@ -12,6 +13,7 @@
 		var vm = this;
 		var editMe = ($stateParams.editme === 'me');
 		vm.add = add;
+		vm.admin = admin;
 		vm.delete = del;
 		vm.edit = edit;
 		vm.USERS = null;
@@ -70,6 +72,24 @@
 			});
 
 			modalInstance.result.then(_editDb, _modalDismissed);
+		}
+		function admin(user) {
+			if(!$rootScope.ME['user']['admin']) {
+				return; /* failsafe */
+			}
+			$scope.editWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = $rootScope.API != 'dev';
+			$scope.user = user;
+
+			var modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'components/user/user.admin.html',
+				controller: 'userAdminModalCtrl',
+				scope: $scope,
+				size: null
+			});
+
+			modalInstance.result.then(_adminDb, _modalDismissed);
 		}
 
 
@@ -157,6 +177,43 @@
 						// console.log("reroute to default users list");
 						$state.transitionTo('users');
 					}
+				}
+			},
+			Auth.checkHttpStatus.bind(Auth));
+		}
+		function _adminDb(scope) {
+			// console.log('ok', newLogin, newPasswd);
+			// console.log('ok2', scope.newLogin, scope.newPasswd);
+			var user = scope.user;
+
+			if($rootScope.API != 'dev') {
+				return;
+			}
+
+			// update DB
+			http.post($scope.uriApiCms + 'updateAdmin', {
+				'api': $scope.API,
+				'p': {
+					'ID': user['ID'],
+					'admin': user['admin'] ? 0 : 1
+				}
+			})
+			.then(function(response) {
+				var data = response.data;
+				if(!data['user']) {
+					// alert("error updating database");
+					note.error(_('note_dberror'));
+					return;
+				}
+				user['admin'] = data['user']['admin'];
+
+				note.ok(_('note_adminx',0,[user['login'], user['admin'] ? 'granted' : 'revoked']));
+
+
+				// I changed my own access rights - re-init entire UI
+				if($rootScope.ME['user']['ID'] === user['ID']) {
+					$rootScope.ME['user']['admin'] = user['admin'];
+					Auth.saveToken(data);
 				}
 			},
 			Auth.checkHttpStatus.bind(Auth));
@@ -263,4 +320,21 @@
 
 	}
 
+	userAdminModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
+	function userAdminModalCtrl($scope, _, $uibModalInstance) {
+		$scope.title = _('note_adminx',0,['user', !$scope.user['admin'] ? 'grant' : 'revoke']);
+		$scope.username = $scope.user['login'];
+		$scope.ok = ok;
+		$scope.cancel = cancel;
+
+
+
+		function cancel() {
+			$uibModalInstance.dismiss('cancel');
+		}
+		function ok() {
+			$uibModalInstance.close($scope);
+		}
+
+	}
 })();

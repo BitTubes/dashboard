@@ -1,0 +1,14 @@
+<form name="editForm" class="form-horizontal" novalidate>
+<div class="modal-header">
+	<h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+	<div class="alert alert-danger" ng-if="formDisabled"><strong>{{'error' | i18n}}:</strong> Admin-Status can only be changed for users within the DEV-Account.</div>
+	<div class="alert alert-warning" ng-if="editWarning"><strong>{{'warning' | i18n}}:</strong> {{'reloginonsave' | i18n}}</div>
+	{{'user' | i18n}} <b>{{username}}</b>
+</div>
+<div class="modal-footer">
+	<input ng-if="!formDisabled" class="btn btn-primary" type="submit" ng-click="ok()" value="OK">
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | i18n}}</button>
+</div>
+</form>
