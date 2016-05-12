@@ -122,6 +122,7 @@
 				'p':{
 					'login': scope.newLogin,
 					// 'pw': scope.newPasswd
+					'locale': $rootScope.locale
 				}
 			})
 			.then(function(response) {
