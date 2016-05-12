@@ -18,7 +18,7 @@
 			<td>{{CONFIG.Param}}</td>
 			<td>{{configDefCtrl.castTypes[CONFIG.CastType]}}</td>
 			<td class="inline" ng-class="[{'bool1': CONFIG.CastType=='bool' && CONFIG.DefaultVal==='1', 'bool0': CONFIG.CastType=='bool' && CONFIG.DefaultVal==='0'},CONFIG.CastType]">{{CONFIG.DefaultVal}}</td>
-			<td title="{{CONFIG.created}}">{{CONFIG.created | elapsed}}</td>
+			<td title="{{CONFIG.created | utcdate}}">{{CONFIG.created | elapsed}}</td>
 		</tr>
 	</tbody>
 	</table>

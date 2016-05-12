@@ -23,9 +23,9 @@
 				<th></th>
 				<td><a ng-if="!customer.deleted" href title="switch to account" ng-click="customerCtrl.viewAccount(customer)">{{customer.name}}</a><span title="deleted" ng-if="customer.deleted">{{customer.name}}</a></td>
 				<td>{{customer.api}}</td>
-				<td title="{{customer.created}}" class="input-sm nowrap">{{customer.created | elapsed}}</td>
+				<td title="{{customer.created | utcdate}}" class="input-sm nowrap">{{customer.created | elapsed}}</td>
 				<td>{{customer.users}}</td>
-				<td title="{{customer.last_login}}" class="input-sm nowrap">{{customer.last_login | elapsed}}</td>
+				<td title="{{customer.last_login | utcdate}}" class="input-sm nowrap">{{customer.last_login | elapsed}}</td>
 				<td><button btn-spinner="customer.editPromise" ng-click="customerCtrl.edit(customer)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
 				<td><button btn-spinner="customer.delPromise" ng-click="customerCtrl.delete(customer)" class="btn btn-default btn-sm"><span class="glyphicon" ng-class="[{'glyphicon-heart': customer.deleted}, {'glyphicon-trash': !customer.deleted}]" aria-hidden="true"></span></button></td>
 			</tr>
