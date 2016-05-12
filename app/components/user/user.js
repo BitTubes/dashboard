@@ -121,7 +121,7 @@
 				'api': $scope.API,
 				'p':{
 					'login': scope.newLogin,
-					'pw': scope.newPasswd
+					// 'pw': scope.newPasswd
 				}
 			})
 			.then(function(response) {
