@@ -27,6 +27,7 @@ button {
 }
 .is_admin .name::after {
 	content: " (BT-Admin)";
+	font-weight: bold;
 }
 .public0 td,
 .public0 > .name > a {
