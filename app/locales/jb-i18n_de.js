@@ -18,6 +18,7 @@
 			'de': {
 				'1stLogin': 'Erste Anmeldung',
 				'activatex': '{0} aktivieren',
+				'adduserpassword': 'Der neue Benutzer wird eine E-Mail mit einer Anleitung erhalten, um das Passwort selbst zu setzen.',
 				'addx': '{0} hinzufügen',
 				'analyzer' : 'Analyzer',
 				'back': 'Zurück',

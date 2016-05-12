@@ -18,6 +18,7 @@
 			'en': {
 				'1stLogin': 'First Login',
 				'activatex': 'Activate {0}',
+				'adduserpassword': 'The new user will receive an e-mail with instructions on how to set the password.',
 				'addx': 'Add {0}',
 				'analyzer' : 'Analyzer',
 				'back': 'Back',
