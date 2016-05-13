@@ -51,7 +51,13 @@
 
 
 		function _resetTokenGet(login) {
-			return http.post($rootScope.uriApiCms + 'sendResetToken', {'api': $rootScope.DEFAULT_API, 'p':{'login':login, 'locale': $rootScope.locale}})
+			return http.post($rootScope.uriApiCms + 'sendResetToken', {
+				'api': $rootScope.DEFAULT_API,
+				'p':{
+					'login':login,
+					'locale': $rootScope.locale
+				}
+			})
 			.then(function(response) {
 				if(response.data['error']) {
 					_resetState(_('fpw_err_send'));

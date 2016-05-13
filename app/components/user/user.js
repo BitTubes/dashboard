@@ -121,7 +121,8 @@
 				'api': $scope.API,
 				'p':{
 					'login': scope.newLogin,
-					'pw': scope.newPasswd
+					// 'pw': scope.newPasswd
+					'locale': $rootScope.locale
 				}
 			})
 			.then(function(response) {
@@ -274,7 +275,7 @@
 		}
 		function ok() {
 			$scope.submitted = true;
-			if($scope.editForm.password.$invalid) {
+			if(!$scope.ADD && $scope.editForm.password.$invalid) {
 				// stop processing, error msgs will be displayed automatically
 				return;
 			}

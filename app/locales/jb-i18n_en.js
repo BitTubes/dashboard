@@ -18,6 +18,7 @@
 			'en': {
 				'1stLogin': 'First Login',
 				'activatex': 'Activate {0}',
+				'adduserpassword': 'The new user will receive an e-mail with instructions on how to set the password.',
 				'addx': 'Add {0}',
 				'analyzer' : 'Analyzer',
 				'back': 'Back',
@@ -106,6 +107,7 @@
 				'revoke': 'revoke',
 				'revoked': 'revoked',
 				'search': 'Search',
+				'setx': 'Set {0}',
 				'status': 'Status',
 				'submit': 'Submit',
 				'switchedto': 'Switched to {0}',
