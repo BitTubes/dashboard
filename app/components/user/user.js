@@ -333,7 +333,7 @@
 
 	userAdminModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function userAdminModalCtrl($scope, _, $uibModalInstance) {
-		$scope.title = _('note_adminx',0,['user', !$scope.user['admin'] ? 'grant' : 'revoke']);
+		$scope.title = _('adminx',0,[$scope.user['admin'] ? 'revoke' : 'grant']);
 		$scope.username = $scope.user['login'];
 		$scope.ok = ok;
 		$scope.cancel = cancel;
