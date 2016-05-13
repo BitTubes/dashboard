@@ -45,6 +45,7 @@
 		function del(user) {
 			$scope.delObj = user;
 			$scope.deleteWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = user['admin'] && !$rootScope.ME['user']['admin'];
 			$scope.Name = user['login'];
 			$scope.title = _('user',1);
 
@@ -61,6 +62,7 @@
 		function edit(user) {
 			$scope.ADD = 0;
 			$scope.editWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = user['admin'] && !$rootScope.ME['user']['admin'];
 			$scope.user = user;
 
 			var modalInstance = $uibModal.open({

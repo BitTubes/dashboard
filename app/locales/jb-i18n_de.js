@@ -20,6 +20,7 @@
 				'activatex': '{0} aktivieren',
 				'adduserpassword': 'Der neue Benutzer wird eine E-Mail mit einer Anleitung erhalten, um das Passwort selbst zu setzen.',
 				'addx': '{0} hinzufügen',
+				'adminrestrictx': 'Du hast nicht genügend Rechte um einen BT-Admin zu {0}.',
 				'analyzer' : 'Analyzer',
 				'back': 'Zurück',
 				'cancel': 'Abbrechen',

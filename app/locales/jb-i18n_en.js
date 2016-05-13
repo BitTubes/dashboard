@@ -20,6 +20,7 @@
 				'activatex': 'Activate {0}',
 				'adduserpassword': 'The new user will receive an e-mail with instructions on how to set the password.',
 				'addx': 'Add {0}',
+				'adminrestrictx': 'You have insufficient rights to {0} a BT-Admin.',
 				'analyzer' : 'Analyzer',
 				'back': 'Back',
 				'cancel': 'Cancel',
