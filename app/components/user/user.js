@@ -36,6 +36,7 @@
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
 				controller: 'userEditModalCtrl',
+				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
@@ -69,6 +70,7 @@
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
 				controller: 'userEditModalCtrl',
+				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
@@ -256,7 +258,10 @@
 
 	userEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function userEditModalCtrl($scope, _, $uibModalInstance) {
-		$scope.newPasswd = '';
+		/* jshint validthis:true */
+		var vm = this;
+		// $scope.newPasswd = '';
+		vm.newPasswd = '';
 		$scope.newLogin = $scope.user['login'];
 
 		$scope.title = _('user',1);
@@ -268,7 +273,7 @@
 
 
 		function generate() {
-			$scope.newPasswd = _generatePassword(8);
+			vm.newPasswd = _generatePassword(8);
 			$scope.editForm.password.$setTouched();
 			$scope.editForm.password.$setDirty();
 		}
@@ -277,9 +282,12 @@
 		}
 		function ok() {
 			$scope.submitted = true;
-			if(!$scope.ADD && $scope.editForm.password.$invalid) {
-				// stop processing, error msgs will be displayed automatically
-				return;
+			if(!$scope.ADD) {
+				if($scope.editForm.password.$invalid) {
+					// stop processing, error msgs will be displayed automatically
+					return;
+				}
+				$scope.newPasswd = vm.newPasswd;
 			}
 			if($scope.ADD && $scope.editForm.login.$invalid) {
 				// stop processing, error msgs will be displayed automatically
