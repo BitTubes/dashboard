@@ -50,6 +50,12 @@
 					<li><a href ng-click="cms.navCollapsed = !0; cms.logout()">{{'logout' | i18n}}</a></li>
 				</ul>
 			</li>
+			<li uib-dropdown ng-if="!ME.user.login">
+				<a href="#" uib-dropdown-toggle>{{'changelang' | i18n}} <b class="caret"></b></a>
+				<ul uib-dropdown-menu>
+					<li ng-repeat="locales in availableLocales" ng-class="{active: locale==locales.code}"><a href ng-click="cms.navCollapsed = !0; cms.changeLang(locales.code)">{{locales.name}}</a></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 </nav>

@@ -3,7 +3,8 @@
 	angular
 		.module('bt.dashboard')
 		.controller('userController', userController)
-		.controller('userEditModalCtrl', userEditModalCtrl);
+		.controller('userEditModalCtrl', userEditModalCtrl)
+		.controller('userAdminModalCtrl', userAdminModalCtrl);
 
 
 	userController.$inject = ['http','$stateParams','$scope','$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
@@ -12,6 +13,7 @@
 		var vm = this;
 		var editMe = ($stateParams.editme === 'me');
 		vm.add = add;
+		vm.admin = admin;
 		vm.delete = del;
 		vm.edit = edit;
 		vm.USERS = null;
@@ -34,6 +36,7 @@
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
 				controller: 'userEditModalCtrl',
+				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
@@ -43,6 +46,7 @@
 		function del(user) {
 			$scope.delObj = user;
 			$scope.deleteWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = user['admin'] && !$rootScope.ME['user']['admin'];
 			$scope.Name = user['login'];
 			$scope.title = _('user',1);
 
@@ -59,17 +63,37 @@
 		function edit(user) {
 			$scope.ADD = 0;
 			$scope.editWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = user['admin'] && !$rootScope.ME['user']['admin'];
 			$scope.user = user;
 
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
 				controller: 'userEditModalCtrl',
+				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
 
 			modalInstance.result.then(_editDb, _modalDismissed);
+		}
+		function admin(user) {
+			if(!$rootScope.ME['user']['admin']) {
+				return; /* failsafe */
+			}
+			$scope.editWarning = user['login'] === $rootScope.ME['user']['login'];
+			$scope.formDisabled = $rootScope.API != 'dev';
+			$scope.user = user;
+
+			var modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'components/user/user.admin.html',
+				controller: 'userAdminModalCtrl',
+				scope: $scope,
+				size: null
+			});
+
+			modalInstance.result.then(_adminDb, _modalDismissed);
 		}
 
 
@@ -101,7 +125,8 @@
 				'api': $scope.API,
 				'p':{
 					'login': scope.newLogin,
-					'pw': scope.newPasswd
+					// 'pw': scope.newPasswd
+					'locale': $rootScope.locale
 				}
 			})
 			.then(function(response) {
@@ -161,6 +186,43 @@
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
+		function _adminDb(scope) {
+			// console.log('ok', newLogin, newPasswd);
+			// console.log('ok2', scope.newLogin, scope.newPasswd);
+			var user = scope.user;
+
+			if($rootScope.API != 'dev') {
+				return;
+			}
+
+			// update DB
+			http.post($scope.uriApiCms + 'updateAdmin', {
+				'api': $scope.API,
+				'p': {
+					'ID': user['ID'],
+					'admin': user['admin'] ? 0 : 1
+				}
+			})
+			.then(function(response) {
+				var data = response.data;
+				if(!data['user']) {
+					// alert("error updating database");
+					note.error(_('note_dberror'));
+					return;
+				}
+				user['admin'] = data['user']['admin'];
+
+				note.ok(_('note_adminx',0,[user['login'], user['admin'] ? 'granted' : 'revoked']));
+
+
+				// I changed my own access rights - re-init entire UI
+				if($rootScope.ME['user']['ID'] === user['ID']) {
+					$rootScope.ME['user']['admin'] = user['admin'];
+					Auth.saveToken(data);
+				}
+			},
+			Auth.checkHttpStatus.bind(Auth));
+		}
 		function _delDb(user) {
 			// update DB
 			http.post($scope.uriApiCms + 'deleteUser', {'api': $scope.API, 'p':{'ID':user['ID']}})
@@ -196,7 +258,10 @@
 
 	userEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
 	function userEditModalCtrl($scope, _, $uibModalInstance) {
-		$scope.newPasswd = '';
+		/* jshint validthis:true */
+		var vm = this;
+		// $scope.newPasswd = '';
+		vm.newPasswd = '';
 		$scope.newLogin = $scope.user['login'];
 
 		$scope.title = _('user',1);
@@ -208,7 +273,7 @@
 
 
 		function generate() {
-			$scope.newPasswd = _generatePassword(8);
+			vm.newPasswd = _generatePassword(8);
 			$scope.editForm.password.$setTouched();
 			$scope.editForm.password.$setDirty();
 		}
@@ -217,9 +282,12 @@
 		}
 		function ok() {
 			$scope.submitted = true;
-			if($scope.editForm.password.$invalid) {
-				// stop processing, error msgs will be displayed automatically
-				return;
+			if(!$scope.ADD) {
+				if($scope.editForm.password.$invalid) {
+					// stop processing, error msgs will be displayed automatically
+					return;
+				}
+				$scope.newPasswd = vm.newPasswd;
 			}
 			if($scope.ADD && $scope.editForm.login.$invalid) {
 				// stop processing, error msgs will be displayed automatically
@@ -263,4 +331,21 @@
 
 	}
 
+	userAdminModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
+	function userAdminModalCtrl($scope, _, $uibModalInstance) {
+		$scope.title = _('adminx',0,[$scope.user['admin'] ? 'revoke' : 'grant']);
+		$scope.username = $scope.user['login'];
+		$scope.ok = ok;
+		$scope.cancel = cancel;
+
+
+
+		function cancel() {
+			$uibModalInstance.dismiss('cancel');
+		}
+		function ok() {
+			$uibModalInstance.close($scope);
+		}
+
+	}
 })();

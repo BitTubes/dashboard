@@ -2,7 +2,7 @@
 <html ng-app="bt.dashboard">
 <head>
 	<meta charset=utf-8>
-	<title ng-bind="'Dashboard: ' + pageTitle + ' - BitTubes'">Dashboard - BitTubes</title>
+	<title ng-bind="'Dashboard: ' + pageTitle + (API ? ' (' + API + ')': '') + ' - BitTubes'">Dashboard - BitTubes</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -74,6 +74,7 @@
 	<script src="common/jb-services.http.js"></script>
 	<script src="common/jb-services.seconds2time.js"></script>
 	<script src="common/jb-services.smartupdate.js"></script>
+	<script src="common/jb-services.utcdate.js"></script>
 	<script src="common/jb-services.waiting.js"></script>
 	<script src="components/admin/config/config.js"></script>
 	<script src="components/admin/config/config.define.js"></script>

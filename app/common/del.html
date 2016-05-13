@@ -2,10 +2,11 @@
 	<h3 class="modal-title">{{'deletex' | i18n:0:title}}</h3>
 </div>
 <div class="modal-body">
+	<div class="alert alert-danger" ng-if="formDisabled"><strong>{{'error' | i18n}}:</strong> {{'adminrestrictx' | i18n:0:'delete'}}</div>
 	<div class="alert alert-warning" ng-if="deleteWarning"><strong>{{'warning' | i18n}}:</strong> {{'delme' | i18n}}</div>
 	<div>{{'q_delete' | i18n:0:Name}}</div>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-danger" type="button" ng-click="ok()">{{'delete' | i18n}}</button>
+	<button ng-if="!formDisabled" class="btn btn-danger" type="button" ng-click="ok()">{{'delete' | i18n}}</button>
 	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | i18n}}</button>
-</div>  
+</div>

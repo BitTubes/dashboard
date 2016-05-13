@@ -7,7 +7,7 @@
 	<div class="col-md-offset-2 col-md-8">
 		<label for="access_token">{{'yourcurrentx' | i18n:0:'token'}}</label>
 		<input type="text" name="access_token" id="access_token" ng-model="devCtrl.token" class="form-control" readonly>
-		<div id="helpBlock" class="help-block text-center">{{'xepxiresy' | i18n:0:['token',devCtrl.expiresIn]}} <span>({{devCtrl.token_exp*1000 | date:'short'}})</span></div>
+		<div id="helpBlock" class="help-block text-center">{{'xepxiresy' | i18n:0:['token',devCtrl.expiresIn]}} <span>({{devCtrl.tokenExp*1000 | date:'medium'}})</span></div>
 	</div>
 </div>
 <div class="row">
