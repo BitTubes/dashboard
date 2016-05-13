@@ -146,23 +146,23 @@ module.exports = function (grunt) {
     },
 
     // Make sure code styles are up to par
-    jscs: {
-      options: {
-        config: '.jscsrc',
-        verbose: true
-      },
-      all: {
-        src: [
-          'Gruntfile.js',
-          '<%= yeoman.app %>/core/**/*.js',
-          '<%= yeoman.app %>/common/**/*.js',
-          '<%= yeoman.app %>/components/**/*.js'
-        ]
-      },
-      test: {
-        src: ['test/spec/{,*/}*.js']
-      }
-    },
+    // jscs: {
+    //   options: {
+    //     config: '.jscsrc',
+    //     verbose: true
+    //   },
+    //   all: {
+    //     src: [
+    //       'Gruntfile.js',
+    //       '<%= yeoman.app %>/core/**/*.js',
+    //       '<%= yeoman.app %>/common/**/*.js',
+    //       '<%= yeoman.app %>/components/**/*.js'
+    //     ]
+    //   },
+    //   test: {
+    //     src: ['test/spec/{,*/}*.js']
+    //   }
+    // },
 
     // Empties folders to start fresh
     clean: {
@@ -563,7 +563,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'newer:jscs',
+    // 'newer:jscs',
     'test',
     'build'
   ]);
