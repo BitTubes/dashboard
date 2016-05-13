@@ -275,7 +275,7 @@
 		}
 		function ok() {
 			$scope.submitted = true;
-			if($scope.editForm.password.$invalid) {
+			if(!$scope.ADD && $scope.editForm.password.$invalid) {
 				// stop processing, error msgs will be displayed automatically
 				return;
 			}
