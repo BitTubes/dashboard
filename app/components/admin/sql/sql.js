@@ -62,6 +62,7 @@
 			for(var i = 0; i < vm.databases.length; i++) {
 				vm.sqlOutputArr.push('USE ' + vm.databases[i] + '; ' + vm.sqlInput);
 			}
+			/*eslint quotes: 0*/
 			// write to UI
 			var separator = "\n";
 			if(vm.sqlInput.indexOf("\n") !== -1) {

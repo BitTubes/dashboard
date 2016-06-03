@@ -4,8 +4,8 @@
 		.controller('ConfigController', ConfigController);
 
 
-	ConfigController.$inject = ['http', '$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification', 'Auth'];
-	function ConfigController(http, $scope, $rootScope, $uibModal, smartUpdate, _, note, Auth) {
+	ConfigController.$inject = ['http', '$scope', '$rootScope', '$uibModal', '$document', 'smartUpdate', 'i18n', 'notification', 'Auth'];
+	function ConfigController(http, $scope, $rootScope, $uibModal, $document, smartUpdate, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.castTypes = [
@@ -62,6 +62,7 @@
 			for(var i = vm.CONFIGS.length - 1; i >= 0; i--) {
 				if(p['Param'] === vm.CONFIGS[i]['Param']) {
 					smartUpdate.makeBackup(p);
+
 					return _editDb(p);
 				}
 			}
@@ -93,7 +94,7 @@
 				vm.addCastType = '';
 				vm.addDefaultVal = '';
 
-				document.getElementById('addParam').focus();
+				$document.getElementById('addParam').focus();
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}

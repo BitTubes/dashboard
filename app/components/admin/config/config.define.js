@@ -91,7 +91,7 @@
 			// update DB
 			return http.post($scope.uriApiCms + 'saveConfigDef', {
 				'api': $rootScope.DEFAULT_API,
-				'p':{
+				'p': {
 					'ID': $scope.CONFIG['ID'],
 					'locale': definition['locale'],
 					'txt': definition['txt'].trim()

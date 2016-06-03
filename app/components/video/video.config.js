@@ -221,7 +221,7 @@
 					DefaultVal = defaultConfig['DefaultVal'];
 					// console.log('defaultConfig', defaultConfig);
 					if(options.length && options.indexOf(value) === -1) {
-						console.warn('bad value for "' + el + '" detected:', value, 'allowed:', options);
+						// console.warn('bad value for "' + el + '" detected:', value, 'allowed:', options);
 					}
 				} else {
 					castType = null;
@@ -229,7 +229,7 @@
 					options = null;
 					defaultOption = null;
 					DefaultVal = null;
-					console.warn('unknown config detected');
+					// console.warn('unknown config detected');
 				}
 				row = {
 					'CastType': castType,
@@ -250,7 +250,7 @@
 			return data;
 		}
 		function _findConfig(el) {
-			// console.info('_findConfig',el,'this:',this);
+			/*eslint angular/controller-as-vm: 0*/
 			return el['Param'] === this;
 		}
 		function _makeOptions(config) {
@@ -341,7 +341,7 @@
 			// update DB
 			return http.post($scope.uriApiVideo + 'saveConfig', {
 				'api': $rootScope.API,
-				'p':{
+				'p': {
 					'CastType': config['CastType'],
 					'Param': config['Param'].trim(),
 					'Val': config['Val'].trim(),

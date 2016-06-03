@@ -108,7 +108,7 @@
 			// update DB
 			http.post($scope.uriApiCms + 'addCustomer', {
 				'api': $rootScope.DEFAULT_API,
-				'p':{
+				'p': {
 					'name': customer['name'],
 					'newapi': customer['api']
 				}
