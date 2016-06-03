@@ -71,6 +71,7 @@
 
 		"angular/controller-as": "warn",
 		"angular/definedundefined": "off",
+		"angular/directive-name": ["warn","bt"],
 		"angular/json-functions": "off",
 		"angular/typecheck-array": "off",
 		"angular/typecheck-date": "off",

@@ -2,8 +2,8 @@
 	'use strict';
 	angular
 		.module('jb.notification', ['jb.i18n'])
-		.directive('notification', notificationDirective)
-		.directive('topNotification', topNotificationDirective)
+		.directive('btNotification', notificationDirective)
+		.directive('btTopNotification', topNotificationDirective)
 		.factory('notification', notificationFactory);
 
 
