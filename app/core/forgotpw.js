@@ -28,8 +28,8 @@
 		}
 
 		$scope.timerPromise = $interval(Auth.tryReauthentication.bind(Auth, false), 1000);
-		$scope.$on('$destroy',function() {
-			if (angular.isDefined($scope.timerPromise)) {
+		$scope.$on('$destroy', function() {
+			if(angular.isDefined($scope.timerPromise)) {
 				$interval.cancel($scope.timerPromise);
 			}
 		});
@@ -53,14 +53,15 @@
 		function _resetTokenGet(login) {
 			return http.post($rootScope.uriApiCms + 'sendResetToken', {
 				'api': $rootScope.DEFAULT_API,
-				'p':{
-					'login':login,
+				'p': {
+					'login': login,
 					'locale': $rootScope.locale
 				}
 			})
 			.then(function(response) {
 				if(response.data['error']) {
 					_resetState(_('fpw_err_send'));
+
 					return;
 				}
 				vm.showLogin = false;
@@ -81,10 +82,11 @@
 			});
 		}
 		function _resetPassword(token, pw) {
-			return http.post($rootScope.uriApiCms + 'resetPassword', {'api': $rootScope.DEFAULT_API, 'p':{'token':token, 'pw':pw}})
+			return http.post($rootScope.uriApiCms + 'resetPassword', {'api': $rootScope.DEFAULT_API, 'p': {'token': token, 'pw': pw}})
 			.then(function(response) {
 				if(response.data !== true) {
 					_resetState(_('fpw_err_reset'));
+
 					return;
 				}
 				// hide form
@@ -93,7 +95,7 @@
 				vm.spinning = true;
 				note.ok(_('fpw_reset_done'));
 				// try to authenticate which should work fine and sign in user
-				Auth.authenticate(vm.login,pw);
+				Auth.authenticate(vm.login, pw);
 			},
 			function() {
 				_resetState(_('fpw_err_reset'));
@@ -102,7 +104,7 @@
 			});
 		}
 		function _resetTokenTest(token) {
-			vm.promise = http.post($rootScope.uriApiCms + 'testResetToken', {'api': $rootScope.DEFAULT_API, 'p':{'token':token}})
+			vm.promise = http.post($rootScope.uriApiCms + 'testResetToken', {'api': $rootScope.DEFAULT_API, 'p': {'token': token}})
 			.then(function(response) {
 				vm.login = response.data['login'];
 				if(vm.login) {
@@ -125,7 +127,7 @@
 			vm.spinning = false;
 		}
 		function _resetState(warning) {
-			$state.transitionTo($state.current, {}, {reload:true});
+			$state.transitionTo($state.current, {}, {reload: true});
 			note.warn(warning);
 		}
 	}

@@ -29,7 +29,7 @@
 			vm.navCollapsed = true;
 
 			// notifiy the user of the change
-			note.info(_('switchedto',null, newAccount['name']));
+			note.info(_('switchedto', null, newAccount['name']));
 
 			// update UI
 			$rootScope.ACCOUNT = newAccount;

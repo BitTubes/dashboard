@@ -45,10 +45,10 @@
 				var lastView = store.get('lastView');
 				// check if saved state is still valid
 				if(!!lastView && !!lastView['state']) {
-					var stateConfig =  $state.get(lastView['state']);
+					var stateConfig = $state.get(lastView['state']);
 					if(stateConfig && !stateConfig.abstract) {
 						// last view found and evaluated as valid -> go there
-						return $state.go(lastView['state'],lastView['params']);
+						return $state.go(lastView['state'], lastView['params']);
 					}
 				}
 			}
@@ -61,17 +61,17 @@
 		 * @param {Object} tabList
 		 */
 		function addStates(tabList) {
-			for (var i = 0; i < tabList.length; i++) {
+			for(var i = 0; i < tabList.length; i++) {
 				if(tabList[i].external) {
 					continue;
 				}
-				$stateProvider.state(tabList[i]['state'],tabList[i]);
+				$stateProvider.state(tabList[i]['state'], tabList[i]);
 				if(tabList[i].subviews) {
 					addStates(tabList[i].subviews);
 				}
 			}
 		}
-		for (var types in tabs) {
+		for(var types in tabs) {
 			addStates(tabs[types]);
 		}
 	}
@@ -109,6 +109,7 @@
 		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
 
+		/*eslint angular/on-watch: 0*/
 		// listener for UI-Router, Auth, ...
 		$rootScope.$on('$stateChangeStart', stateChangeStart);
 		// listeners for Google Analytics
@@ -158,11 +159,12 @@
 			}
 			var locationPath = $location.path().split('/');
 			var page = state.url.split('/');
-			for (var i = page.length - 1, ii = locationPath.length - 1; i >= 0; i--, ii--) {
+			for(var i = page.length - 1, ii = locationPath.length - 1; i >= 0; i--, ii--) {
 				if(page[i].indexOf(':') === 0) {
 					locationPath[ii] = page[i];
 				}
 			}
+
 			return locationPath.join('/');
 		}
 
@@ -182,39 +184,42 @@
 			// set stateChanged to track if we are onLoad or mid-app (for otherwise-state switcher)
 			$rootScope.stateChanged = true;
 
-			if (!toState.public && !authenticated) {
+			if(!toState.public && !authenticated) {
 				// not authenticated but trying to access a private view
 				var promise = Auth.tryReauthentication();
 				if(!promise) {
-					Auth.showLogin(toState,toParams);
+					Auth.showLogin(toState, toParams);
 				} else {
 					promise.then(function() {
-						Auth.redirect(toState,toParams);
-					},function() {
-						Auth.showLogin(toState,toParams);
+						Auth.redirect(toState, toParams);
+					}, function() {
+						Auth.showLogin(toState, toParams);
 					});
 				}
 				event.preventDefault();
+
 				return;
 			} else if(toState.state === 'login' && authenticated) {
 				// authenticated but trying to access the login view
 				Auth.redirect();
 				event.preventDefault();
+
 				return;
 			}
 			if(toState.admin && !$rootScope.ME['user']['admin']) {
 				// authenticated & not an admin but trying to access an admin view
 				Auth.redirect(fromState.state, fromParams);
 				event.preventDefault();
+
 				return;
 			}
 
 			// set lastView for otherwise-state switcher
 			if(!toState.public) {
-				store.set('lastView', {'state':toState.state,'params':toParams});
+				store.set('lastView', {'state': toState.state, 'params': toParams});
 			}
 			// udpate website title
-			$rootScope.pageTitle = _(toState.title,2,toState.titleReplacement);
+			$rootScope.pageTitle = _(toState.title, 2, toState.titleReplacement);
 			// adapt the title for Google Analytics
 			$rootScope.pageTitleGA = 'Dashboard: ' + $rootScope.pageTitle;
 		}

@@ -12,6 +12,7 @@
 		var vm = this;
 		var account;
 		var minTokenTTL = 60;
+
 		return {
 			authenticate: authenticate,
 			checkHttpStatus: checkHttpStatus,
@@ -27,7 +28,7 @@
 
 		/////////////////////
 
-		function authenticate(login,pw, redirectUrl) {
+		function authenticate(login, pw, redirectUrl) {
 			if(isAuthenticated()) {
 				return true;
 			} else {
@@ -45,7 +46,7 @@
 				}
 
 				// try getting data with last call
-				return http.post($rootScope.uriApiCms + 'login', {'api': $rootScope.API, 'p':{'login':login, 'pw':pw}})
+				return http.post($rootScope.uriApiCms + 'login', {'api': $rootScope.API, 'p': {'login': login, 'pw': pw}})
 				.then(_httpLoginSuccess, _httpLoginError);
 			}
 		}
@@ -88,9 +89,9 @@
 		function isAdmin() {
 			return !!$rootScope.ME && !!$rootScope.ME['user']['admin'];
 		}
-		function showLoginView(state,params) {
+		function showLoginView(state, params) {
 			if(state) {
-				$rootScope.preAuthState = {state: state, params:params};
+				$rootScope.preAuthState = {state: state, params: params};
 			} else {
 				$rootScope.preAuthState = null;
 			}
@@ -101,6 +102,7 @@
 		function redirect(state, params, url) {
 			if(url) {
 				location.href = decodeURIComponent(url);
+
 				return;
 			}
 			if($rootScope.preAuthState) {
@@ -126,6 +128,7 @@
 			}
 		}
 		function checkHttpStatus(response) {
+			/*eslint eqeqeq: "off"*/
 			// console.info('checkHttpStatus',response.status, response.status == 401);
 			if(response.status == 401 || response.status == 403) {
 				logout();
@@ -137,11 +140,12 @@
 				store.remove('token');
 				store.remove('token_exp');
 				// showLoginView();
+
 				return false;
 			}
 			// get payload and decode it from Base64 to JSON
-			var payload = JSON.parse( window.atob(data['token'].split('.')[1]) );
-			var expiresIn = parseInt( payload['exp']) - parseInt(payload['iat'] );
+			var payload = JSON.parse(window.atob(data['token'].split('.')[1]));
+			var expiresIn = parseInt(payload['exp']) - parseInt(payload['iat']);
 
 			store.set('token', data['token']);
 			store.set('token_exp', payload['exp']);
@@ -160,10 +164,10 @@
 
 
 		function _httpLoginError(response) {
-			_httpError(false,response);
+			_httpError(false, response);
 		}
 		function _httpReauthError(response) {
-			_httpError(true,response);
+			_httpError(true, response);
 		}
 		function _httpError(silent, response) {
 			if(response.status == 400) {
@@ -192,7 +196,7 @@
 			var existingAccountValid = false;
 
 			if(account && account['api']) {
-				for (var i = ACCOUNTS.length - 1; i >= 0; i--) {
+				for(var i = ACCOUNTS.length - 1; i >= 0; i--) {
 					if(ACCOUNTS[i]['api'] === account['api']) {
 						$rootScope.API = ACCOUNTS[i]['api'];
 						store.set('account', ACCOUNTS[i]);
@@ -207,8 +211,8 @@
 				$rootScope.ACCOUNT = ACCOUNTS[0];
 			}
 			if(!silent) {
-				note.ok(_('note_loggedinas',null,$rootScope.ME['user']['login']));
-				redirect(false,false,redirectUrl);
+				note.ok(_('note_loggedinas', null, $rootScope.ME['user']['login']));
+				redirect(false, false, redirectUrl);
 			}
 		}
 		function _httpRefreshSuccess(response) {

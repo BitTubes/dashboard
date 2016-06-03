@@ -69,14 +69,15 @@
         "space-infix-ops": "error",
         "space-unary-ops": "error",
 
-        "angular/controller-as": "warn",
+		"angular/controller-as": "warn",
+		"angular/definedundefined": "off",
+		"angular/json-functions": "off",
 		"angular/typecheck-array": "off",
 		"angular/typecheck-date": "off",
 		"angular/typecheck-function": "off",
 		"angular/typecheck-number": "off",
 		"angular/typecheck-object": "off",
 		"angular/typecheck-string": "off",
-		"angular/json-functions": "off",
-		"angular/definedundefined": "off"
+		"angular/window-service": "off"
     }
 }
