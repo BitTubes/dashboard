@@ -1,4 +1,5 @@
 // Generated on 2016-04-06 using generator-angular 0.15.1
+/* eslint-disable */
 'use strict';
 
 // # Globbing
@@ -134,11 +135,12 @@ module.exports = function (grunt) {
     // Make sure there are no obvious mistakes & code styles are up to par
     eslint: {
       options: {
-        configFile: '.eslintrc',
+        configFile: '.eslintrc.json',
+        quiet: true
       },
       all: {
         src: [
-          'Gruntfile.js',
+          // 'Gruntfile.js',
           '<%= yeoman.app %>/core/**/*.js',
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
@@ -146,7 +148,7 @@ module.exports = function (grunt) {
       },
       test: {
         // options: {
-        //   configFile: 'test/.eslintrc'
+        //   configFile: 'test/.eslintrc.json'
         // },
         src: ['test/spec/{,*/}*.js']
       }
