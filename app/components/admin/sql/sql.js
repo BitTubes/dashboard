@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('sqlController', sqlController);
+		.controller('SqlController', SqlController);
 
 
-	sqlController.$inject = ['http','$scope', 'i18n', 'notification', 'Auth'];
-	function sqlController(http, $scope, _, note, Auth) {
+	SqlController.$inject = ['http', '$scope', 'i18n', 'notification', 'Auth'];
+	function SqlController(http, $scope, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.sqlInput = '';
@@ -25,6 +25,7 @@
 			if(!vm.sqlInput || vm.sqlInput === ';') {
 				note.info('No SQL Query given');
 				vm.sqlInput = '';
+
 				return;
 			}
 			if(vm.sqlInput.slice(-1) !== ';') {
@@ -47,6 +48,7 @@
 				if(!data || (data && data['error'] && data['error'].length)) {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
 				_createSQL();
@@ -57,9 +59,10 @@
 
 		function _createSQL() {
 			// create queries for each Database
-			for (var i = 0; i < vm.databases.length; i++) {
+			for(var i = 0; i < vm.databases.length; i++) {
 				vm.sqlOutputArr.push('USE ' + vm.databases[i] + '; ' + vm.sqlInput);
 			}
+			/*eslint quotes: 0*/
 			// write to UI
 			var separator = "\n";
 			if(vm.sqlInput.indexOf("\n") !== -1) {

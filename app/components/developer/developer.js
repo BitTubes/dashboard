@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('devController', devController);
+		.controller('DevController', DevController);
 
 
-	devController.$inject = ['$scope', '$interval', 'store', 'notification', 'Auth', 'elapsed'];
+	DevController.$inject = ['$scope', '$interval', 'store', 'notification', 'Auth', 'elapsed'];
 	/**
 	 * angular-controller
 	 *
@@ -17,7 +17,7 @@
 	 * @param  {Object} elapsed   [description]
 	 * no @return
 	 */
-	function devController($scope, $interval, store, note, Auth, elapsed) {
+	function DevController($scope, $interval, store, note, Auth, elapsed) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.refresh = refresh;
@@ -55,12 +55,12 @@
 		 * no @return
 		 */
 		function initView() {
-			_updateUI(null,true);
+			_updateUI(null, true);
 
 			_updateTime();
 			$scope.timerPromise = $interval(_updateTime, 1000);
-			$scope.$on('$destroy',function() {
-				if (angular.isDefined($scope.timerPromise)) {
+			$scope.$on('$destroy', function() {
+				if(angular.isDefined($scope.timerPromise)) {
 					$interval.cancel($scope.timerPromise);
 				}
 			});

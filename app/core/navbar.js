@@ -3,11 +3,11 @@
 	angular
 		.module('bt.dashboard')
 		.directive('btNavbar', navbarDirective)
-		.controller('navbarController', navbarController);
+		.controller('NavbarController', NavbarController);
 
 
-	navbarController.$inject = ['$rootScope', '$state', 'Auth', 'i18n', 'store', 'notification'];
-	function navbarController($rootScope, $state, Auth, _, store, note) {
+	NavbarController.$inject = ['$rootScope', '$state', 'Auth', 'i18n', 'store', 'notification'];
+	function NavbarController($rootScope, $state, Auth, _, store, note) {
 		/* jshint validthis:true */
 		var vm = this;
 
@@ -29,7 +29,7 @@
 			vm.navCollapsed = true;
 
 			// notifiy the user of the change
-			note.info(_('switchedto',null, newAccount['name']));
+			note.info(_('switchedto', null, newAccount['name']));
 
 			// update UI
 			$rootScope.ACCOUNT = newAccount;
@@ -50,7 +50,7 @@
 		return {
 			restrict: 'E',
 			templateUrl: 'core/navbar.html',
-			controller: 'navbarController',
+			controller: 'NavbarController',
 			controllerAs: 'cms'
 		};
 	}

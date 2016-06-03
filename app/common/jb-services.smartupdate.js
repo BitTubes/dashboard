@@ -16,10 +16,10 @@
 
 		return {
 			makeBackup: makeBackup,
-			setFields : setFields,
+			setFields: setFields,
 			wasChanged: wasChanged,
 			wasChangedNotEmpty: wasChangedNotEmpty,
-			_test : {
+			_test: {
 				get fields() { return fields; }
 			}
 		};
@@ -36,16 +36,17 @@
 		 */
 		function makeBackup(obj) {
 			if(fields === null) {
-				console.error('fields array not set');
+				// console.error('fields array not set');
 				return false;
 			}
-			for (var i = fields.length - 1; i >= 0; i--) {
-				if('undefined' === typeof(obj[fields[i]])) {
-					console.error('trying to backup non-existing field');
+			for(var i = fields.length - 1; i >= 0; i--) {
+				if('undefined' === typeof obj[fields[i]]) {
+					// console.error('trying to backup non-existing field');
 				} else {
 					obj[fields[i] + 'Bak'] = obj[fields[i]];
 				}
 			}
+
 			return true;
 		}
 		/**
@@ -63,11 +64,12 @@
 		 * @return {boolean}
 		 */
 		function wasChanged(obj) {
-			for (var i = fields.length - 1; i >= 0; i--) {
+			for(var i = fields.length - 1; i >= 0; i--) {
 				if(obj[fields[i] + 'Bak'] !== obj[fields[i]]) {
 					return true;
 				}
 			}
+
 			return false;
 		}
 		/**
@@ -77,16 +79,15 @@
 		 * @return {boolean}
 		 */
 		function wasChangedNotEmpty(obj) {
-			for (var i = fields.length - 1; i >= 0; i--) {
+			for(var i = fields.length - 1; i >= 0; i--) {
 				if(obj[fields[i]] && obj[fields[i] + 'Bak'] !== obj[fields[i]]) {
 					return true;
 				}
 			}
+
 			return false;
 		}
 	}
-
-
 
 
 })();

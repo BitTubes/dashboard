@@ -3,11 +3,11 @@
 	angular
 		.module('bt.dashboard')
 		.directive('btFooter', footerDirective)
-		.controller('footerController', footerController);
+		.controller('FooterController', FooterController);
 
 
-	footerController.$inject = ['$scope'];
-	function footerController($scope) {
+	FooterController.$inject = ['$scope'];
+	function FooterController($scope) {
 		$scope.date = new Date();
 	}
 
@@ -15,7 +15,7 @@
 		return {
 			restrict: 'E',
 			templateUrl: 'core/footer.html',
-			controller: 'footerController',
+			controller: 'FooterController',
 			controllerAs: 'footer'
 		};
 	}

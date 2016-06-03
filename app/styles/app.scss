@@ -63,8 +63,8 @@ button {
 	}
 }
 
-top-notification,
-notification {
+bt-top-notification,
+bt-notification {
 	position: fixed;
 	z-index: 1000;
 	top: 5px;
@@ -86,7 +86,7 @@ notification {
 		transform: translate(200%, 0);
 	}
 }
-top-notification {
+bt-top-notification {
 	z-index: 10000;
 }
 @keyframes slideFromRight {

@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('playlistController', playlistController);
+		.controller('PlaylistController', PlaylistController);
 
 
-	playlistController.$inject = ['http','$scope', '$uibModal','i18n','notification','Auth'];
-	function playlistController(http, $scope, $uibModal, _, note, Auth) {
+	PlaylistController.$inject = ['http', '$scope', '$uibModal', 'i18n', 'notification', 'Auth'];
+	function PlaylistController(http, $scope, $uibModal, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.delete = del;
@@ -24,13 +24,13 @@
 		function del(pl) {
 			$scope.delObj = pl;
 			$scope.Name = pl['button'];
-			$scope.title = _('playlist',1);
+			$scope.title = _('playlist', 1);
 			$scope.deleteWarning = false;
 
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});
@@ -56,18 +56,19 @@
 			// update DB
 			http.post($scope.uriApiVideo + 'deletePlaylist', {
 				'api': $scope.API,
-				'p':pl['ID']
+				'p': pl['ID']
 			})
 			.then(function(response) {
 				if(response.data !== true && response.data !== 'true') {
 					note.error(_('note_dberror'));
+
 					return;
 				}
-				note.ok(_('note_xdeleted',0,_('playlist',1) + ' ' + pl['button']));
+				note.ok(_('note_xdeleted', 0, _('playlist', 1) + ' ' + pl['button']));
 
 				// remove from local data cache & UI
 				var removeIndex = $scope.PLAYLISTS.indexOf(pl);
-				if (removeIndex > -1) {
+				if(removeIndex > -1) {
 					$scope.PLAYLISTS.splice(removeIndex, 1);
 				}
 			},
