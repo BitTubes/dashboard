@@ -12,6 +12,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // needed by grunt-eslint
+  require('load-grunt-tasks')(grunt);
+
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
@@ -44,14 +47,18 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/common/**/*.js',
           '<%= yeoman.app %>/components/**/*.js'
         ],
-        tasks: ['newer:jshint:all', 'newer:jscs:all'],
+        // tasks: ['newer:jshint:all', 'newer:jscs:all'],
+        tasks: ['newer:eslint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
+        tasks: [
+        	// 'newer:jshint:test', 'newer:jscs:test',
+        	'newer:eslint:test',
+        	'karma']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
@@ -123,11 +130,11 @@ module.exports = function (grunt) {
       }
     },
 
-    // Make sure there are no obvious mistakes
-    jshint: {
+
+    // Make sure there are no obvious mistakes & code styles are up to par
+    eslint: {
       options: {
-        jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        configFile: '.eslintrc',
       },
       all: {
         src: [
@@ -138,12 +145,34 @@ module.exports = function (grunt) {
         ]
       },
       test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
+        // options: {
+        //   configFile: 'test/.eslintrc'
+        // },
         src: ['test/spec/{,*/}*.js']
       }
     },
+
+    // Make sure there are no obvious mistakes
+    // jshint: {
+    //   options: {
+    //     jshintrc: '.jshintrc',
+    //     reporter: require('jshint-stylish')
+    //   },
+    //   all: {
+    //     src: [
+    //       'Gruntfile.js',
+    //       '<%= yeoman.app %>/core/**/*.js',
+    //       '<%= yeoman.app %>/common/**/*.js',
+    //       '<%= yeoman.app %>/components/**/*.js'
+    //     ]
+    //   },
+    //   test: {
+    //     options: {
+    //       jshintrc: 'test/.jshintrc'
+    //     },
+    //     src: ['test/spec/{,*/}*.js']
+    //   }
+    // },
 
     // Make sure code styles are up to par
     // jscs: {
@@ -562,7 +591,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    'newer:eslint',
+    // 'newer:jshint',
     // 'newer:jscs',
     'test',
     'build'
