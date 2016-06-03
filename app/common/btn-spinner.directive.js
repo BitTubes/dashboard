@@ -26,6 +26,7 @@
 				disabled: '=?ngDisabled'
 			}
 		};
+
 		return directive;
 
 		/**
@@ -42,17 +43,17 @@
 			scope.spinning = false;
 
 			scope.$watch('btnSpinner', function(loading) {
-				if (!loading) {
+				if(!loading) {
 					return resolved();
 				}
 
-				if (!scope.spinning) {
+				if(!scope.spinning) {
 					scope.spinning = true;
 
 					// disable the button
 					element.prop('disabled', true);
 
-					if (typeof loading === 'object') {
+					if(typeof loading === 'object') {
 						$q.resolve(loading).then(resolved, resolved);
 					}
 				}
@@ -82,7 +83,7 @@
 			 * @memberof btnSpinner
 			 */
 			function handleNgDisabled() {
-				if (attrs.ngDisabled) {
+				if(attrs.ngDisabled) {
 					element.prop('disabled', scope.disabled);
 				}
 			}

@@ -48,7 +48,7 @@
 			$scope.deleteWarning = user['login'] === $rootScope.ME['user']['login'];
 			$scope.formDisabled = user['admin'] && !$rootScope.ME['user']['admin'];
 			$scope.Name = user['login'];
-			$scope.title = _('user',1);
+			$scope.title = _('user', 1);
 
 			var modalInstance = $uibModal.open({
 				animation: true,
@@ -101,7 +101,7 @@
 
 
 		function initView() {
-			http.post($scope.uriApiCms + 'getUsers', {'api': $scope.API, 'p':{times:1}})
+			http.post($scope.uriApiCms + 'getUsers', {'api': $scope.API, 'p': {times: 1}})
 			.then(function(response) {
 				var data = response.data;
 				vm.USERS = data;
@@ -123,7 +123,7 @@
 			// update DB
 			http.post($scope.uriApiCms + 'addUser', {
 				'api': $scope.API,
-				'p':{
+				'p': {
 					'login': scope.newLogin,
 					// 'pw': scope.newPasswd
 					'locale': $rootScope.locale
@@ -134,11 +134,12 @@
 				if(!data['ID']) {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				} else {
 					vm.USERS.push(data);
 				}
-				note.ok(_('note_xadded',0,_('user',1) + ' ' + data['login']));
+				note.ok(_('note_xadded', 0, _('user', 1) + ' ' + data['login']));
 				// remove from UI
 				// var tr = document.getElementById('user'+user['ID']);
 				// tr.parentNode.removeChild(tr);
@@ -164,11 +165,12 @@
 				if(!data['user']) {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
 				user['login'] = data['user']['login'];
 
-				note.ok(_('note_pwupdated',0,user['login']));
+				note.ok(_('note_pwupdated', 0, user['login']));
 
 
 				// I changed my own password - re-init entire UI
@@ -208,11 +210,12 @@
 				if(!data['user']) {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
 				user['admin'] = data['user']['admin'];
 
-				note.ok(_('note_adminx',0,[user['login'], user['admin'] ? 'granted' : 'revoked']));
+				note.ok(_('note_adminx', 0, [user['login'], user['admin'] ? 'granted' : 'revoked']));
 
 
 				// I changed my own access rights - re-init entire UI
@@ -225,22 +228,23 @@
 		}
 		function _delDb(user) {
 			// update DB
-			http.post($scope.uriApiCms + 'deleteUser', {'api': $scope.API, 'p':{'ID':user['ID']}})
+			http.post($scope.uriApiCms + 'deleteUser', {'api': $scope.API, 'p': {'ID': user['ID']}})
 			.then(function(response) {
 				var data = response.data;
 				if(data !== true && data !== 'true') {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
-				note.ok(_('note_xdeleted',0,_('user',1) + ' ' + user['login']));
+				note.ok(_('note_xdeleted', 0, _('user', 1) + ' ' + user['login']));
 				// remove from UI
 				// var tr = document.getElementById('user'+user['ID']);
 				// tr.parentNode.removeChild(tr);
 
 				// remove from local data cache
 				var removeIndex = vm.USERS.indexOf(user);
-				if (removeIndex > -1) {
+				if(removeIndex > -1) {
 					vm.USERS.splice(removeIndex, 1);
 				}
 
@@ -256,7 +260,7 @@
 		}
 	}
 
-	UserEditModalController.$inject = ['$scope','i18n', '$uibModalInstance'];
+	UserEditModalController.$inject = ['$scope', 'i18n', '$uibModalInstance'];
 	function UserEditModalController($scope, _, $uibModalInstance) {
 		/* jshint validthis:true */
 		var vm = this;
@@ -264,7 +268,7 @@
 		vm.newPasswd = '';
 		$scope.newLogin = $scope.user['login'];
 
-		$scope.title = _('user',1);
+		$scope.title = _('user', 1);
 		$scope.titlemode = $scope.ADD ? 'addx' : 'editx';
 
 		$scope.ok = ok;
@@ -309,23 +313,23 @@
 		function _generatePassword(len) {
 			var pwd = [];
 			var	cc = String.fromCharCode;
-			var	R = Math.random;
+			var	r = Math.random;
 			var	rnd;
 			var	i;
 			// push a number
-			pwd.push(cc(48 + (0 | R() * 10)));
+			pwd.push(cc(48 + (0 | r() * 10)));
 			// push an upper case letter
-			pwd.push(cc(65 + (0 | R() * 26)));
+			pwd.push(cc(65 + (0 | r() * 26)));
 
 			for(i = 2; i < len; i++) {
 				// generate upper OR lower OR number
-				rnd = 0 | R() * 62;
+				rnd = 0 | r() * 62;
 				pwd.push(cc(48 + rnd + (rnd > 9 ? 7 : 0) + (rnd > 35 ? 6 : 0)));
 			}
 
 			// shuffle letters in password
 			return pwd.sort(function() {
-				return R() - 0.5;
+				return r() - 0.5;
 			}).join('');
 		}
 

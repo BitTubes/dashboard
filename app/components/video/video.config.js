@@ -4,28 +4,28 @@
 		.controller('VideoConfigController', VideoConfigController);
 
 
-	VideoConfigController.$inject = ['http','$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth', '$sce'];
+	VideoConfigController.$inject = ['http', '$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification', 'Auth', '$sce'];
 	function VideoConfigController(http, $scope, $rootScope, $state, $stateParams, $uibModal, smartUpdate, _, note, Auth, $sce) {
 		/* jshint validthis:true */
 		var vm = this;
-		vm.videoId = !!$stateParams.id ? parseInt($stateParams.id) : null;
+		vm.videoId = $stateParams.id ? parseInt($stateParams.id) : null;
 		vm.castTypes = {
 			'': {
-				name:'String',
-				pattern:'',
-				placeholder:'*'},
+				name: 'String',
+				pattern: '',
+				placeholder: '*'},
 			'bool': {
-				name:'Boolean',
-				pattern:/^[0,1]$/,
-				placeholder:'0,1'},
+				name: 'Boolean',
+				pattern: /^[0,1]$/,
+				placeholder: '0,1'},
 			'int': {
-				name:'Integer',
-				pattern:/^[0-9]*$/,
-				placeholder:'0-9'},
+				name: 'Integer',
+				pattern: /^[0-9]*$/,
+				placeholder: '0-9'},
 			'float': {
-				name:'Float',
-				pattern:/^[-+]?\d*\.?\d+$/,
-				placeholder:'0-9.0-9'}
+				name: 'Float',
+				pattern: /^[-+]?\d*\.?\d+$/,
+				placeholder: '0-9.0-9'}
 		};
 
 		vm.addGeneral = addGeneral;
@@ -64,6 +64,7 @@
 			}
 			if(!vm.addVal || !vm.addVal.trim()) {
 				note.warn('Default value missing');
+
 				return true;
 			}
 
@@ -80,6 +81,7 @@
 			}
 			if(!vm.addVideoVal || !vm.addVideoVal.trim()) {
 				note.warn('Default value missing');
+
 				return true;
 			}
 
@@ -137,7 +139,7 @@
 		}
 		var _default = _('default');
 		var _other = _('other');
-		function getGroup(config,option) {
+		function getGroup(config, option) {
 			return config['defaultOption'] == option ? _default : _other;
 		}
 
@@ -150,23 +152,23 @@
 
 			// get video info
 			if(vm.videoId) {
-				http.post($scope.uriApiVideo + 'getVideo', {'api': $scope.API,'p':vm.videoId})
+				http.post($scope.uriApiVideo + 'getVideo', {'api': $scope.API, 'p': vm.videoId})
 				.then(function(response) {
 					if(response['data']['Name']) {
 						vm.videoName = response['data']['Name'];
 					} else {
 						vm.videoId = null;
-						$state.transitionTo($state.current, {}, {reload:true});
+						$state.transitionTo($state.current, {}, {reload: true});
 					}
 				},
 				Auth.checkHttpStatus.bind(Auth));
 			}
 
 			// get all available
-			http.post($scope.uriApiCms + 'getConfig', {'api': $rootScope.DEFAULT_API, 'p':{'locale':$rootScope.locale}})
+			http.post($scope.uriApiCms + 'getConfig', {'api': $rootScope.DEFAULT_API, 'p': {'locale': $rootScope.locale}})
 			.then(function(response) {
 				var data = response['data'];
-				for (var i = data.length - 1; i >= 0; i--) {
+				for(var i = data.length - 1; i >= 0; i--) {
 					// smartUpdate.makeBackup(data[i]);
 					_makeOptions(data[i]);
 				}
@@ -174,7 +176,7 @@
 
 				// wait for the general config, then load account and video configs
 				// get account wide settings
-				http.post($scope.uriApiVideo + 'getConfigList', {'api': $rootScope.API, 'p':-1})
+				http.post($scope.uriApiVideo + 'getConfigList', {'api': $rootScope.API, 'p': -1})
 				.then(function(response) {
 					response['video_ID'] = null;
 					vm.MYCONFIGS = _processConfigList(response, 'used');
@@ -184,7 +186,7 @@
 
 				// get video specific settings
 				if(vm.videoId !== null) {
-					http.post($scope.uriApiVideo + 'getConfigList', {'api': $rootScope.API, 'p':vm.videoId, 'p2':true})
+					http.post($scope.uriApiVideo + 'getConfigList', {'api': $rootScope.API, 'p': vm.videoId, 'p2': true})
 					.then(function(response) {
 						response['video_ID'] = vm.videoId;
 						vm.MYCONFIGSVIDEO = _processConfigList(response, 'usedVideo');
@@ -206,10 +208,10 @@
 			var formType;
 
 			var value;
-			for (var el in response['data']['Config']) {
+			for(var el in response['data']['Config']) {
 				value = response['data']['Config'][el];
 				value = value === true ? '1' : (value === false ? '0' : value);
-				defaultConfig = vm.CONFIGS.find(_findConfig,el);
+				defaultConfig = vm.CONFIGS.find(_findConfig, el);
 				if(defaultConfig) {
 					defaultConfig[usedParam] = true;
 					castType = defaultConfig['CastType'];
@@ -219,7 +221,7 @@
 					DefaultVal = defaultConfig['DefaultVal'];
 					// console.log('defaultConfig', defaultConfig);
 					if(options.length && options.indexOf(value) === -1) {
-						console.warn('bad value for "' + el + '" detected:',value,'allowed:',options);
+						console.warn('bad value for "' + el + '" detected:', value, 'allowed:', options);
 					}
 				} else {
 					castType = null;
@@ -244,6 +246,7 @@
 				// console.log("row",row);
 				data.push(row);
 			}
+
 			return data;
 		}
 		function _findConfig(el) {
@@ -262,8 +265,8 @@
 
 				// create new array to add some html
 				options = config['DefaultVal'].split('|');
-				options[0] = '<u>' + options[0] + '</u> (' +  _('default') + ')';
-				config['DefaultValHtml'] =  $sce.trustAsHtml(options.join(', '));
+				options[0] = '<u>' + options[0] + '</u> (' + _('default') + ')';
+				config['DefaultValHtml'] = $sce.trustAsHtml(options.join(', '));
 			} else {
 				config['formType'] = config['CastType'] === 'bool' ? 'radio' : 'text';
 				config['options'] = [];
@@ -275,7 +278,7 @@
 			}
 		}
 		function _processDefaults(config, usedField) {
-			var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
+			var defaultConfig = vm.CONFIGS.find(_findConfig, config['Param']);
 			if(defaultConfig) {
 				// legacy check
 				defaultConfig[usedField] = true;
@@ -322,6 +325,7 @@
 				if(!data || (data && data['error'] && data['error'].length)) {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
 				smartUpdate.makeBackup(config);
@@ -348,20 +352,21 @@
 				var data = response['data'];
 				if(!data || (data && data['error'] && data['error'].length)) {
 					note.error(_('note_dberror'));
+
 					return;
 				}
 				// update backups
 				smartUpdate.makeBackup(config);
 
 				// confirmation message
-				note.ok(_('note_xupdated',0,config['Param']));
+				note.ok(_('note_xupdated', 0, config['Param']));
 
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}
 		function _delDb(config) {
 			// update DB
-			config.delPromise = http.post($scope.uriApiVideo + 'deleteConfig', {'api': $rootScope.API, 'p':config['Param'], 'p2':config['Video_ID']})
+			config.delPromise = http.post($scope.uriApiVideo + 'deleteConfig', {'api': $rootScope.API, 'p': config['Param'], 'p2': config['Video_ID']})
 			.then(function(response) {
 				var data = response['data'];
 				var arr;
@@ -370,9 +375,10 @@
 				if(data !== true && data !== 'true') {
 					// alert("error updating database");
 					note.error(_('note_dberror'));
+
 					return;
 				}
-				note.ok(_('note_xdeleted',0,config['Param']));
+				note.ok(_('note_xdeleted', 0, config['Param']));
 
 				// setup updates
 				if(config['Video_ID']) {
@@ -386,12 +392,12 @@
 				}
 				// remove from local data cache / update ui
 				var removeIndex = arr.indexOf(config);
-				if (removeIndex > -1) {
+				if(removeIndex > -1) {
 					arr.splice(removeIndex, 1);
 				}
 				delete obj[config['Param']];
 				// update add-select
-				var defaultConfig = vm.CONFIGS.find(_findConfig,config['Param']);
+				var defaultConfig = vm.CONFIGS.find(_findConfig, config['Param']);
 				if(defaultConfig) {
 					defaultConfig[usedParam] = false;
 				}
