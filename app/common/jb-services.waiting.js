@@ -24,8 +24,8 @@
 
 
 		return {
-			hide : hide,
-			show : show,
+			hide: hide,
+			show: show,
 			_test: {
 				get modalInstance() { return modalInstance; }
 			}

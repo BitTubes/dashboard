@@ -12,7 +12,7 @@
     "rules": {
         "valid-jsdoc": "off",
         "curly": ["error", "all"],
-        "eqeqeq": "error",
+        "eqeqeq": "warn",
         "no-alert": "warn",
         "no-eval": "error",
         "no-extend-native": "error",
@@ -34,14 +34,20 @@
 
         "array-bracket-spacing": ["error", "never"],
         "block-spacing": "error",
-        "brace-style": "error",
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
         "camelcase": "error",
+        "comma-dangle": "off",
         "comma-spacing": ["error", { "before": false, "after": true }],
         "computed-property-spacing": ["error", "never"],
         "eol-last": "warn",
         "indent": ["error", "tab"],
         "key-spacing": "error",
-        "keyword-spacing": ["error", { "after": false }],
+        "keyword-spacing": ["error", { "overrides": {
+			"if": { "after": false },
+			"switch": { "after": false },
+			"for": { "after": false },
+			"while": { "after": false }
+		}}],
         "linebreak-style": ["error", "unix"],
         "new-cap": "error",
         "newline-before-return": "error",
@@ -63,6 +69,14 @@
         "space-infix-ops": "error",
         "space-unary-ops": "error",
 
-        "angular/controller-as": "warn"
+        "angular/controller-as": "warn",
+		"angular/typecheck-array": "off",
+		"angular/typecheck-date": "off",
+		"angular/typecheck-function": "off",
+		"angular/typecheck-number": "off",
+		"angular/typecheck-object": "off",
+		"angular/typecheck-string": "off",
+		"angular/json-functions": "off",
+		"angular/definedundefined": "off"
     }
 }
