@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('configController', configController);
+		.controller('ConfigController', ConfigController);
 
 
-	configController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth'];
-	function configController(http, $scope, $rootScope, $uibModal, smartUpdate, _, note, Auth) {
+	ConfigController.$inject = ['http','$scope', '$rootScope', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth'];
+	function ConfigController(http, $scope, $rootScope, $uibModal, smartUpdate, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.castTypes = [
@@ -117,7 +117,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});

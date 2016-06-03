@@ -2,13 +2,13 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('userController', userController)
-		.controller('userEditModalCtrl', userEditModalCtrl)
-		.controller('userAdminModalCtrl', userAdminModalCtrl);
+		.controller('UserController', UserController)
+		.controller('UserEditModalController', UserEditModalController)
+		.controller('UserAdminModalController', UserAdminModalController);
 
 
-	userController.$inject = ['http','$stateParams','$scope','$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
-	function userController(http, $stateParams, $scope, $rootScope, $uibModal, _, note, Auth, $state) {
+	UserController.$inject = ['http', '$stateParams', '$scope', '$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', '$state'];
+	function UserController(http, $stateParams, $scope, $rootScope, $uibModal, _, note, Auth, $state) {
 		/* jshint validthis:true */
 		var vm = this;
 		var editMe = ($stateParams.editme === 'me');
@@ -30,12 +30,12 @@
 
 		function add() {
 			$scope.ADD = 1;
-			$scope.user = {login:''};
+			$scope.user = {login: ''};
 
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
-				controller: 'userEditModalCtrl',
+				controller: 'UserEditModalController',
 				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
@@ -53,7 +53,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});
@@ -69,7 +69,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/user/user.edit.html',
-				controller: 'userEditModalCtrl',
+				controller: 'UserEditModalController',
 				controllerAs: 'userEditModalCtrl',
 				scope: $scope,
 				size: null
@@ -88,7 +88,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/user/user.admin.html',
-				controller: 'userAdminModalCtrl',
+				controller: 'UserAdminModalController',
 				scope: $scope,
 				size: null
 			});
@@ -256,8 +256,8 @@
 		}
 	}
 
-	userEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
-	function userEditModalCtrl($scope, _, $uibModalInstance) {
+	UserEditModalController.$inject = ['$scope','i18n', '$uibModalInstance'];
+	function UserEditModalController($scope, _, $uibModalInstance) {
 		/* jshint validthis:true */
 		var vm = this;
 		// $scope.newPasswd = '';
@@ -331,9 +331,9 @@
 
 	}
 
-	userAdminModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
-	function userAdminModalCtrl($scope, _, $uibModalInstance) {
-		$scope.title = _('adminx',0,[$scope.user['admin'] ? 'revoke' : 'grant']);
+	UserAdminModalController.$inject = ['$scope', 'i18n', '$uibModalInstance'];
+	function UserAdminModalController($scope, _, $uibModalInstance) {
+		$scope.title = _('adminx', 0, [$scope.user['admin'] ? 'revoke' : 'grant']);
 		$scope.username = $scope.user['login'];
 		$scope.ok = ok;
 		$scope.cancel = cancel;

@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('videoModController', videoModController);
+		.controller('VideoModController', VideoModController);
 
 
-	videoModController.$inject = ['http','$scope', '$stateParams', 'i18n', 'notification', 'Auth'];
-	function videoModController(http, $scope, $stateParams, _, note, Auth) {
+	VideoModController.$inject = ['http','$scope', '$stateParams', 'i18n', 'notification', 'Auth'];
+	function VideoModController(http, $scope, $stateParams, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		var videoId = $stateParams.id;

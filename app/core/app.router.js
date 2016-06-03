@@ -222,13 +222,13 @@
 
 
 	tabs = {
-		app : [
+		app: [
 			{
 				state: 'users',
 				title: 'user',
 				url: '/user/:editme',
 				templateUrl: 'components/user/user.html',
-				controller: 'userController',
+				controller: 'UserController',
 				controllerAs: 'userCtrl'
 			},
 			{
@@ -244,7 +244,7 @@
 						title: 'video',
 						url: '',
 						templateUrl: 'components/video/video.list.html',
-						controller: 'videoController',
+						controller: 'VideoController',
 						controllerAs: 'videoCtrl'
 					},
 					{
@@ -252,7 +252,7 @@
 						title: 'moderation',
 						url: '/:id/moderate',
 						templateUrl: 'components/video/video.moderate.html',
-						controller: 'videoModController',
+						controller: 'VideoModController',
 						controllerAs: 'videoModCtrl'
 					},
 					{
@@ -260,7 +260,7 @@
 						title: 'Video Config',
 						url: '/config/:id',
 						templateUrl: 'components/video/video.config.html',
-						controller: 'videoConfigController',
+						controller: 'VideoConfigController',
 						controllerAs: 'videoConfigCtrl'
 					}
 				]
@@ -270,7 +270,7 @@
 				title: 'playlist',
 				url: '/playlist',
 				templateUrl: 'components/playlist/playlist.html',
-				controller: 'playlistController',
+				controller: 'PlaylistController',
 				controllerAs: 'playlistCtrl'
 			},
 			{
@@ -280,14 +280,14 @@
 				url: '/analyzer',
 			}
 		],
-		hidden : [
+		hidden: [
 			{
 				public: true,
 				state: 'login',
 				title: 'login',
 				url: '/login/:redirect',
 				templateUrl: 'core/login.html',
-				controller: 'loginController',
+				controller: 'LoginController',
 				controllerAs: 'loginCtrl'
 			},
 			{
@@ -297,7 +297,7 @@
 				titleReplacement: 'password',
 				url: '/forgot-password/:token',
 				templateUrl: 'core/forgotpw.html',
-				controller: 'forgotPwController',
+				controller: 'ForgotPwController',
 				controllerAs: 'forgotPwCtrl'
 			},
 			{
@@ -307,7 +307,7 @@
 				titleReplacement: 'password',
 				url: '/set-password/:token',
 				templateUrl: 'core/forgotpw.html',
-				controller: 'forgotPwController',
+				controller: 'ForgotPwController',
 				controllerAs: 'forgotPwCtrl'
 			},
 			{
@@ -316,18 +316,18 @@
 				title: 'developer',
 				url: '/developer',
 				templateUrl: 'components/developer/developer.html',
-				controller: 'devController',
+				controller: 'DevController',
 				controllerAs: 'devCtrl'
 			}
 		],
-		admin : [
+		admin: [
 			{
 				state: 'customers',
 				admin: true,
 				title: 'customer',
 				url: '/admin/customer',
 				templateUrl: 'components/admin/customer/customer.list.html',
-				controller: 'customerController',
+				controller: 'CustomerController',
 				controllerAs: 'customerCtrl'
 			},
 			{
@@ -343,7 +343,7 @@
 						title: 'Config',
 						url: '',
 						templateUrl: 'components/admin/config/config.html',
-						controller: 'configController',
+						controller: 'ConfigController',
 						controllerAs: 'configCtrl'
 					},
 					{
@@ -352,7 +352,7 @@
 						title: 'Config',
 						url: '/define/:id',
 						templateUrl: 'components/admin/config/config.define.html',
-						controller: 'configDefineController',
+						controller: 'ConfigDefineController',
 						controllerAs: 'configDefCtrl'
 					}
 				]
@@ -364,7 +364,7 @@
 				titleReplacement: 'video',
 				url: '/admin/xcopy',
 				templateUrl: 'components/admin/xcopy/xcopy.html',
-				controller: 'xcopyController',
+				controller: 'XcopyController',
 				controllerAs: 'xcopyCtrl'
 			},
 			{
@@ -373,7 +373,7 @@
 				title: 'SQL Query',
 				url: '/admin/sql',
 				templateUrl: 'components/admin/sql/sql.html',
-				controller: 'sqlController',
+				controller: 'SqlController',
 				controllerAs: 'sqlCtrl'
 			},
 			{

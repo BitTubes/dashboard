@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('videoConfigController', videoConfigController);
+		.controller('VideoConfigController', VideoConfigController);
 
 
-	videoConfigController.$inject = ['http','$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth', '$sce'];
-	function videoConfigController(http, $scope, $rootScope, $state, $stateParams, $uibModal, smartUpdate, _, note, Auth, $sce) {
+	VideoConfigController.$inject = ['http','$scope', '$rootScope', '$state', '$stateParams', '$uibModal', 'smartUpdate', 'i18n', 'notification','Auth', '$sce'];
+	function VideoConfigController(http, $scope, $rootScope, $state, $stateParams, $uibModal, smartUpdate, _, note, Auth, $sce) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.videoId = !!$stateParams.id ? parseInt($stateParams.id) : null;
@@ -112,7 +112,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});

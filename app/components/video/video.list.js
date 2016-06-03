@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('videoController', videoController);
+		.controller('VideoController', VideoController);
 
 
-	videoController.$inject = ['http','$scope', '$uibModal', 'i18n', 'notification', 'Auth'];
-	function videoController(http, $scope, $uibModal, _, note, Auth) {
+	VideoController.$inject = ['http','$scope', '$uibModal', 'i18n', 'notification', 'Auth'];
+	function VideoController(http, $scope, $uibModal, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.delete = del;
@@ -47,7 +47,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});

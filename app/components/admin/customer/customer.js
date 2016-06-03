@@ -1,13 +1,13 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('customerController', customerController)
+		.controller('CustomerController', CustomerController)
 		// .controller('customerWaitController', customerWaitController)
-		.controller('customerEditModalCtrl', customerEditModalCtrl);
+		.controller('CustomerEditModalCtrl', CustomerEditModalCtrl);
 
 
-	customerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','Auth', 'waiting', 'store'];
-	function customerController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting, store) {
+	CustomerController.$inject = ['http','$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification','Auth', 'waiting', 'store'];
+	function CustomerController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting, store) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.add = add;
@@ -37,7 +37,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/admin/customer/customer.edit.html',
-				controller: 'customerEditModalCtrl',
+				controller: 'CustomerEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
@@ -52,7 +52,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'components/admin/customer/customer.edit.html',
-				controller: 'customerEditModalCtrl',
+				controller: 'CustomerEditModalCtrl',
 				scope: $scope,
 				size: null
 			});
@@ -79,7 +79,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: templateUrl,
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});
@@ -210,8 +210,8 @@
 
 	}
 
-	customerEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
-	function customerEditModalCtrl($scope, _, $uibModalInstance) {
+	CustomerEditModalCtrl.$inject = ['$scope','i18n', '$uibModalInstance'];
+	function CustomerEditModalCtrl($scope, _, $uibModalInstance) {
 		$scope.newPasswd = '';
 
 		$scope.title = _('customer',1);

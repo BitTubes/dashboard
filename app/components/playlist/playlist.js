@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('playlistController', playlistController);
+		.controller('PlaylistController', PlaylistController);
 
 
-	playlistController.$inject = ['http','$scope', '$uibModal','i18n','notification','Auth'];
-	function playlistController(http, $scope, $uibModal, _, note, Auth) {
+	PlaylistController.$inject = ['http','$scope', '$uibModal','i18n','notification','Auth'];
+	function PlaylistController(http, $scope, $uibModal, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.delete = del;
@@ -30,7 +30,7 @@
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'common/del.html',
-				controller: 'deleteModalCtrl',
+				controller: 'DeleteModalController',
 				scope: $scope,
 				size: null
 			});

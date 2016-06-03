@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('forgotPwController', forgotPwController);
+		.controller('ForgotPwController', ForgotPwController);
 
 
-	forgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http','notification', 'Auth', 'i18n'];
-	function forgotPwController($stateParams, $state, $scope, $rootScope, $uibModal, $interval, http, note, Auth, _) {
+	ForgotPwController.$inject = ['$stateParams', '$state', '$scope', '$rootScope', '$uibModal', '$interval', 'http', 'notification', 'Auth', 'i18n'];
+	function ForgotPwController($stateParams, $state, $scope, $rootScope, $uibModal, $interval, http, note, Auth, _) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.login = null;

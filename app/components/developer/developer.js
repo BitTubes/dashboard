@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('devController', devController);
+		.controller('DevController', DevController);
 
 
-	devController.$inject = ['$scope', '$interval', 'store', 'notification', 'Auth', 'elapsed'];
+	DevController.$inject = ['$scope', '$interval', 'store', 'notification', 'Auth', 'elapsed'];
 	/**
 	 * angular-controller
 	 *
@@ -17,7 +17,7 @@
 	 * @param  {Object} elapsed   [description]
 	 * no @return
 	 */
-	function devController($scope, $interval, store, note, Auth, elapsed) {
+	function DevController($scope, $interval, store, note, Auth, elapsed) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.refresh = refresh;

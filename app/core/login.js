@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('loginController', loginController);
+		.controller('LoginController', LoginController);
 
 
-	loginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
-	function loginController($stateParams, Auth, $scope, $interval) {
+	LoginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
+	function LoginController($stateParams, Auth, $scope, $interval) {
 		/* jshint validthis:true */
 		var vm = this;
 		var redirectUrl = $stateParams.redirect || false;

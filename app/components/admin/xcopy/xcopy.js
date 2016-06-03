@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('xcopyController', xcopyController);
+		.controller('XcopyController', XcopyController);
 		// .controller('xcopyWaitController', xcopyWaitController);
 
 
-	xcopyController.$inject = ['http','$scope', '$filter', 'i18n', 'notification', 'Auth', 'waiting'];
-	function xcopyController(http, $scope, $filter, _, note, Auth, waiting) {
+	XcopyController.$inject = ['http','$scope', '$filter', 'i18n', 'notification', 'Auth', 'waiting'];
+	function XcopyController(http, $scope, $filter, _, note, Auth, waiting) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.apiFrom = null;

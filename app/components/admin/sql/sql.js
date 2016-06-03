@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('sqlController', sqlController);
+		.controller('SqlController', SqlController);
 
 
-	sqlController.$inject = ['http','$scope', 'i18n', 'notification', 'Auth'];
-	function sqlController(http, $scope, _, note, Auth) {
+	SqlController.$inject = ['http','$scope', 'i18n', 'notification', 'Auth'];
+	function SqlController(http, $scope, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.sqlInput = '';
