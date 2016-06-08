@@ -8,5 +8,9 @@
 	});
 
 
+	// offline-app prep
+	// if(navigator.serviceWorker) {
+	// 	navigator.serviceWorker.register('offline/sw.js');
+	// }
 
 })();
