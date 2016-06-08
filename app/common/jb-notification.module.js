@@ -2,13 +2,13 @@
 	'use strict';
 	angular
 		.module('jb.notification', ['jb.i18n'])
-		.directive('notification', notificationDirective)
-		.directive('topNotification', topNotificationDirective)
+		.directive('btNotification', notificationDirective)
+		.directive('btTopNotification', topNotificationDirective)
 		.factory('notification', notificationFactory);
 
 
 
-	notificationFactory.$inject = ['$rootScope','$timeout', 'i18n'];
+	notificationFactory.$inject = ['$rootScope', '$timeout', 'i18n'];
 	/**
 	 * factory
 	 *
@@ -40,49 +40,49 @@
 
 
 		/**
-		 * wrapper for show()
+		 * wrapper for _show()
 		 *
 		 * @param  {string} msg
 		 * no @return
 		 */
 		function debug(msg) {
-			show('warning',msg, 'TODO', true);
+			_show('warning', msg, 'TODO', true);
 		}
 		/**
-		 * wrapper for show()
+		 * wrapper for _show()
 		 *
 		 * @param  {string} msg
 		 * no @return
 		 */
 		function info(msg) {
-			show('info',msg, '');
+			_show('info', msg, '');
 		}
 		/**
-		 * wrapper for show()
+		 * wrapper for _show()
 		 *
 		 * @param  {string} msg
 		 * no @return
 		 */
 		function ok(msg) {
-			show('success',msg, '');
+			_show('success', msg, '');
 		}
 		/**
-		 * wrapper for show()
+		 * wrapper for _show()
 		 *
 		 * @param  {string} msg
 		 * no @return
 		 */
 		function warn(msg) {
-			show('warning',msg, _('warning'));
+			_show('warning', msg, _('warning'));
 		}
 		/**
-		 * wrapper for show()
+		 * wrapper for _show()
 		 *
 		 * @param  {string} msg
 		 * no @return
 		 */
 		function error(msg) {
-			show('danger', msg, _('error'));
+			_show('danger', msg, _('error'));
 		}
 
 		/**
@@ -94,16 +94,16 @@
 		 * @param  {boolean} [top]
 		 * no @return
 		 */
-		function show(type, msg, title, top) {
+		function _show(type, msg, title, top) {
 			var timeout;
 			switch(type) {
-				case 'success': /*no break here*/
-				case 'info':
-					timeout = 3;
+			case 'success': /*no break here*/
+			case 'info':
+				timeout = 3;
 				break;
-				case 'warning': /*no break here*/
-				case 'danger':
-					timeout = 6;
+			case 'warning': /*no break here*/
+			case 'danger':
+				timeout = 6;
 				break;
 			}
 			var newAlert = {
@@ -151,7 +151,7 @@
 			restrict: 'E',
 			// templateUrl: "common/jb-notification.html",
 			template: '<div ng-repeat="alert in jbNotifications" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
-			controller: ['$rootScope',function($rootScope) {
+			controller: ['$rootScope', function($rootScope) {
 				$rootScope.jbNotifications = $rootScope.jbNotifications || [];
 			}]
 		};
@@ -166,7 +166,7 @@
 			restrict: 'E',
 			// templateUrl: "common/jb-notification-top.html",
 			template: '<div ng-repeat="alert in jbNotificationsTop" class="alert" ng-class="[alert.class,{\'alert-hide\': !alert.show}]" role="alert"><strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.msg}}</div>',
-			controller: ['$rootScope',function($rootScope) {
+			controller: ['$rootScope', function($rootScope) {
 				$rootScope.jbNotificationsTop = $rootScope.jbNotificationsTop || [];
 			}]
 		};

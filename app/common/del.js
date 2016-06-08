@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('deleteModalCtrl', deleteModalCtrl);
+		.controller('DeleteModalController', DeleteModalController);
 
 
-	deleteModalCtrl.$inject = ['$scope', '$uibModalInstance'];
+	DeleteModalController.$inject = ['$scope', '$uibModalInstance'];
 	/**
 	 * controller
 	 *
@@ -13,7 +13,7 @@
 	 * @param  {angularJs} $uibModalInstance
 	 * no @return
 	 */
-	function deleteModalCtrl($scope, $uibModalInstance) {
+	function DeleteModalController($scope, $uibModalInstance) {
 		$scope.ok = ok;
 		$scope.cancel = cancel;
 

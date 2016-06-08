@@ -2,8 +2,8 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.login.$dirty && editForm.login.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="login">Login:</label>
 		<div class="col-sm-4">
-		<input class="form-control" type="text" autocomplete="off" name="login" id="login" 
-		ng-model="loginCtrl.login" 
+		<input class="form-control" type="text" autocomplete="off" name="login" id="login"
+		ng-model="loginCtrl.login"
 		required>
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 		<label class="col-sm-3 control-label" for="password">{{'password' | i18n}}:</label>
 		<div class="col-sm-4">
 			<input class="form-control" type="password" autocomplete="off" name="password" id="password"
-		ng-model="loginCtrl.pw" 
+		ng-model="loginCtrl.pw"
 		required>
 			<small class="help-block"><a ui-sref="forgotpw">{{'forgotpw' | i18n}}</a></small>
 		</div>

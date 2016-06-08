@@ -42,7 +42,7 @@
       "void",
       // "while",
       "with",
-      "return",
+      "return"
       // "typeof"
     ],
     "requireSpaceBeforeBinaryOperators": true,
