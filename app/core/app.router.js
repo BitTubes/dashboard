@@ -263,7 +263,15 @@
 					{
 						state: 'videos.config',
 						title: 'Video Config',
-						url: '/config/:id',
+						url: '/:id/config',
+						templateUrl: 'components/video/video.config.html',
+						controller: 'VideoConfigController',
+						controllerAs: 'videoConfigCtrl'
+					},
+					{
+						state: 'videos.config-org',
+						title: 'Video Config',
+						url: '/config',
 						templateUrl: 'components/video/video.config.html',
 						controller: 'VideoConfigController',
 						controllerAs: 'videoConfigCtrl'
