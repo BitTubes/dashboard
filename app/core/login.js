@@ -2,11 +2,11 @@
 	'use strict';
 	angular
 		.module('bt.dashboard')
-		.controller('loginController', loginController);
+		.controller('LoginController', LoginController);
 
 
-	loginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
-	function loginController($stateParams, Auth, $scope, $interval) {
+	LoginController.$inject = ['$stateParams', 'Auth', '$scope', '$interval'];
+	function LoginController($stateParams, Auth, $scope, $interval) {
 		/* jshint validthis:true */
 		var vm = this;
 		var redirectUrl = $stateParams.redirect || false;
@@ -15,7 +15,7 @@
 		vm.pw = null;
 		vm.spinning = true;
 		vm.authenticate = function() {
-			vm.promise = Auth.authenticate(vm.login,vm.pw, redirectUrl);
+			vm.promise = Auth.authenticate(vm.login, vm.pw, redirectUrl);
 		};
 
 		vm.tryReauthPromise = Auth.tryReauthentication(redirectUrl);
@@ -33,8 +33,8 @@
 		}
 
 		$scope.timerPromise = $interval(Auth.tryReauthentication.bind(Auth, redirectUrl), 1000);
-		$scope.$on('$destroy',function() {
-			if (angular.isDefined($scope.timerPromise)) {
+		$scope.$on('$destroy', function() {
+			if(angular.isDefined($scope.timerPromise)) {
 				$interval.cancel($scope.timerPromise);
 			}
 		});

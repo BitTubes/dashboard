@@ -18,7 +18,7 @@
 			if(!input) {
 				return input;
 			}
-			if (!angular.isDefined(format)) {
+			if(!angular.isDefined(format)) {
 				format = $locale['DATETIME_FORMATS']['medium'];
 				// format = 'MMM d, y h:mm:ss a';
 			}
@@ -35,6 +35,7 @@
 			var date = new Date(input);
 			// var d = new Date();
 			var _utc = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+
 			return $filter('date')(_utc, format);
 		};
 	}

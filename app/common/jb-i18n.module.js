@@ -1,9 +1,9 @@
 (function() {
 	'use strict';
 	angular
-		.module('jb.i18n', ['angular-storage','jb.i18n.locales', 'jb.services'])
+		.module('jb.i18n', ['angular-storage', 'jb.i18n.locales', 'jb.services'])
 		.factory('i18n', i18nFactory)
-		.filter('i18n',i18nFilter);
+		.filter('i18n', i18nFilter);
 
 
 
@@ -14,15 +14,15 @@
 	/// config here:
 	var defaultLocale = 'en';
 	var availableLocales = [
-		{code:'en', name: 'English'},
-		{code:'de', name: 'Deutsch'}
+		{code: 'en', name: 'English'},
+		{code: 'de', name: 'Deutsch'}
 	];
 
 	// stop editing here
 
 	var _browserLocale = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
 	var _localesTest = {};
-	for (var i = availableLocales.length - 1; i >= 0; i--) {
+	for(var i = availableLocales.length - 1; i >= 0; i--) {
 		_localesTest[availableLocales[i].code] = 1;
 	}
 
@@ -45,7 +45,7 @@
 	 */
 	function i18nFilter(_) {
 		return function(str, number, replacements) {
-			return _(str,number,replacements);
+			return _(str, number, replacements);
 		};
 	}
 	i18nFactory.$inject = ['$rootScope', 'store', 'i18nLocales'];
@@ -110,14 +110,15 @@
 			if(typeof replacements === 'string' || !replacements) {
 				replacements = [replacements];
 			}
-			for (var i = 0; i < replacements.length; i++) {
+			for(var i = 0; i < replacements.length; i++) {
 
-				if(!!vm.locales[replacements[i]]) {
+				if(vm.locales[replacements[i]]) {
 					replacements[i] = translate(replacements[i]);
 				}
 				var regexp = new RegExp('\\{' + i + '\\}', 'gi');
 				str = str.replace(regexp, replacements[i]);
 			}
+
 			return str;
 		}
 	}
@@ -133,15 +134,16 @@
 	 * no @return
 	 */
 	function _loadLocale() {
+		/*eslint angular/document-service: 0*/
 		var temp = {locale: null};
-		_setLocale('',temp);
+		_setLocale('', temp);
 		var locale = temp.locale;
 
-		var scripts = ['angular-locale_','jb-i18n_'];
+		var scripts = ['angular-locale_', 'jb-i18n_'];
 		var src;
-		for (var i = scripts.length - 1; i >= 0; i--) {
+		for(var i = scripts.length - 1; i >= 0; i--) {
 			src = 'locales/' + scripts[i] + locale + '.js';
-			document.write('<script src="' + src + '"><\/script>');
+			document.write('<script src="' + src + '"></script>');
 		}
 	}
 
@@ -174,16 +176,16 @@
 		// try language passed to function
 		if(_localesTest[locale]) {
 			newLocale = locale;
-		} else if(locale && locale.length > 2 && _localesTest[locale.substring(0,2)]) {
-			newLocale = locale.substring(0,2);
+		} else if(locale && locale.length > 2 && _localesTest[locale.substring(0, 2)]) {
+			newLocale = locale.substring(0, 2);
 		// try last used language
 		} else if(storedLocale && _localesTest[storedLocale]) {
 			newLocale = storedLocale;
 		// try browser language
 		} else if(_localesTest[_browserLocale]) {
 			newLocale = _browserLocale;
-		} else if(_browserLocale.length > 2 && _localesTest[_browserLocale.substring(0,2)]) {
-			newLocale = _browserLocale.substring(0,2);
+		} else if(_browserLocale.length > 2 && _localesTest[_browserLocale.substring(0, 2)]) {
+			newLocale = _browserLocale.substring(0, 2);
 		// fall back to default
 		} else {
 			newLocale = defaultLocale;
@@ -202,6 +204,7 @@
 			} else {
 				// assume initial load if we get here
 				$rootScope.locale = newLocale;
+
 				return true;
 			}
 

@@ -3,7 +3,7 @@
 	<div class="form-group col-xs-6"><a ui-sref="videos.list"><button class="btn btn-default">{{'back' | i18n}}</button></a></div>
 	<div class="form-group col-md-offset-2 col-md-4 col-xs-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
 </div>
-<div class="table-responsive" ng-if="videoConfigCtrl.video_ID">
+<div class="table-responsive" ng-if="videoConfigCtrl.videoId">
 	<!-- ----------------------- CURRENT VIDEO ------------------ -->
 	<form name="editFormVideo" novalidate>
 	<table class="table table-hover table-striped table-condensed">
@@ -29,7 +29,7 @@
 				<select ng-if="videoConfigCtrl.addVideoObj.showSelect && videoConfigCtrl.addVideoObj.options.length" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-options="o group by getGroup(videoConfigCtrl.addVideoObj,o) for o in videoConfigCtrl.addVideoObj.options"></select> -->
 
 				<input ng-if="videoConfigCtrl.addVideoObj.formType=='text'" ng-disabled="!videoConfigCtrl.addVideoObj" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" ng-pattern="videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[videoConfigCtrl.addVideoObj.CastType].placeholder}}">
-				
+
 				<p ng-if="videoConfigCtrl.addVideoObj.formType=='radio'">
 					<label class="radio-inline" ng-class="{'defaultVal': 1==videoConfigCtrl.addVideoObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" value="1"> true</label>
 					<label class="radio-inline" ng-class="{'defaultVal': 0==videoConfigCtrl.addVideoObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVideoVal" value="0"> false</label>
@@ -63,7 +63,7 @@
 
 				<select ng-if="config.showSelect && config.options.length" class="form-control input-sm" name="Val" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" ng-options="o group by getGroup(config,o) for o in config.options"></select> -->
 				<input ng-if="config.formType=='text'" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
-				
+
 				<p ng-if="config.formType=='radio'">
 					<label class="radio-inline" ng-class="{'defaultVal': 1==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}1" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="1"> true</label>
 					<label class="radio-inline" ng-class="{'defaultVal': 0==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}2" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="0"> false</label>
@@ -78,10 +78,10 @@
 	</form>
 	<div ng-if="videoConfigCtrl.MYCONFIGSVIDEO && !videoConfigCtrl.MYCONFIGSVIDEO.length" class="alert alert-info">{{'noentries' | i18n}}</div>
 </div>
-<hr ng-if="videoConfigCtrl.video_ID">
+<hr ng-if="videoConfigCtrl.videoId">
 <div class="table-responsive">
 	<!-- ---------------------- ACCOUNT ------------------ -->
-	
+
 	<form name="editForm" novalidate>
 	<table class="table table-hover table-striped table-condensed">
 	<caption>{{'xfory' | i18n:0:['Config','organisation']}}</caption>
@@ -103,7 +103,7 @@
 			<td><span class="form-control-static" style="line-height: 2.2em;">{{videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].name || '-'}}</span></td>
 			<td ng-class="{ 'has-error': (editForm.defaultVal.$dirty && editForm.defaultVal.$invalid) }">
 				<input ng-if="videoConfigCtrl.addObj.formType=='text'" ng-disabled="!videoConfigCtrl.addObj" class="form-control" name="defaultVal" ng-model="videoConfigCtrl.addVal" ng-pattern="videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[videoConfigCtrl.addObj.CastType].placeholder}}">
-				
+
 				<p ng-if="videoConfigCtrl.addObj.formType=='radio'">
 					<label class="radio-inline" ng-class="{'defaultVal': 1==videoConfigCtrl.addObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVal" value="1"> true</label>
 					<label class="radio-inline" ng-class="{'defaultVal': 0==videoConfigCtrl.addObj.DefaultVal}"><input type="radio" name="defaultVal" ng-model="videoConfigCtrl.addVal" value="0"> false</label>
@@ -134,7 +134,7 @@
 			<td><span class="form-control-static">{{config.CastType!==null ? videoConfigCtrl.castTypes[config.CastType].name : 'n/a'}}</span></td>
 			<td ng-class="[{'has-error': (editForm['defaultVal'+$index].$dirty&&editForm['defaultVal'+$index].$invalid) },config.CastType]">
 				<input ng-if="config.formType=='text'" class="form-control input-sm" name="Val{{$index}}" ng-model="config.Val" ng-blur="videoConfigCtrl.edit(config)" ng-pattern="videoConfigCtrl.castTypes[config.CastType].pattern" placeholder="{{videoConfigCtrl.castTypes[config.CastType].placeholder}}">
-				
+
 				<p ng-if="config.formType=='radio'">
 					<label class="radio-inline" ng-class="{'defaultVal': 1==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}1" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="1"> true</label>
 					<label class="radio-inline" ng-class="{'defaultVal': 0==config.DefaultVal}"><input type="radio" name="Val{{$index}}" id="Val{{$index}}2" ng-model="config.Val" ng-change="videoConfigCtrl.edit(config)" value="0"> false</label>

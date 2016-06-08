@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('xcopyController', xcopyController);
+		.controller('XcopyController', XcopyController);
 		// .controller('xcopyWaitController', xcopyWaitController);
 
 
-	xcopyController.$inject = ['http','$scope', '$filter', 'i18n', 'notification', 'Auth', 'waiting'];
-	function xcopyController(http, $scope, $filter, _, note, Auth, waiting) {
+	XcopyController.$inject = ['http', '$scope', '$filter', 'i18n', 'notification', 'Auth', 'waiting'];
+	function XcopyController(http, $scope, $filter, _, note, Auth, waiting) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.apiFrom = null;
@@ -30,6 +30,7 @@
 		function updateFromVideosDb() {
 			if(!vm.apiFrom) {
 				vm.videosFrom = [];
+
 				return;
 			}
 			http.post($scope.uriApiVideo + 'getVideoList', {'api': vm.apiFrom})
@@ -42,14 +43,14 @@
 			vm.videoToObj = {};
 
 			if(vm.videoFromObj) {
-				vm.videoToObj['Name'] = vm.videoFromObj['Name'] + ' - Copy ' + $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+				vm.videoToObj['Name'] = vm.videoFromObj['Name'] + ' - Copy ' + $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
 			}
 		}
 		function xcopyDb() {
-			waiting.show(_('wait_addingx',null,'video'), _('wait_takex',null,['5',_('t_minute',5)]));
+			waiting.show(_('wait_addingx', null, 'video'), _('wait_takex', null, ['5', _('t_minute', 5)]));
 
 
-			var params = {'api': vm.apiFrom, 'p':vm.videoFromObj['UID']};
+			var params = {'api': vm.apiFrom, 'p': vm.videoFromObj['UID']};
 			if(vm.apiFrom !== vm.apiTo) {
 				params['p2'] = vm.apiTo;
 			}
@@ -62,9 +63,10 @@
 				var data = response.data;
 				if(!data || (data && data['error'] && data['error'].length)) {
 					note.error(_('note_dberror'));
+
 					return;
 				}
-				note.ok(_('note_xadded',0,_('video',1) + ' ' + data['Name']));
+				note.ok(_('note_xadded', 0, _('video', 1) + ' ' + data['Name']));
 
 			},
 			Auth.checkHttpStatus.bind(Auth));

@@ -6,7 +6,7 @@
 
 
 
-	httpFactory.$inject = ['$http','$httpParamSerializerJQLike','store'];
+	httpFactory.$inject = ['$http', '$httpParamSerializerJQLike', 'store'];
 	/**
 	 * factory
 	 *
@@ -17,8 +17,8 @@
 	 */
 	function httpFactory($http, $httpParamSerializerJQLike, store) {
 		return {
-			get : get,
-			post : post
+			get: get,
+			post: post
 		};
 
 
