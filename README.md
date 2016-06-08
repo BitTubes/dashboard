@@ -1,5 +1,16 @@
 # bt.dashboard
 
+## INSTALL
+- install node.js + npm
+- install ruby + SASS
+- open command window in project folder
+- run `npm install`
+- run `npm install -g bower`
+- run `npm install -g eslint`
+- run `bower install`
+
+
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
