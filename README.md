@@ -7,6 +7,8 @@
 - run `npm install`
 - run `npm install -g bower`
 - run `npm install -g eslint`
+- run `npm install -g eslint-config-angular`
+- run `npm install -g eslint-plugin-angular`
 - run `bower install`
 
 
