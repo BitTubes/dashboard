@@ -32,13 +32,6 @@
   "appPath": "app",
   "moduleName": "bt.dashboard",
   "overrides": {
-    "bootstrap": {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    },
     "bootstrap-sass-official": {
       "main": [
         "assets/stylesheets/_bootstrap.scss"
