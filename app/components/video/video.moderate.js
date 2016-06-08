@@ -21,6 +21,8 @@
 		vm.POSTS = null;
 		vm.updateStatus = updateStatusDb;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'video_time';
 		$scope.reverseSort = false;
 
@@ -53,7 +55,7 @@
 			Auth.checkHttpStatus.bind(Auth));
 
 			// get posts for chosen video
-			http.post($scope.uriApiPost + 'getPostList', {'api': $scope.API, 'p': videoId, 'p2': 0, 'p3': 1})
+			$scope.loadPromise = http.post($scope.uriApiPost + 'getPostList', {'api': $scope.API, 'p': videoId, 'p2': 0, 'p3': 1})
 			.then(function(response) {
 				vm.POSTS = response.data['posts'];
 			},

@@ -10,7 +10,10 @@
 		/* jshint validthis:true */
 		var vm = this;
 		vm.delete = del;
+		vm.reload = initView;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'Name';
 		$scope.reverseSort = false;
 
@@ -43,7 +46,7 @@
 
 
 		function initView() {
-			http.post($scope.uriApiVideo + 'getPlaylistsCms', {'api': $scope.API})
+			$scope.loadPromise = http.post($scope.uriApiVideo + 'getPlaylistsCms', {'api': $scope.API})
 			.then(function(response) {
 				$scope.PLAYLISTS = response.data;
 			},

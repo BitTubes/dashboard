@@ -13,6 +13,8 @@
 		vm.publish = publishDb;
 		vm.VIDEOS = null;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'Name';
 		$scope.reverseSort = false;
 
@@ -61,7 +63,7 @@
 
 
 		function initView() {
-			http.post($scope.uriApiVideo + 'getVideoList', {'api': $scope.API})
+			$scope.loadPromise = http.post($scope.uriApiVideo + 'getVideoList', {'api': $scope.API})
 			.then(function(response) {
 				vm.VIDEOS = response.data['Media'];
 				http.post($scope.uriApiPost + 'getAllPosts', {'api': $scope.API})
