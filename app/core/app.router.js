@@ -99,7 +99,7 @@
 		$rootScope.loginMax = 50;
 		$rootScope.loginMin = 5;
 		$rootScope.loginPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		$rootScope.passwordMax = 12;
+		$rootScope.passwordMax = 24;
 		$rootScope.passwordMin = 8;
 		$rootScope.passwordPattern = /^[.a-zA-Z0-9_-]*$/;
 
