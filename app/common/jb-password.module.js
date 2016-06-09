@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('jb.password', ['ngMessages'])
-		.directive('jbBlacklist', blacklistDirective)
-		.directive('jbNumber', numberDirective)
-		.directive('jbLowercase', lowercaseDirective)
-		.directive('jbUppercase', uppercaseDirective);
+		.directive('btBlacklist', blacklistDirective)
+		.directive('btNumber', numberDirective)
+		.directive('btLowercase', lowercaseDirective)
+		.directive('btUppercase', uppercaseDirective);
 
 	/**
 	 * directive
@@ -29,7 +29,7 @@
 		 * no @return
 		 */
 		function link(scope, elem, attr, ngModel) {
-			var blacklist = attr.jbBlacklist.split(',');
+			var blacklist = attr.btBlacklist.split(',');
 
 			/**
 			 * validates the input string against this filter
@@ -49,7 +49,7 @@
 						}
 					}
 				}
-				ngModel.$setValidity('jbBlacklist', validity);
+				ngModel.$setValidity('btBlacklist', validity);
 
 				return value;
 			}
@@ -88,7 +88,7 @@
 			 * @return {string} returns the value initially provided
 			 */
 			function validate(value) {
-				ngModel.$setValidity('jbNumber', typeof value === 'string' && /[0-9]/.test(value));
+				ngModel.$setValidity('btNumber', typeof value === 'string' && /[0-9]/.test(value));
 
 				return value;
 			}
@@ -127,7 +127,7 @@
 			 * @return {string} returns the value initially provided
 			 */
 			function validate(value) {
-				ngModel.$setValidity('jbLowercase', typeof value === 'string' && /[a-z]/.test(value));
+				ngModel.$setValidity('btLowercase', typeof value === 'string' && /[a-z]/.test(value));
 
 				return value;
 			}
@@ -167,7 +167,7 @@
 			 * @return {string} returns the value initially provided
 			 */
 			function validate(value) {
-				ngModel.$setValidity('jbUppercase', typeof value === 'string' && /[A-Z]/.test(value));
+				ngModel.$setValidity('btUppercase', typeof value === 'string' && /[A-Z]/.test(value));
 
 				return value;
 			}
