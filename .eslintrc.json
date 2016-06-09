@@ -70,6 +70,8 @@
         "space-unary-ops": "error",
 
 		"angular/controller-as": "warn",
+		"angular/controller-as-vm": "warn",
+		"angular/controller-name": ["error", "/^[A-Z].*Controller/"],
 		"angular/definedundefined": "off",
 		"angular/directive-name": ["warn","bt"],
 		"angular/json-functions": "off",
