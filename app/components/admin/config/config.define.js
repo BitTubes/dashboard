@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular.module('bt.dashboard')
-		.controller('configDefineController', configDefineController);
+		.controller('ConfigDefineController', ConfigDefineController);
 
 
-	configDefineController.$inject = ['http', '$scope', '$rootScope', 'smartUpdate', '$stateParams', 'i18n', 'notification', 'Auth'];
-	function configDefineController(http, $scope, $rootScope, smartUpdate, $stateParams, _, note, Auth) {
+	ConfigDefineController.$inject = ['http', '$scope', '$rootScope', 'smartUpdate', '$stateParams', 'i18n', 'notification', 'Auth'];
+	function ConfigDefineController(http, $scope, $rootScope, smartUpdate, $stateParams, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		var configId = parseInt($stateParams.id);
