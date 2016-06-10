@@ -92,6 +92,7 @@
 		// globals
 		// - API
 		var server = 'https://nlv.bittubes.com/api/';
+		$rootScope.uriApiAnalyzer = server + 'analyzer/1/';
 		$rootScope.uriApiCms = server + 'cms/2/';
 		$rootScope.uriApiPost = server + 'post/4/';
 		$rootScope.uriApiVideo = server + 'meta/13/';
@@ -342,6 +343,15 @@
 				templateUrl: 'components/admin/customer/customer.list.html',
 				controller: 'CustomerController',
 				controllerAs: 'customerCtrl'
+			},
+			{
+				state: 'monitoring',
+				admin: true,
+				title: 'monitoring',
+				url: '/admin/monitoring',
+				templateUrl: 'components/admin/monitoring/monitoring.html',
+				controller: 'MonitoringController',
+				controllerAs: 'monitoringCtrl'
 			},
 			{
 				state: 'config',
