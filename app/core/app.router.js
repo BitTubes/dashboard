@@ -5,6 +5,8 @@
 	var DEFAULT_URL = '/video';
 	var DEFAULT_API = 'demo';
 	var BASE_HREF = '/dashboard';
+	var CLASS_LAYOUT_FIXED = 'container';
+	var CLASS_LAYOUT_FLUID = 'container-fluid';
 	var tabs;
 
 	angular
@@ -110,6 +112,8 @@
 		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
 
+		$rootScope.containerClass = CLASS_LAYOUT_FIXED;
+
 		/*eslint angular/on-watch: 0*/
 		// listener for UI-Router, Auth, ...
 		$rootScope.$on('$stateChangeStart', stateChangeStart);
@@ -213,6 +217,12 @@
 				event.preventDefault();
 
 				return;
+			}
+
+			if(toState.fluidLayout) {
+				$rootScope.containerClass = CLASS_LAYOUT_FLUID;
+			} else {
+				$rootScope.containerClass = CLASS_LAYOUT_FIXED;
 			}
 
 			// set lastView for otherwise-state switcher
@@ -347,6 +357,7 @@
 			{
 				state: 'monitoring',
 				admin: true,
+				fluidLayout: true,
 				title: 'monitoring',
 				url: '/admin/monitoring',
 				templateUrl: 'components/admin/monitoring/monitoring.html',
