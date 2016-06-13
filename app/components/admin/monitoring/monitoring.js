@@ -8,9 +8,9 @@
 	function MonitoringController(http, $scope, $rootScope, Auth, $locale) {
 		var vm = this;
 		vm.days = 1;
-		vm.PINGS = null;
 		vm.drawChart = drawChart;
 		vm.myChartObject = {};
+		vm.PINGS = null;
 		// keep the following in scope to ease copy-paste of the sorting
 		$scope.loadPromise = null;
 		$scope.reload = initView;
