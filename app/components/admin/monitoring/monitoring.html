@@ -1,0 +1,13 @@
+<div class="row">
+	<!--Sidebar content-->
+	<div class="form-group col-sm-6 form-inline">
+		<div class="input-group">
+			<div class="input-group-addon">{{'days' | i18n}}</div>
+			<input type="number" class="form-control" id="days" placeholder="0,1,..." ng-min="1" min="1" ng-model="monitoringCtrl.days" style="width:100px">
+		</div>
+		<button btn-spinner="loadPromise" ng-click="reload()" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+	</div>
+	<div class="form-group col-md-offset-2 col-md-4 col-sm-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
+</div>
+<div ng-if="monitoringCtrl.PINGS && monitoringCtrl.PINGS.length" google-chart chart="monitoringCtrl.myChartObject" style="height:600px; width:100%;"></div>
+<div ng-if="monitoringCtrl.PINGS && !monitoringCtrl.PINGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>

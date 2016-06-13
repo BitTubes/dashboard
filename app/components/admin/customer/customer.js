@@ -16,6 +16,8 @@
 		vm.edit = edit;
 		vm.viewAccount = viewAccount;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'name';
 		$scope.reverseSort = false;
 
@@ -91,7 +93,7 @@
 
 
 		function initView() {
-			http.post($scope.uriApiCms + 'getCustomersAll', { 'api': $rootScope.DEFAULT_API })
+			$scope.loadPromise = http.post($scope.uriApiCms + 'getCustomersAll', { 'api': $rootScope.DEFAULT_API })
 			.then(function(response) {
 				vm.CUSTOMERS = response.data;
 			},

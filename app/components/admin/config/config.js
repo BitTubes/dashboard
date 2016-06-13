@@ -27,11 +27,12 @@
 		vm.addDefaultVal = '';
 		vm.CONFIGS = [];
 
-
 		vm.add = addDb;
 		vm.delete = del;
 		vm.edit = edit;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'Param';
 		$scope.reverseSort = false;
 
@@ -135,7 +136,7 @@
 		function initView() {
 			smartUpdate.setFields(['Param', 'CastType', 'DefaultVal']);
 
-			http.post($scope.uriApiCms + 'getConfig', {'api': $rootScope.DEFAULT_API})
+			$scope.loadPromise = http.post($scope.uriApiCms + 'getConfig', {'api': $rootScope.DEFAULT_API})
 			.then(function(response) {
 				// var data = response.data;
 				for(var i = response.data.length - 1; i >= 0; i--) {

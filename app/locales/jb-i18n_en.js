@@ -29,6 +29,7 @@
 				'copyx': 'Copy {0}',
 				'created': 'Created',
 				'customer': ['Customer', 'Customers'],
+				'days': 'Days',
 				'default': 'Default',
 				'defintion': 'Definition',
 				'delete': 'Delete',
@@ -71,6 +72,7 @@
 				'message': 'Message',
 				'moderate': 'Moderate',
 				'moderation': 'Moderate Comments',
+				'monitoring': 'Monitoring',
 				'myprofile': 'My Profile',
 				'name': 'Name',
 				'never': 'never',
@@ -138,6 +140,7 @@
 				'yourx': 'Your {0}',
 			}
 		};
+
 		return vm.allLocales;
 	}
 

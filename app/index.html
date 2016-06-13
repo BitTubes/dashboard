@@ -32,7 +32,7 @@
 	<![endif]-->
 
 	<bt-navbar></bt-navbar>
-	<div class="container">
+	<div ng-class="containerClass">
 
 		<ui-view></ui-view>
 
@@ -51,6 +51,7 @@
 	<script src="bower_components/showdown/dist/showdown.js"></script>
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
+	<script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
 	<!-- endbower -->
 	<!-- local libs -->
 	<script src="lib/angular-storage.js"></script>
@@ -79,6 +80,7 @@
 	<script src="components/admin/config/config.js"></script>
 	<script src="components/admin/config/config.define.js"></script>
 	<script src="components/admin/customer/customer.js"></script>
+	<script src="components/admin/monitoring/monitoring.js"></script>
 	<script src="components/admin/sql/sql.js"></script>
 	<script src="components/admin/xcopy/xcopy.js"></script>
 	<script src="components/developer/developer.js"></script>

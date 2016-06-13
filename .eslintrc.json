@@ -70,8 +70,10 @@
         "space-unary-ops": "error",
 
 		"angular/controller-as": "warn",
+		"angular/controller-as-vm": "warn",
+		"angular/controller-name": ["error", "/^[A-Z][a-zA-Z0-9]*Controller$/"],
 		"angular/definedundefined": "off",
-		"angular/directive-name": ["warn","bt"],
+		"angular/directive-name": ["error","/^bt[A-Z][a-zA-Z0-9]*$/"],
 		"angular/json-functions": "off",
 		"angular/typecheck-array": "off",
 		"angular/typecheck-date": "off",

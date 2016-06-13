@@ -18,6 +18,8 @@
 		vm.edit = edit;
 		vm.USERS = null;
 		// keep the following in scope to ease copy-paste of the sorting
+		$scope.loadPromise = null;
+		$scope.reload = initView;
 		$scope.orderByField = 'ID';
 		$scope.reverseSort = true;
 
@@ -101,7 +103,7 @@
 
 
 		function initView() {
-			http.post($scope.uriApiCms + 'getUsers', {'api': $scope.API, 'p': {times: 1}})
+			$scope.loadPromise = http.post($scope.uriApiCms + 'getUsers', {'api': $scope.API, 'p': {times: 1}})
 			.then(function(response) {
 				var data = response.data;
 				vm.USERS = data;

@@ -5,6 +5,8 @@
 	var DEFAULT_URL = '/video';
 	var DEFAULT_API = 'demo';
 	var BASE_HREF = '/dashboard';
+	var CLASS_LAYOUT_FIXED = 'container';
+	var CLASS_LAYOUT_FLUID = 'container-fluid';
 	var tabs;
 
 	angular
@@ -92,6 +94,7 @@
 		// globals
 		// - API
 		var server = 'https://nlv.bittubes.com/api/';
+		$rootScope.uriApiAnalyzer = server + 'analyzer/1/';
 		$rootScope.uriApiCms = server + 'cms/2/';
 		$rootScope.uriApiPost = server + 'post/4/';
 		$rootScope.uriApiVideo = server + 'meta/13/';
@@ -99,7 +102,7 @@
 		$rootScope.loginMax = 50;
 		$rootScope.loginMin = 5;
 		$rootScope.loginPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		$rootScope.passwordMax = 12;
+		$rootScope.passwordMax = 24;
 		$rootScope.passwordMin = 8;
 		$rootScope.passwordPattern = /^[.a-zA-Z0-9_-]*$/;
 
@@ -108,6 +111,8 @@
 		$rootScope.DEFAULT_URL = DEFAULT_URL;
 		$rootScope.BASE_HREF = BASE_HREF;
 		$rootScope.tabs = tabs;
+
+		$rootScope.containerClass = CLASS_LAYOUT_FIXED;
 
 		/*eslint angular/on-watch: 0*/
 		// listener for UI-Router, Auth, ...
@@ -214,6 +219,12 @@
 				return;
 			}
 
+			if(toState.fluidLayout) {
+				$rootScope.containerClass = CLASS_LAYOUT_FLUID;
+			} else {
+				$rootScope.containerClass = CLASS_LAYOUT_FIXED;
+			}
+
 			// set lastView for otherwise-state switcher
 			if(!toState.public) {
 				store.set('lastView', {'state': toState.state, 'params': toParams});
@@ -263,7 +274,15 @@
 					{
 						state: 'videos.config',
 						title: 'Video Config',
-						url: '/config/:id',
+						url: '/:id/config',
+						templateUrl: 'components/video/video.config.html',
+						controller: 'VideoConfigController',
+						controllerAs: 'videoConfigCtrl'
+					},
+					{
+						state: 'videos.config-org',
+						title: 'Video Config',
+						url: '/config',
 						templateUrl: 'components/video/video.config.html',
 						controller: 'VideoConfigController',
 						controllerAs: 'videoConfigCtrl'
@@ -334,6 +353,16 @@
 				templateUrl: 'components/admin/customer/customer.list.html',
 				controller: 'CustomerController',
 				controllerAs: 'customerCtrl'
+			},
+			{
+				state: 'monitoring',
+				admin: true,
+				fluidLayout: true,
+				title: 'monitoring',
+				url: '/admin/monitoring',
+				templateUrl: 'components/admin/monitoring/monitoring.html',
+				controller: 'MonitoringController',
+				controllerAs: 'monitoringCtrl'
 			},
 			{
 				state: 'config',

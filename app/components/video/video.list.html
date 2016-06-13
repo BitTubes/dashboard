@@ -1,6 +1,6 @@
 <div class="row">
 	<!--Sidebar content-->
-	<div class="form-group col-sm-6"><a ng-href="/edit/?api={{API}}&ADD=1" class="btn btn-default">+ {{'video' | i18n:1}}</a> <button ui-sref="videos.config" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span> {{'xfory' | i18n:0:['Config','organisation']}}</button></div>
+	<div class="form-group col-sm-6"><a ng-href="/edit/?api={{API}}&ADD=1" class="btn btn-default">+ {{'video' | i18n:1}}</a> <button ui-sref="videos.config-org" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span> {{'xfory' | i18n:0:['Config','organisation']}}</button> <button btn-spinner="loadPromise" ng-click="reload()" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></div>
 	<div class="form-group col-md-offset-2 col-md-4 col-sm-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
 </div>
 <div class="table-responsive">

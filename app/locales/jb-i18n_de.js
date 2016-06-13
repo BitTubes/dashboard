@@ -30,6 +30,7 @@
 				'copyx': '{0} kopieren',
 				'created': 'Erstellt',
 				'customer': ['Kunde', 'Kunden'],
+				'days': 'Tage',
 				'default': 'Standard',
 				'defintion': 'Definition',
 				'delete': 'Löschen',
@@ -85,6 +86,7 @@
 				'note_published1': '{0} ist jetzt öffentlich',
 				'note_pwupdated': 'Passwort für {0} geändert',
 				'note_statuschg': 'Status gespeichert',
+				'monitoring': 'Überwachung',
 				'note_xadded': '{0} hinzugefügt',
 				'note_xdeleted': '{0} gelöscht',
 				'note_xreactivated': '{0} reaktiviert',
@@ -138,6 +140,7 @@
 				'yourx': 'Dein {0}',
 			}
 		};
+
 		return vm.allLocales;
 	}
 
