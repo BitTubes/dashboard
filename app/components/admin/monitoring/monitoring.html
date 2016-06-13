@@ -41,4 +41,5 @@
 	</table>
 </div>
  -->
+<div ng-if="monitoringCtrl.PINGS && monitoringCtrl.PINGS.length" google-chart chart="monitoringCtrl.myChartObject" style="height:600px; width:100%;"></div>
  <div ng-if="monitoringCtrl.PINGS && !monitoringCtrl.PINGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>
