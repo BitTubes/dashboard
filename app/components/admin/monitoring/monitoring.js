@@ -108,7 +108,7 @@
 					'rows': []
 				};
 
-				angular.forEach(vm.PINGS, function(value, key) {
+				angular.forEach(vm.PINGS, function(value) {
 					vm.myChartObject.data.rows.push(
 						{c: [
 							{v: new Date(value['ts']*1000)},
@@ -132,24 +132,26 @@
 					],
 					legend: { position: 'top' },
 					vAxes: {
-						0: {title: 'Response Time (ms)', minValue: 0,  format: '#,### ms' },
+						0: {title: 'Response Time (ms)', minValue: 0, format: '#,### ms' },
 						1: {title: 'Error Rate (errors/call)', minValue: 0, maxValue: 0.05, format: '#,###.## %'}
 					},
-					series:{
-						0:{targetAxisIndex:0},
-						1:{targetAxisIndex:0},
-						2:{targetAxisIndex:0},
-						3:{targetAxisIndex:1}
+					series: {
+						0: { targetAxisIndex: 0 },
+						1: { targetAxisIndex: 0 },
+						2: { targetAxisIndex: 0 },
+						3: { targetAxisIndex: 1 }
 					},
-					formatters: {
-						date: [{
-							columnNum: 0,
-							pattern: 'HH:mm:ss dd:MM:yy'
-							// pattern: '#,###.### ms'
-						}]
-					}
+					formatters: formatters
 
 				};
+
+				var formatters = {
+					date: [{
+						columnNum: 0,
+						pattern: 'HH:mm:ss dd:MM:yy'
+						// pattern: '#,###.### ms'
+					}]
+				}
 
 				// var _formatter = new window.google.visualization.NumberFormat({
 				// 		pattern:'#,###.### ms'
