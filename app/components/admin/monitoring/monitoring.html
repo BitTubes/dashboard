@@ -9,5 +9,5 @@
 	</div>
 	<div class="form-group col-md-offset-2 col-md-4 col-sm-6"><input id="query" ng-model="query" class="form-control" placeholder="{{'search' | i18n}}"></div>
 </div>
-<div ng-if="monitoringCtrl.PINGS && monitoringCtrl.PINGS.length" google-chart chart="monitoringCtrl.myChartObject" style="height:600px; width:100%;"></div>
+<div ng-if="monitoringCtrl.PINGS && monitoringCtrl.PINGS.length" google-chart chart="monitoringCtrl.myChartObject" style="height:350px; width:100%;"></div>
 <div ng-if="monitoringCtrl.PINGS && !monitoringCtrl.PINGS.length" class="alert alert-info">{{'noentries' | i18n}}</div>
