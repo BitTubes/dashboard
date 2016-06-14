@@ -57,9 +57,9 @@ module.exports = function (grunt) {
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: [
-        	// 'newer:jshint:test', 'newer:jscs:test',
-        	'newer:eslint:test',
-        	'karma']
+          // 'newer:jshint:test', 'newer:jscs:test',
+          // 'newer:eslint:test',
+          'karma']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
@@ -146,11 +146,23 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/components/**/*.js'
         ]
       },
-      test: {
-        // options: {
-        //   configFile: 'test/.eslintrc.json'
-        // },
-        src: ['test/spec/{,*/}*.js']
+      // test: {
+      //   // options: {
+      //   //   configFile: 'test/.eslintrc.json'
+      //   // },
+      //   src: ['test/spec/{,*/}*.js']
+      // },
+      fix: {
+        options: {
+          fix: true
+        },
+        src: [
+          // 'Gruntfile.js',
+          '<%= yeoman.app %>/core/**/*.js',
+          '<%= yeoman.app %>/common/**/*.js',
+          '<%= yeoman.app %>/components/**/*.js',
+          '<%= yeoman.app %>/locales/**/*.js'
+        ]
       }
     },
 
