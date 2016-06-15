@@ -1,5 +1,5 @@
 describe('Module: jb.password', function() {
-	"use strict";
+	'use strict';
 	beforeEach(module('jb.password'));
 
 	var $compile;
@@ -11,20 +11,20 @@ describe('Module: jb.password', function() {
 
 	// Store references to $rootScope and $compile
 	// so they are available to all tests in this describe block
-	beforeEach(inject(function(_$compile_, _$rootScope_){
+	beforeEach(inject(function(_$compile_, _$rootScope_) {
 		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$compile = _$compile_;
 		$rootScope = _$rootScope_;
 
-		$rootScope.testModel = "";
+		$rootScope.testModel = '';
 	}));
 
 	describe('Directive: jbBlacklist', function() {
-		beforeEach(function(){
-			directive = 'jb-blacklist="111,black"';
+		beforeEach(function() {
+			directive = 'bt-blacklist="111,black"';
 
 			// Compile a piece of HTML containing the directive
-			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" '+directive+'></ng-form>');
+			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" ' + directive + '></ng-form>');
 			$compile(element)($rootScope);
 			// fire all the watches, so the scope expression {{1 + 1}} will be evaluated
 			$rootScope.$digest();
@@ -35,17 +35,19 @@ describe('Module: jb.password', function() {
 
 		describe('view-to-model', function() {
 			it('string that is not on the blacklist will return VALID', function() {
-				testString = "pass";
+				testString = 'pass';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing a blacklisted word will return INVALID', function() {
-				testString = "black3";
+				testString = 'black3';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$invalid).toBe(true);
@@ -53,7 +55,7 @@ describe('Module: jb.password', function() {
 		});
 		describe('model-to-view', function() {
 			it('string that is not on the blacklist will return VALID', function() {
-				testString = "pass";
+				testString = 'pass';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -61,7 +63,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing a blacklisted word will return INVALID', function() {
-				testString = "black3";
+				testString = 'black3';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -93,7 +95,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('empty string will return VALID', function() {
-				testString = "";
+				testString = '';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -104,11 +106,11 @@ describe('Module: jb.password', function() {
 	});
 	describe('Directive: jbNumber', function() {
 
-		beforeEach(function(){
-			directive = 'jb-number';
+		beforeEach(function() {
+			directive = 'bt-number';
 
 			// Compile a piece of HTML containing the directive
-			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" '+directive+'></ng-form>');
+			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" ' + directive + '></ng-form>');
 			$compile(element)($rootScope);
 			// fire all the watches, so the scope expression {{1 + 1}} will be evaluated
 			$rootScope.$digest();
@@ -119,17 +121,19 @@ describe('Module: jb.password', function() {
 
 		describe('view-to-model', function() {
 			it('string containing a number will return VALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing no number will return INVALID', function() {
-				testString = "blackwhite";
+				testString = 'blackwhite';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$invalid).toBe(true);
@@ -145,7 +149,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing a number will return VALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -153,7 +157,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing no number will return INVALID', function() {
-				testString = "blackwhite";
+				testString = 'blackwhite';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -177,7 +181,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('empty string will return INVALID', function() {
-				testString = "";
+				testString = '';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -188,11 +192,11 @@ describe('Module: jb.password', function() {
 	});
 	describe('Directive: jbLowercase', function() {
 
-		beforeEach(function(){
-			directive = 'jb-lowercase';
+		beforeEach(function() {
+			directive = 'bt-lowercase';
 
 			// Compile a piece of HTML containing the directive
-			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" '+directive+'></ng-form>');
+			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" ' + directive + '></ng-form>');
 			$compile(element)($rootScope);
 			// fire all the watches, so the scope expression {{1 + 1}} will be evaluated
 			$rootScope.$digest();
@@ -203,17 +207,19 @@ describe('Module: jb.password', function() {
 
 		describe('view-to-model', function() {
 			it('string containing lowercase letters will return VALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing no lowercase letters will return INVALID', function() {
-				testString = "TEST";
+				testString = 'TEST';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$invalid).toBe(true);
@@ -229,7 +235,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('string containing lowercase letters will return VALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -237,7 +243,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$valid).toBe(true);
 			});
 			it('string containing no lowercase letters will return INVALID', function() {
-				testString = "TEST";
+				testString = 'TEST';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -261,7 +267,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('empty string will return INVALID', function() {
-				testString = "";
+				testString = '';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -272,11 +278,11 @@ describe('Module: jb.password', function() {
 	});
 	describe('Directive: jbUppercase', function() {
 
-		beforeEach(function(){
-			directive = 'jb-uppercase';
+		beforeEach(function() {
+			directive = 'bt-uppercase';
 
 			// Compile a piece of HTML containing the directive
-			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" '+directive+'></ng-form>');
+			element = angular.element('<ng-form name="testForm"><input name="testInput" ng-model="testModel" ' + directive + '></ng-form>');
 			$compile(element)($rootScope);
 			// fire all the watches, so the scope expression {{1 + 1}} will be evaluated
 			$rootScope.$digest();
@@ -287,17 +293,19 @@ describe('Module: jb.password', function() {
 
 		describe('view-to-model', function() {
 			it('string containing lowercase letters will return INVALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('string containing uppercase letters will return VALID', function() {
-				testString = "TEST1";
+				testString = 'TEST1';
 
-				angular.element(element).val(testString).triggerHandler("input");
+				angular.element(element).val(testString)
+				.triggerHandler('input');
 				$rootScope.$apply();
 
 				expect(form.testInput.$valid).toBe(true);
@@ -313,7 +321,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('string containing lowercase letters will return INVALID', function() {
-				testString = "black1white";
+				testString = 'black1white';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -321,7 +329,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('string containing uppercase letters will return VALID', function() {
-				testString = "TEST1";
+				testString = 'TEST1';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
@@ -345,7 +353,7 @@ describe('Module: jb.password', function() {
 				expect(form.testInput.$invalid).toBe(true);
 			});
 			it('empty string will return INVALID', function() {
-				testString = "";
+				testString = '';
 
 				$rootScope.testModel = testString;
 				$rootScope.$apply();
