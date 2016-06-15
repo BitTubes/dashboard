@@ -7,7 +7,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.name.$dirty && editForm.name.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="name">{{'name' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="name" id="name"
+		<input class="form-control" type="text" autocomplete="off" name="name" id="name"
 		ng-model="customer.name"
 		ng-minlength="nameMin"
 		ng-maxlength="nameMax"
@@ -23,7 +23,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.api.$dirty && editForm.api.$invalid) || submitted }">
 		<label class="col-sm-3 control-label" for="api">API:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="api" id="api"
+		<input class="form-control" type="text" autocomplete="off" name="api" id="api"
 		ng-model="customer.api"
 		ng-minlength="apiMin"
 		ng-maxlength="apiMax"
