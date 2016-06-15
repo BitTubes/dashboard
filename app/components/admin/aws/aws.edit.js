@@ -64,8 +64,6 @@
 						}
 					}
 				}
-				console.info("CUSTOMERS", vm.CUSTOMERS);
-				console.info("CONFIGS", $scope.CONFIGS);
 			},
 			Auth.checkHttpStatus.bind(Auth));
 		}

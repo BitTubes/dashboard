@@ -4,8 +4,8 @@
 		.controller('AwsController', AwsController);
 
 
-	AwsController.$inject = ['http', '$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification', 'Auth', 'waiting'];
-	function AwsController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth, waiting) {
+	AwsController.$inject = ['http', '$scope', '$state', '$rootScope', '$uibModal', 'i18n', 'notification', 'Auth'];
+	function AwsController(http, $scope, $state, $rootScope, $uibModal, _, note, Auth) {
 		/* jshint validthis:true */
 		var vm = this;
 		vm.add = add;
