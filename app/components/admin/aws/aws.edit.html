@@ -42,13 +42,13 @@
 		placeholder="{{'optional' | i18n}}"
 		ng-model="config.prefix"
 		ng-maxlength="prefixMax"
-		ng-pattern="/^[.a-zA-Z0-9_/-]*$/">
+		ng-pattern="/^[.%a-zA-Z0-9_/-]*$/">
 		<p class="help-block">May include %api% as a placeholder for the customer-api value.</p>
 		</div>
 	</div>
 	<div ng-messages="editForm.prefix.$error" ng || submitted)-if="editForm.prefix.$dirt" class="alert-warning">
 		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['Prefix',prefixMax]}}</p>
-		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['Prefix','a-z, 0-9']}} </p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['Prefix','a-z, A-Z, 0-9, %, /, ., -, _']}} </p>
 	</div>
 
 	<!-- Cloudfront -->
