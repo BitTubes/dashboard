@@ -65,6 +65,7 @@
 				'imprint': 'Imprint',
 				'inx': 'in {0} {1}',
 				'justnow': 'just now',
+				'lastChange': 'Last Change',
 				'lastcomment': 'Last Comment',
 				'lastLogin': 'Last Login',
 				'login': 'Sign in',

@@ -66,6 +66,7 @@
 				'imprint': 'Impressum',
 				'inx': 'in {0} {1}',
 				'justnow': 'gerade eben',
+				'lastChange': 'Letzte Änderung',
 				'lastcomment': 'Letzer Kommentar',
 				'lastLogin': 'Letzte Anmeldung',
 				'login': 'Anmelden',
