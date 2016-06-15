@@ -21,7 +21,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.s3Bucket.$dirty || submitted) && editForm.s3Bucket.$invalid }">
 		<label class="col-sm-3 control-label" for="s3Bucket">{{'S3 Bucket' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="s3Bucket" id="s3Bucket"
+		<input class="form-control" type="text" autocomplete="off" name="s3Bucket" id="s3Bucket"
 		ng-model="config.s3_bucket"
 		ng-maxlength="s3BucketMax"
 		ng-pattern='/^[.A-Za-z0-9_-]*$/'
@@ -37,7 +37,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.prefix.$dirty && editForm.prefix.$invalid) }">
 		<label class="col-sm-3 control-label" for="prefix">Prefix:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="prefix" id="prefix"
+		<input class="form-control" type="text" autocomplete="off" name="prefix" id="prefix"
 		ng-model="config.prefix"
 		ng-maxlength="prefixMax"
 		ng-pattern="/^[.a-zA-Z0-9_/-]*$/">
@@ -52,7 +52,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.cloudfront.$dirty || submitted) && editForm.cloudfront.$invalid }">
 		<label class="col-sm-3 control-label" for="cloudfront">{{'Cloudfront' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="cloudfront" id="cloudfront"
+		<input class="form-control" type="text" autocomplete="off" name="cloudfront" id="cloudfront"
 		ng-model="config.cloudfront"
 		ng-maxlength="cloudfrontMax"
 		ng-pattern='/^[.a-z0-9_/:-]*$/'
@@ -68,7 +68,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.awsKey.$dirty || submitted) && editForm.awsKey.$invalid }">
 		<label class="col-sm-3 control-label" for="awsKey">{{'AWS Key' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="awsKey" id="awsKey"
+		<input class="form-control" type="text" autocomplete="off" name="awsKey" id="awsKey"
 		ng-model="config.aws_key"
 		ng-maxlength="awsKeyMax"
 		ng-pattern='/^[A-Z0-9]*$/'
@@ -84,7 +84,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.awsSecret.$dirty || submitted) && editForm.awsSecret.$invalid }">
 		<label class="col-sm-3 control-label" for="awsSecret">{{'AWS Secret' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="awsSecret" id="awsSecret"
+		<input class="form-control" type="text" autocomplete="off" name="awsSecret" id="awsSecret"
 		ng-model="config.aws_secret"
 		ng-maxlength="awsSecretMax"
 		ng-pattern='/^[+.A-Za-z0-9_-]*$/'
@@ -100,7 +100,7 @@
 	<div class="form-group" ng-class="{ 'has-error': (editForm.awsRegion.$dirty || submitted) && editForm.awsRegion.$invalid }">
 		<label class="col-sm-3 control-label" for="awsRegion">{{'AWS Region' | i18n}}:</label>
 		<div class="col-sm-9">
-		<input type="text" autocomplete="off" name="awsRegion" id="awsRegion"
+		<input class="form-control" type="text" autocomplete="off" name="awsRegion" id="awsRegion"
 		ng-model="config.aws_region"
 		ng-maxlength="awsRegionMax"
 		ng-pattern='/^[a-z0-9-]*$/'
