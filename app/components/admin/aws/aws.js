@@ -105,7 +105,7 @@
 		}
 		function _nullNameToDefault(obj) {
 			if(obj.name === null) {
-				obj.name = '* ' + (_('default').toUpperCase()) + ' *';
+				obj.name = '*' + (_('default').toUpperCase()) + '*';
 			}
 		}
 		function _addDb(scope) {
