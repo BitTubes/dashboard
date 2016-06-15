@@ -22,6 +22,7 @@
 		<label class="col-sm-3 control-label" for="s3Bucket">{{'S3 Bucket' | i18n}}:</label>
 		<div class="col-sm-9">
 		<input class="form-control" type="text" autocomplete="off" name="s3Bucket" id="s3Bucket"
+		placeholder="{{'eg' | i18n}} bittubes-static"
 		ng-model="config.s3_bucket"
 		ng-maxlength="s3BucketMax"
 		ng-pattern='/^[.A-Za-z0-9_-]*$/'
@@ -38,6 +39,7 @@
 		<label class="col-sm-3 control-label" for="prefix">Prefix:</label>
 		<div class="col-sm-9">
 		<input class="form-control" type="text" autocomplete="off" name="prefix" id="prefix"
+		placeholder="{{'optional' | i18n}}"
 		ng-model="config.prefix"
 		ng-maxlength="prefixMax"
 		ng-pattern="/^[.a-zA-Z0-9_/-]*$/">
@@ -53,6 +55,7 @@
 		<label class="col-sm-3 control-label" for="cloudfront">{{'Cloudfront' | i18n}}:</label>
 		<div class="col-sm-9">
 		<input class="form-control" type="text" autocomplete="off" name="cloudfront" id="cloudfront"
+		placeholder="{{'eg' | i18n}} //dziv69g0bb69m.cloudfront.net"
 		ng-model="config.cloudfront"
 		ng-maxlength="cloudfrontMax"
 		ng-pattern='/^[.a-z0-9_/:-]*$/'
@@ -101,6 +104,7 @@
 		<label class="col-sm-3 control-label" for="awsRegion">{{'AWS Region' | i18n}}:</label>
 		<div class="col-sm-9">
 		<input class="form-control" type="text" autocomplete="off" name="awsRegion" id="awsRegion"
+		placeholder="{{'eg' | i18n}} eu-west-1"
 		ng-model="config.aws_region"
 		ng-maxlength="awsRegionMax"
 		ng-pattern='/^[a-z0-9-]*$/'

@@ -40,6 +40,7 @@
 				'documentation': 'Dokumentation',
 				'edit': 'Ändern',
 				'editx': '{0} bearbeiten',
+				'eg': 'e.g.',
 				'error': 'Fehler',
 				'forgotpw': 'Password vergessen?',
 				'form_err_email': '{0} muss eine E-Mail-Adresse sein',

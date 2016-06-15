@@ -39,6 +39,7 @@
 				'documentation': 'Documentation',
 				'edit': 'Edit',
 				'editx': 'Edit {0}',
+				'eg': 'z.B.',
 				'error': 'Error',
 				'forgotpw': 'Forgot Password?',
 				'form_err_email': '{0} has to be an email',
