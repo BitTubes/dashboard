@@ -402,6 +402,15 @@
 				controllerAs: 'xcopyCtrl'
 			},
 			{
+				state: 'aws',
+				admin: true,
+				title: 'AWS Upload Config',
+				url: '/admin/aws',
+				templateUrl: 'components/admin/aws/aws.list.html',
+				controller: 'AwsController',
+				controllerAs: 'awsCtrl'
+			},
+			{
 				state: 'sql',
 				admin: true,
 				title: 'SQL Query',

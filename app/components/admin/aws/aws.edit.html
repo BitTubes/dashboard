@@ -1,0 +1,124 @@
+<form name="editForm" class="form-horizontal" novalidate>
+<div class="modal-header">
+	<h3 class="modal-title">{{titlemode | i18n:0:title}}</h3>
+</div>
+<div class="modal-body">
+
+	<!-- Customer -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.customer.$dirty || submitted) && editForm.customer.$invalid }">
+		<label class="col-sm-3 control-label" for="customer">{{'customer' | i18n}}:</label>
+		<div class="col-sm-9">
+		<select class="form-control" name="customer" ng-model="awsEditModalCtrl.customer" ng-options="customer.name disable when customer.used for customer in awsEditModalCtrl.CUSTOMERS track by customer.ID"
+		required
+		>
+		</select></div>
+	</div>
+	<div ng-messages="editForm.customer.$error" ng-if="(editForm.customer.$dirty || submitted) && editForm.customer.$invalid" class="alert-warning">
+		<p ng-message="required">{{'form_err_req' | i18n:0:'customer'}}</p>
+	</div>
+
+	<!-- S3 Bucket -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.s3Bucket.$dirty || submitted) && editForm.s3Bucket.$invalid }">
+		<label class="col-sm-3 control-label" for="s3Bucket">{{'S3 Bucket' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="s3Bucket" id="s3Bucket"
+		placeholder="{{'eg' | i18n}} bittubes-static"
+		ng-model="config.s3_bucket"
+		ng-maxlength="s3BucketMax"
+		ng-pattern='/^[.A-Za-z0-9_-]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.s3Bucket.$error" ng-if="(editForm.s3Bucket.$dirty || submitted) && editForm.s3Bucket.$invalid" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['S3 Bucket',s3BucketMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['S3 Bucket','a-z, A-Z, 0-9, ., -, _,']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'S3 Bucket'}}</p>
+	</div>
+
+	<!-- Prefix/Directory -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.prefix.$dirty && editForm.prefix.$invalid) }">
+		<label class="col-sm-3 control-label" for="prefix">S3 Prefix:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="prefix" id="prefix"
+		placeholder="{{'optional' | i18n}}"
+		ng-model="config.prefix"
+		ng-maxlength="prefixMax"
+		ng-pattern="/^[.%a-zA-Z0-9_/-]*$/">
+		<p class="help-block">May include %api% as a placeholder for the customer-api value.</p>
+		</div>
+	</div>
+	<div ng-messages="editForm.prefix.$error" ng || submitted)-if="editForm.prefix.$dirt" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['Prefix',prefixMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['Prefix','a-z, A-Z, 0-9, %, /, ., -, _']}} </p>
+	</div>
+
+	<!-- Cloudfront -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.cloudfront.$dirty || submitted) && editForm.cloudfront.$invalid }">
+		<label class="col-sm-3 control-label" for="cloudfront">{{'Cloudfront' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="cloudfront" id="cloudfront"
+		placeholder="{{'eg' | i18n}} //dziv69g0bb69m.cloudfront.net"
+		ng-model="config.cloudfront"
+		ng-maxlength="cloudfrontMax"
+		ng-pattern='/^[.a-z0-9_/:-]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.cloudfront.$error" ng-if="(editForm.cloudfront.$dirty || submitted) && editForm.cloudfront.$invalid" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['Cloudfront',cloudfrontMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['Cloudfront','a-z, 0-9, ., -, _, /, :']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'Cloudfront'}}</p>
+	</div>
+
+	<!-- Key -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.awsKey.$dirty || submitted) && editForm.awsKey.$invalid }">
+		<label class="col-sm-3 control-label" for="awsKey">{{'AWS Key' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="awsKey" id="awsKey"
+		ng-model="config.aws_key"
+		ng-maxlength="awsKeyMax"
+		ng-pattern='/^[A-Z0-9]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.awsKey.$error" ng-if="(editForm.awsKey.$dirty || submitted) && editForm.awsKey.$invalid" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['AWS Key',awsKeyMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['AWS Key','A-Z, 0-9']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'AWS Key'}}</p>
+	</div>
+
+	<!-- Secret -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.awsSecret.$dirty || submitted) && editForm.awsSecret.$invalid }">
+		<label class="col-sm-3 control-label" for="awsSecret">{{'AWS Secret' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="awsSecret" id="awsSecret"
+		ng-model="config.aws_secret"
+		ng-maxlength="awsSecretMax"
+		ng-pattern='/^[+.A-Za-z0-9_-]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.awsSecret.$error" ng-if="(editForm.awsSecret.$dirty || submitted) && editForm.awsSecret.$invalid" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['AWS Secret',awsSecretMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['AWS Secret','a-z, A-Z, 0-9, +']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'AWS Secret'}}</p>
+	</div>
+
+	<!-- Region -->
+	<div class="form-group" ng-class="{ 'has-error': (editForm.awsRegion.$dirty || submitted) && editForm.awsRegion.$invalid }">
+		<label class="col-sm-3 control-label" for="awsRegion">{{'AWS Region' | i18n}}:</label>
+		<div class="col-sm-9">
+		<input class="form-control" type="text" autocomplete="off" name="awsRegion" id="awsRegion"
+		placeholder="{{'eg' | i18n}} eu-west-1"
+		ng-model="config.aws_region"
+		ng-maxlength="awsRegionMax"
+		ng-pattern='/^[a-z0-9-]*$/'
+		required></div>
+	</div>
+	<div ng-messages="editForm.awsRegion.$error" ng-if="(editForm.awsRegion.$dirty || submitted) && editForm.awsRegion.$invalid" class="alert-warning">
+		<p ng-message="maxlength">{{'form_err_max' | i18n:0:['AWS Region',awsRegionMax]}}</p>
+		<p ng-message="pattern">{{'form_err_pattern' | i18n:0:['AWS Region','a-z, 0-9, -']}} </p>
+		<p ng-message="required">{{'form_err_req' | i18n:0:'AWS Region'}}</p>
+	</div>
+</div>
+<div class="modal-footer">
+	<input class="btn btn-primary" type="submit" ng-click="ok()" value="OK">
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | i18n}}</button>
+</div>
+</form>
