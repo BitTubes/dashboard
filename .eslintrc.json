@@ -48,7 +48,6 @@
 			"for": { "after": false },
 			"while": { "after": false }
 		}}],
-        "linebreak-style": ["error", "unix"],
         "new-cap": "error",
         "newline-before-return": "error",
         "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
@@ -73,7 +72,7 @@
 		"angular/controller-as-vm": "warn",
 		"angular/controller-name": ["error", "/^[A-Z][a-zA-Z0-9]*Controller$/"],
 		"angular/definedundefined": "off",
-		"angular/directive-name": ["error","/^bt[A-Z][a-zA-Z0-9]*$/"],
+		"angular/directive-name": ["error","/^bt[a-zA-Z0-9]*$/"],
 		"angular/json-functions": "off",
 		"angular/typecheck-array": "off",
 		"angular/typecheck-date": "off",
