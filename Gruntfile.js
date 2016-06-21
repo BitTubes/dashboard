@@ -166,46 +166,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Make sure there are no obvious mistakes
-    // jshint: {
-    //   options: {
-    //     jshintrc: '.jshintrc',
-    //     reporter: require('jshint-stylish')
-    //   },
-    //   all: {
-    //     src: [
-    //       'Gruntfile.js',
-    //       '<%= yeoman.app %>/core/**/*.js',
-    //       '<%= yeoman.app %>/common/**/*.js',
-    //       '<%= yeoman.app %>/components/**/*.js'
-    //     ]
-    //   },
-    //   test: {
-    //     options: {
-    //       jshintrc: 'test/.jshintrc'
-    //     },
-    //     src: ['test/spec/{,*/}*.js']
-    //   }
-    // },
-
-    // Make sure code styles are up to par
-    // jscs: {
-    //   options: {
-    //     config: '.jscsrc',
-    //     verbose: true
-    //   },
-    //   all: {
-    //     src: [
-    //       'Gruntfile.js',
-    //       '<%= yeoman.app %>/core/**/*.js',
-    //       '<%= yeoman.app %>/common/**/*.js',
-    //       '<%= yeoman.app %>/components/**/*.js'
-    //     ]
-    //   },
-    //   test: {
-    //     src: ['test/spec/{,*/}*.js']
-    //   }
-    // },
 
     // Empties folders to start fresh
     clean: {
@@ -362,31 +322,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
     uglify: {
       locales: {
         files: [
@@ -554,8 +489,6 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-jsonmin');
-
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -570,11 +503,6 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
-
-  // grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
-  //   grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-  //   grunt.task.run(['serve:' + target]);
-  // });
 
   grunt.registerTask('test', [
     'clean:server',
@@ -596,7 +524,6 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'jsonmin',
-    // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
@@ -606,8 +533,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:eslint',
-    // 'newer:jshint',
-    // 'newer:jscs',
     'test',
     'build'
   ]);
