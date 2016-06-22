@@ -18,7 +18,9 @@ version 0.15.1.
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+- run `grunt` for building into `/dist`
+- run `grunt serve` for preview and auto eslint:fix (via `/.tmp`)
+- run `grunt serve:dist` to build (just like running `grunt`) and then serving that previewing that finalized build in the browser
 
 ## Testing
 
