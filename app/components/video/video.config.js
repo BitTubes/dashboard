@@ -274,7 +274,7 @@
 				config['options'] = [];
 				var DefaultValHtml = config['DefaultVal'] || '';
 				if(config['CastType'] === 'bool') {
-					DefaultValHtml = DefaultValHtml ? 'true' : 'false';
+					DefaultValHtml = DefaultValHtml === '0' ? 'false' : 'true';
 				}
 				config['DefaultValHtml'] = $sce.trustAsHtml(DefaultValHtml);
 			}
